@@ -1,0 +1,14 @@
+Every article in src/content/archive/ must be a flat Markdown file. The framework must enforce strict validation against the following relational schema before compiling:,,,
+,,,
+Field Name,Data Type,Required,Allowed Values / Logic
+title,String,Yes,Journalistic style headline
+dateline_location,String,Yes,"In-universe city, province, or space quadrant"
+in_universe_date,String,Yes,Explicit date inside quotation marks
+timeline_flair,Enum,Yes,"On Earth, Not On Earth, Alternate Timeline, Time Travel, Satire, Canon Reference"
+source_work,String,Yes,Title of the original fictional work
+source_medium,String,Yes,"Book, Film, TV Show, Video Game, Graphic Novel"
+source_creator,String,Yes,"Author, Director, or Studio"
+release_year,Integer,Yes,Real-world publication/broadcast year
+context_note,String,Yes,Explaining the narrative impact of the event
+image_url,String,No,Path to local image or conceptual render
+multiverse_id,String,No,Shared slug identifier to link overlapping historical dates
