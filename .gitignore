@@ -5,3 +5,5 @@ test-results/
 screenshots/
 server_out.log
 server.log.env
+dist/
+.astro/
