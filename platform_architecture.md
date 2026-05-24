@@ -3,6 +3,7 @@
 This document serves as the structural blueprints and data schema for the Fictional History Archive, deployed via Vercel and managed via GitHub. All engineering agents must adhere to these technical specifications.
 
 ## 1. Directory Structure (Astro / Next.js Static Setup)
+
 ```text
 ├── .github/workflows/      # Automated deployment/validation tasks
 ├── src/
@@ -23,3 +24,4 @@ This document serves as the structural blueprints and data schema for the Fictio
 ├── public/                 # Static asset folder (Images/Artifact scans)
 ├── platform_architecture.md # This file (System Blueprint)
 └── archivists_handbook.md   # Editorial guidelines and rules
+```

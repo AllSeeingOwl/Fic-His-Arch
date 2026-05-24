@@ -1,0 +1,28 @@
+name: npm Security Audit
+
+on:
+  schedule:
+    - cron: '0 0 * * 4' # Every Thursday at midnight
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run pnpm audit
+        run: pnpm audit

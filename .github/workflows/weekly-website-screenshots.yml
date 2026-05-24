@@ -1,0 +1,39 @@
+name: Weekly Website Screenshots
+
+on:
+  schedule:
+    - cron: '0 0 * * 3' # Every Wednesday at midnight
+  workflow_dispatch:
+
+jobs:
+  take-screenshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
+      - name: Take screenshots
+        run: pnpm run test:e2e:playwright
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: playwright-report/
+          retention-days: 30

@@ -1,0 +1,33 @@
+name: Toggle Maintenance Mode
+
+on:
+  workflow_dispatch:
+    inputs:
+      maintenance_mode:
+        description: 'Enable Maintenance Mode?'
+        required: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  toggle-maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create or update maintenance flag
+        run: |
+          if [ "${{ github.event.inputs.maintenance_mode }}" == "true" ]; then
+            echo "Maintenance mode is ENABLED" > MAINTENANCE.md
+          else
+            rm -f MAINTENANCE.md
+          fi
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Toggle maintenance mode to ${{ github.event.inputs.maintenance_mode }}"
