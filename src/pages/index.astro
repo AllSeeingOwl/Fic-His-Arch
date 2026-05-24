@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ArticleCard from '../components/ArticleCard.jsx';
+
+// Example data (in a real app, this would be fetched from the content collection)
+const articles = [
+  {
+    dateline_location: "Alderaan System",
+    timeline_flair: "Not On Earth",
+    title: "Tragedy in the Core Worlds: Alderaan Destroyed",
+    summary: "Reports indicate a massive planetary explosion in the Alderaan system. Imperial authorities refuse to comment, but rebel sources claim a superweapon was involved.",
+    in_universe_date: "0 BBY"
+  },
+  {
+    dateline_location: "Dallas, Texas",
+    timeline_flair: "On Earth",
+    title: "President Kennedy Assassinated in Dallas",
+    summary: "President John F. Kennedy was fatally shot today while riding in a motorcade in Dallas. Alternative timelines suggest varied outcomes depending on multiversal intervention.",
+    in_universe_date: "November 22, 1963"
+  }
+];
+---
+
+<Layout title="Fictional History Archive">
+  <div class="mb-12 border-b-2 border-dashed border-archive-border pb-6">
+    <h2 class="font-display text-2xl mb-4">Latest Archival Entries</h2>
+    <p class="font-sans text-sm text-archive-muted">Browse the most recently unclassified historical documents from across the multiverse.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {articles.map((article) => (
+      <ArticleCard article={article} client:load />
+    ))}
+  </div>
+</Layout>

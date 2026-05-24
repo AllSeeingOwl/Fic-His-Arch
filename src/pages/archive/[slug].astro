@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CitationBlock from '../../components/CitationBlock.jsx';
+import TimelineToggle from '../../components/TimelineToggle.jsx';
+
+// In a real application, we would use getStaticPaths with Astro's content collections
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'jfk-assassination-112263' } },
+    { params: { slug: 'death-star-explosion' } },
+  ];
+}
+
+const { slug } = Astro.params;
+
+// Mock data to demonstrate the components
+const articleData = {
+  title: "President Kennedy Assassinated in Dallas",
+  content: "On November 22, 1963, President John F. Kennedy was assassinated while traveling through Dallas, Texas in an open-top convertible. The event sent shockwaves through the nation and the world. However, multiversal records indicate significant tampering with this timeline.",
+  citation: {
+    title: "President Kennedy Assassinated in Dallas",
+    work: "11/22/63",
+    medium: "Book",
+    creator: "Stephen King",
+    release_year: "2011",
+    note: "Demonstrates the 'obdurate' nature of time and the consequences of attempting to alter fixed historical points."
+  },
+  timelineVariants: [
+    {
+      source_work: "11/22/63",
+      excerpt: "Jake Epping prevents the assassination, but the resulting alternate timeline is a post-apocalyptic wasteland, proving that time resists change.",
+      url: "#"
+    },
+    {
+      source_work: "Quantum Leap",
+      excerpt: "Sam Beckett leaps into Lee Harvey Oswald. He cannot prevent the assassination, but discovers his true mission was to save Jackie Kennedy's life.",
+      url: "#"
+    },
+    {
+      source_work: "Red Dwarf",
+      excerpt: "The crew accidentally transports JFK to the future. To restore the timeline, Kennedy realizes he must be the second shooter on the grassy knoll.",
+      url: "#"
+    }
+  ]
+};
+---
+
+<Layout title={articleData.title}>
+  <article class="prose prose-invert prose-archive max-w-none">
+    <header class="mb-8">
+      <h1 class="font-display text-4xl mb-2">{articleData.title}</h1>
+      <div class="flex items-center gap-4 text-sm font-sans text-archive-muted border-b border-archive-border pb-4">
+        <span>CLASSIFIED // EYES ONLY</span>
+        <span class="text-archive-accent">TIMELINE VARIANCE DETECTED</span>
+      </div>
+    </header>
+
+    <div class="font-serif leading-relaxed text-archive-paper mb-8">
+      <p>{articleData.content}</p>
+    </div>
+
+    {articleData.timelineVariants && articleData.timelineVariants.length > 0 && (
+      <TimelineToggle variants={articleData.timelineVariants} client:load />
+    )}
+
+    <CitationBlock source={articleData.citation} client:load />
+  </article>
+</Layout>
