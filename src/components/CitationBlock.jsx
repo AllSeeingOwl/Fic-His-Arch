@@ -13,16 +13,26 @@ export default function CitationBlock({ source }) {
             Official Source Attribution & Provenance
           </h4>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-serif text-sm text-archive-muted">
           <div>
-            <p><span className="text-archive-accent">Fictional Blueprint:</span> <span className="text-archive-paper italic">“{work}”</span></p>
-            <p><span className="text-archive-accent">Medium Typology:</span> {medium}</p>
-            <p><span className="text-archive-accent">Primary Originator:</span> {creator} ({release_year})</p>
+            <p>
+              <span className="text-archive-accent">Fictional Blueprint:</span>{' '}
+              <span className="text-archive-paper italic">“{work}”</span>
+            </p>
+            <p>
+              <span className="text-archive-accent">Medium Typology:</span> {medium}
+            </p>
+            <p>
+              <span className="text-archive-accent">Primary Originator:</span> {creator} (
+              {release_year})
+            </p>
           </div>
           <div className="border-l border-archive-border pl-4">
             <p className="text-xs italic leading-relaxed">
-              <span className="text-archive-accent block not-italic font-sans text-[10px] uppercase tracking-wider mb-1">Structural Context:</span>
+              <span className="text-archive-accent block not-italic font-sans text-[10px] uppercase tracking-wider mb-1">
+                Structural Context:
+              </span>
               {note}
             </p>
           </div>

@@ -29,7 +29,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Expires', '0');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy', 'geolocation=(), camera=(), microphone=()');
-  res.setHeader('Content-Security-Policy', "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'");
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'"
+  );
   next();
 });
 
@@ -147,15 +150,19 @@ app.post('/api/admin/maintenance-config', verifyAdminToken, async (req: Request,
   }
 });
 
-app.post('/api/admin/maintenance-config/all', verifyAdminToken, async (req: Request, res: Response) => {
-  const { value } = req.body;
-  try {
-    await updateAllMaintenanceConfig(value);
-    res.json({ success: true });
-  } catch {
-    res.status(500).json({ error: 'Failed to update all maintenance configs' });
+app.post(
+  '/api/admin/maintenance-config/all',
+  verifyAdminToken,
+  async (req: Request, res: Response) => {
+    const { value } = req.body;
+    try {
+      await updateAllMaintenanceConfig(value);
+      res.json({ success: true });
+    } catch {
+      res.status(500).json({ error: 'Failed to update all maintenance configs' });
+    }
   }
-});
+);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
