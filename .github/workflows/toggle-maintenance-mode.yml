@@ -15,7 +15,7 @@ jobs:
   toggle-maintenance:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -28,6 +28,6 @@ jobs:
           fi
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: Toggle maintenance mode to ${{ github.event.inputs.maintenance_mode }}"
