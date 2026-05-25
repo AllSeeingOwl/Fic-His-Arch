@@ -4,13 +4,13 @@
   "description": "Fic-His-Arch website",
   "scripts": {
     "dev:server": "nodemon --exec ts-node server.ts",
-    "test": "jest --testPathIgnorePatterns=\"e2e\"",
+    "test": "jest --passWithNoTests --testPathIgnorePatterns=\"e2e\"",
     "test:e2e:playwright": "playwright test",
     "test:e2e:cypress": "cypress open",
-    "lint": "eslint .",
+    "lint": "eslint . --ignore-pattern '.astro/'",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
-    "build:vite": "vite build"
+    "build:astro": "astro build"
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [
@@ -35,7 +35,6 @@
     "@playwright/test": "^1.60.0",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.9.1",
     "@types/node": "^18.19.130",
     "@typescript-eslint/eslint-plugin": "^8.59.4",
     "@typescript-eslint/parser": "^8.59.4",
