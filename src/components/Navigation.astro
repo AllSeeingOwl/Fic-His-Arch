@@ -1,0 +1,75 @@
+---
+const links = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+];
+---
+
+<nav class="relative z-50">
+  {/* Mobile Hamburger Button */}
+  <button
+    id="hamburger-btn"
+    class="sm:hidden block text-archive-paper focus:outline-none p-2 -mr-2 hover:text-archive-accent transition-colors"
+    aria-label="Open menu"
+    aria-expanded="false"
+  >
+    <svg id="hamburger-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+    </svg>
+    <svg id="hamburger-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  {/* Desktop Navigation */}
+  <ul class="hidden sm:flex space-x-6">
+    {links.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class="font-sans text-sm uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors"
+        >
+          {link.name}
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  {/* Mobile Menu Dropdown */}
+  <div id="mobile-menu" class="hidden absolute top-full right-0 mt-6 w-48 bg-archive-surface border-2 border-archive-border shadow-lg sm:hidden z-50">
+    <ul class="flex flex-col p-2 space-y-1">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="block px-4 py-2 font-sans text-sm uppercase tracking-widest text-archive-muted hover:bg-archive-bg hover:text-archive-accent transition-colors rounded"
+          >
+            {link.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('hamburger-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('hamburger-icon-open');
+  const iconClose = document.getElementById('hamburger-icon-close');
+
+  if (btn && menu && iconOpen && iconClose) {
+    btn.addEventListener('click', () => {
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!isExpanded));
+      btn.setAttribute('aria-label', isExpanded ? 'Open menu' : 'Close menu');
+
+      menu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconOpen.classList.toggle('block');
+      iconClose.classList.toggle('hidden');
+      iconClose.classList.toggle('block');
+    });
+  }
+</script>

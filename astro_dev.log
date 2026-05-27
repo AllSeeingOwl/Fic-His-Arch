@@ -1,0 +1,54 @@
+[vite] connected.
+19:52:17 [types] Generated 1ms
+19:52:17 [vite] Re-optimizing dependencies because vite config has changed
+ astro  v6.3.8 ready in 2073 ms
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+19:52:17 watching for file changes...
+▶ Vite 8.0.14 detected in your project.
+  Astro requires Vite 7. Add "overrides": { "vite": "^7" } to your package.json to avoid issues.
+
+19:53:25 [200] / 47ms
+19:54:18 [200] / 12ms
+19:55:14 [200] / 9ms
+19:56:06 [200] / 7ms
+19:57:02 [200] / 9ms
+19:57:57 [200] / 6ms
+19:57:57 [200] /about 11ms
+19:57:58 [200] /contact 10ms
+21:07:57 [watch] /src/styles/global.css, /src/components/Navigation.jsx
+21:07:57 [watch] src/components/Navigation.jsx
+[vite] program reload
+[vite] An error happened during full reload
+Failed to load url /src/components/Navigation.jsx (resolved id: /app/src/components/Navigation.jsx) in /app/src/layouts/Layout.astro. Does the file exist?
+Error: Failed to load url /src/components/Navigation.jsx (resolved id: /app/src/components/Navigation.jsx) in /app/src/layouts/Layout.astro. Does the file exist?
+    at loadAndTransform (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:22679:33)
+    at async fetchModule (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:34013:15)
+    at async handleInvoke (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:25853:21)
+    at async EventEmitter.listenerForInvokeHandler (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:25908:13)
+[vite] An error happened during full reload
+Failed to load url /src/components/Navigation.jsx (resolved id: /app/src/components/Navigation.jsx) in /app/src/layouts/Layout.astro. Does the file exist?
+Error: Failed to load url /src/components/Navigation.jsx (resolved id: /app/src/components/Navigation.jsx) in /app/src/layouts/Layout.astro. Does the file exist?
+    at loadAndTransform (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:22679:33)
+    at async fetchModule (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:34013:15)
+    at async handleInvoke (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:25853:21)
+    at async EventEmitter.listenerForInvokeHandler (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:25908:13)
+[vite] An error happened during full reload
+Failed to load url /src/components/Navigation.jsx (resolved id: /app/src/components/Navigation.jsx) in /app/src/layouts/Layout.astro. Does the file exist?
+Error: Failed to load url /src/components/Navigation.jsx (resolved id: /app/src/components/Navigation.jsx) in /app/src/layouts/Layout.astro. Does the file exist?
+    at loadAndTransform (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:22679:33)
+    at async fetchModule (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:34013:15)
+    at async handleInvoke (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:25853:21)
+    at async EventEmitter.listenerForInvokeHandler (file:///app/node_modules/.pnpm/vite@7.3.3_@types+node@25.9.1_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:25908:13)
+21:08:28 [watch] /src/styles/global.css
+21:08:46 [200] / 45ms
+21:08:47 [200] /about 21ms
+21:08:48 [200] /contact 19ms
+21:29:26 [watch] /src/styles/global.css
+21:29:34 [watch] src/components/Navigation.astro
+21:29:55 [200] / 324ms
+21:29:57 [200] /about 34ms
+21:29:58 [200] /contact 22ms
+21:30:25 [200] / 19ms
+21:30:26 [200] /about 5ms
+21:30:27 [200] /contact 9ms
