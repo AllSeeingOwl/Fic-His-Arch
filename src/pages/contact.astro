@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact - Fictional History Archive">
+  <div class="mb-12 border-b-2 border-dashed border-archive-border pb-6">
+    <h2 class="font-display text-2xl mb-4">Secure Transmission Channel</h2>
+    <p class="font-sans text-sm text-archive-muted">Establish an encrypted link to the Archive's ingestion team.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <article class="prose prose-invert prose-archive font-serif leading-relaxed text-archive-paper">
+      <p>
+        Have you discovered an anomalous artifact? Witnessed a timeline shift? The Archive relies on field agents and civilian reports to expand our records of multiversal events.
+      </p>
+      <p>
+        Please use the adjacent terminal interface to submit your report. Ensure all chronometric data is accurate before transmission.
+      </p>
+      <h3 class="font-display text-lg mt-6 mb-2">Emergency Protocols</h3>
+      <p class="text-sm">
+        If you are currently experiencing a paradox cascade or your reality is undergoing active erasure, do not use this form. Initiate Protocol Omega via your standard-issue temporal tether immediately.
+      </p>
+    </article>
+
+    <div class="bg-archive-surface border border-archive-border p-6 font-sans">
+      <div class="mb-6 pb-2 border-b border-archive-border">
+        <p class="text-xs uppercase tracking-widest text-archive-terminal">Terminal_ID: 884-A</p>
+        <p class="text-xs uppercase tracking-widest text-archive-terminal">Encryption: Active (Quantum-Resistant)</p>
+      </div>
+
+      <form class="space-y-4" onsubmit="event.preventDefault();">
+        <div>
+          <label for="agent-id" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Agent ID / Name</label>
+          <input
+            type="text"
+            id="agent-id"
+            name="agent-id"
+            class="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+            placeholder="Classified"
+          />
+        </div>
+
+        <div>
+          <label for="timeline" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Origin Timeline Designation</label>
+          <input
+            type="text"
+            id="timeline"
+            name="timeline"
+            class="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+            placeholder="e.g., Earth-616, Timeline Beta"
+          />
+        </div>
+
+        <div>
+          <label for="report" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Anomaly Report</label>
+          <textarea
+            id="report"
+            name="report"
+            rows="5"
+            class="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+            placeholder="Describe the historical deviation..."
+          ></textarea>
+        </div>
+
+        <button
+          type="button"
+          class="w-full bg-archive-accent text-archive-bg font-bold uppercase tracking-widest py-3 px-4 rounded hover:bg-opacity-90 transition-opacity mt-4"
+        >
+          Transmit Data
+        </button>
+      </form>
+    </div>
+  </div>
+</Layout>

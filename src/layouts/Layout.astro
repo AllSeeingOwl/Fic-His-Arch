@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Navigation from '../components/Navigation.astro';
 
 interface Props {
   title: string;
@@ -18,19 +19,29 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body class="bg-archive-bg text-archive-paper font-serif min-h-screen">
-    <header class="border-b-4 border-archive-border py-6 px-8 mb-8 bg-archive-surface">
-      <div class="max-w-4xl mx-auto flex items-end justify-between">
-        <div>
-          <h1 class="font-display text-4xl text-archive-paper tracking-tight mb-1">
-            Fictional History <span class="text-archive-accent">Archive</span>
-          </h1>
-          <p class="font-sans text-xs uppercase tracking-widest text-archive-muted">
-            Preserving the chronological anomalies of the multiverse
-          </p>
+    <header class="bg-archive-surface mb-8">
+      <div class="py-6 px-8 border-b border-dashed border-archive-border">
+        <div class="max-w-4xl mx-auto flex items-start justify-between gap-4">
+          <div>
+            <h1 class="font-display text-3xl sm:text-4xl text-archive-paper tracking-tight mb-1">
+              Fictional History <span class="text-archive-accent">Archive</span>
+            </h1>
+            <p class="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-archive-muted">
+              Preserving the chronological anomalies of the multiverse
+            </p>
+          </div>
+          <div class="hidden sm:block text-right whitespace-nowrap">
+            <p class="font-sans text-[10px] text-archive-terminal uppercase">System_Status: Online</p>
+            <p class="font-sans text-[10px] text-archive-terminal uppercase">Microfilm_Ready</p>
+          </div>
+          <div class="sm:hidden mt-1">
+            <Navigation />
+          </div>
         </div>
-        <div class="hidden sm:block text-right">
-          <p class="font-sans text-[10px] text-archive-terminal uppercase">System_Status: Online</p>
-          <p class="font-sans text-[10px] text-archive-terminal uppercase">Microfilm_Ready</p>
+      </div>
+      <div class="border-b-4 border-archive-border py-3 px-8 hidden sm:block">
+        <div class="max-w-4xl mx-auto">
+          <Navigation />
         </div>
       </div>
     </header>
