@@ -9,7 +9,7 @@ export default function CitationBlock({ source }) {
     medium = 'REDACTED',
     creator = 'UNKNOWN',
     release_year = 'YYYY',
-    note = 'No context provided.'
+    note = 'No context provided.',
   } = source;
 
   return (

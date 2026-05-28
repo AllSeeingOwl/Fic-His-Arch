@@ -20,7 +20,10 @@ export default function TimelineToggle({ variants }) {
         <noscript>
           <div className="flex flex-col gap-6">
             {variants.map((v, idx) => (
-              <div key={`fallback-${idx}`} className="border-b border-archive-border pb-4 last:border-0 last:pb-0">
+              <div
+                key={`fallback-${idx}`}
+                className="border-b border-archive-border pb-4 last:border-0 last:pb-0"
+              >
                 <h3 className="font-sans text-sm font-medium uppercase tracking-wider text-archive-accent mb-2">
                   {v.source_work}
                 </h3>
@@ -49,7 +52,9 @@ export default function TimelineToggle({ variants }) {
         unless they fall back to the noscript block above (if you hide this on no-js).
         In this case we just rely on standard React hydration.
       */}
-      <div className={`transition-opacity ${mounted ? 'opacity-100' : 'opacity-100'} js-tabs-container`}>
+      <div
+        className={`transition-opacity ${mounted ? 'opacity-100' : 'opacity-100'} js-tabs-container`}
+      >
         <div className="flex border-b border-archive-border mb-4 overflow-x-auto hide-on-nojs">
           {variants.map((v, idx) => (
             <button

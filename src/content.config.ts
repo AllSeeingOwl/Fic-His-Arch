@@ -2,7 +2,7 @@ import { z, defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const archiveCollection = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/archive" }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/archive' }),
   schema: z.object({
     title: z.string(),
     dateline_location: z.string(),
@@ -23,11 +23,15 @@ const archiveCollection = defineCollection({
     image_url: z.string().optional(),
     multiverse_id: z.string().optional(),
 
-    timelineVariants: z.array(z.object({
-      source_work: z.string(),
-      excerpt: z.string(),
-      url: z.string()
-    })).optional()
+    timelineVariants: z
+      .array(
+        z.object({
+          source_work: z.string(),
+          excerpt: z.string(),
+          url: z.string(),
+        })
+      )
+      .optional(),
   }),
 });
 
