@@ -18,7 +18,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'AUTH_PASSWORD=test npx ts-node server.ts',
+    command: 'npm run build:astro && npx serve dist -p 3000',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },

@@ -1,0 +1,16 @@
+ INFO  Accepting connections at http://localhost:40669 HTTP  5/28/2026 3:49:57 PM ::1 GET /archive/jfk-assassination-112263
+ HTTP  5/28/2026 3:49:57 PM ::1 Returned 200 in 23 ms
+ HTTP  5/28/2026 3:49:57 PM ::1 GET /_astro/Layout.DrflYBfP.css
+ HTTP  5/28/2026 3:49:57 PM ::1 Returned 200 in 4 ms
+ HTTP  5/28/2026 3:49:57 PM ::1 GET /_astro/TimelineToggle.9G0W8yZx.js
+ HTTP  5/28/2026 3:49:57 PM ::1 GET /_astro/client.DTojXMD-.js
+ HTTP  5/28/2026 3:49:57 PM ::1 Returned 200 in 7 ms
+ HTTP  5/28/2026 3:49:57 PM ::1 GET /_astro/CitationBlock.CD5sJ6Dh.js
+ HTTP  5/28/2026 3:49:57 PM ::1 Returned 200 in 15 ms
+ HTTP  5/28/2026 3:49:57 PM ::1 Returned 200 in 19 ms
+ HTTP  5/28/2026 3:49:57 PM ::1 GET /_astro/jsx-runtime.u17CrQMm.js
+ HTTP  5/28/2026 3:49:57 PM ::1 GET /_astro/index.CO9X3OiW.js
+ HTTP  5/28/2026 3:49:57 PM ::1 Returned 200 in 4 ms
+ HTTP  5/28/2026 3:49:57 PM ::1 Returned 200 in 4 ms
+
+ INFO  Gracefully shutting down. Please wait...
