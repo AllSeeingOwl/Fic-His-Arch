@@ -1,8 +1,16 @@
 import React from 'react';
 
 export default function CitationBlock({ source }) {
-  // Deconstructs the validated frontmatter elements
-  const { title, work, medium, creator, release_year, note } = source;
+  if (!source) return null;
+
+  // Provide fallbacks if some frontmatter is missing to prevent crashes
+  const {
+    work = 'CLASSIFIED',
+    medium = 'REDACTED',
+    creator = 'UNKNOWN',
+    release_year = 'YYYY',
+    note = 'No context provided.',
+  } = source;
 
   return (
     <footer className="mt-12 pt-6 border-t-2 border-dashed border-archive-border">
