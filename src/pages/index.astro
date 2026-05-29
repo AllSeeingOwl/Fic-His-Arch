@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import ArticleCard from '../components/ArticleCard.jsx';
 import { getCollection } from 'astro:content';
+import { resolvePath } from '../utils/paths.js';
 
 const allArchiveEntries = await getCollection('archive');
 
@@ -24,7 +25,7 @@ const articles = allArchiveEntries.map(entry => ({
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     {articles.map((article) => (
-      <a href={`/archive/${article.slug}`} class="block group">
+      <a href={resolvePath(`/archive/${article.slug}`)} class="block group">
         <ArticleCard article={article} client:load />
       </a>
     ))}

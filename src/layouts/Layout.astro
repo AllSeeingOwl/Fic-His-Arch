@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
+import { resolvePath } from '../utils/paths.js';
 
 interface Props {
   title: string;
@@ -15,7 +16,7 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Fictional History Archive" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={resolvePath('/favicon.svg')} />
     <title>{title}</title>
   </head>
   <body class="bg-archive-bg text-archive-paper font-serif min-h-screen">
