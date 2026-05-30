@@ -1,0 +1,151 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { resolvePath } from '../utils/paths.js';
+---
+
+<Layout title="Archivist's Handbook - Fictional History Archive">
+  <div class="mb-8 flex justify-between items-end border-b-2 border-dashed border-archive-border pb-6">
+    <div>
+      <h2 class="font-display text-2xl mb-4 text-archive-accent">The Archivist's Handbook</h2>
+      <p class="font-sans text-sm text-archive-muted">Content & Editorial Rules for the Fictional History Archive.</p>
+    </div>
+    <a href={resolvePath('/junior-handbook')} class="hidden sm:inline-block font-sans text-xs uppercase tracking-widest bg-archive-surface border border-archive-border px-4 py-2 hover:text-archive-accent hover:border-archive-accent transition-colors">
+      Read Junior Version
+    </a>
+  </div>
+
+  <a href={resolvePath('/junior-handbook')} class="sm:hidden block text-center mb-8 font-sans text-xs uppercase tracking-widest bg-archive-surface border border-archive-border px-4 py-2 hover:text-archive-accent hover:border-archive-accent transition-colors">
+    Read Junior Version
+  </a>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+    <div class="lg:col-span-2 space-y-6">
+      <div class="bg-archive-surface border border-archive-border p-6 relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-archive-terminal opacity-50"></div>
+        <h3 class="font-display text-xl mb-3 text-archive-paper">The Golden Rule: Dos & Don'ts</h3>
+        <p class="font-sans text-sm text-archive-muted mb-6 leading-relaxed">
+          Before submitting an entry to the permanent record, all archivists must review the essential guidelines for proper documentation. Maintaining the integrity of the Archive is paramount.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <h4 class="font-sans font-bold text-sm text-archive-terminal uppercase tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              Positives (DO)
+            </h4>
+            <ul class="space-y-2 text-sm font-sans text-archive-muted">
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Adopt a credible, journalistic, and objective tone.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Focus on massive, culturally shifting events in the native lore.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Provide mandatory citations for source provenance.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Strictly catalog by timeline spaces (On Earth / Not On Earth).</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-sans font-bold text-sm text-red-500 uppercase tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              Negatives (DON'T)
+            </h4>
+            <ul class="space-y-2 text-sm font-sans text-archive-muted">
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Include actual real-world historical events (unless explicitly alternative-history).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Use casual narration, first-person blogging, or fan theories.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Focus on minor trivia or peripheral plot beats.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Submit an entry without an absolute source citation block.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="bg-archive-bg border border-dashed border-archive-border p-6 h-full flex flex-col justify-center items-center text-center">
+         <svg class="w-12 h-12 text-archive-accent mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          <p class="font-sans text-xs text-archive-muted uppercase tracking-widest mb-2">Editorial Bible</p>
+          <p class="font-serif text-sm text-archive-paper">This document acts as the defining authority on how stories must be written, categorized, and cross-referenced in the database.</p>
+      </div>
+    </aside>
+  </div>
+
+  <article class="prose prose-invert prose-archive max-w-none font-serif leading-relaxed text-archive-paper">
+    <h2 class="font-display text-2xl text-archive-accent border-b border-archive-border pb-2 mt-12 mb-6">Full Documentation</h2>
+
+    <p>
+      This document governs the editorial standards, narrative logic, and content layout for the Fictional History Archive. All articles submitted to the database must comply with these protocols.
+    </p>
+
+    <h3 class="font-display text-xl mt-8 mb-4">1. Core Principles</h3>
+    <ol>
+      <li><strong>Fictional Origin:</strong> The underlying source text must be a work of fiction, fully detached from actual historical events. Satirical, parodic, or intentionally historically inaccurate adaptations are welcome.</li>
+      <li><strong>Journalistic Tone:</strong> All entries must look, sound, and read like a credible news broadcast or newspaper report. Casual narration, conversational framing, first-person blogging, or speculative fan theories are strictly forbidden.</li>
+      <li><strong>Narrative Impact:</strong> Focus on massive, culturally shifting events that carry substantial narrative weight in their native lore (e.g., galactic wars, cataclysmic disruptions, fallen empires). Avoid minor trivia or peripheral plot beats.</li>
+    </ol>
+
+    <h3 class="font-display text-xl mt-8 mb-4">2. Timeline Classification Rules</h3>
+    <p>
+      To catalog timelines without causing cross-contamination, assign entries to one of two primary spaces:
+    </p>
+    <ul>
+      <li><strong><code>On Earth</code></strong>: Covers events occurring on planet Earth, including alternative-history variants or near-future projections.</li>
+      <li><strong><code>Not On Earth</code></strong>: Covers deep space, extraterrestrial colony worlds, alternative planetary systems, or strictly fantasy realms.</li>
+    </ul>
+    <p class="italic opacity-80 text-sm">
+      Note: Temporal paradoxes are explicitly treated as irrelevant; the localized internal logic of the specific fictional world takes complete precedence over overarching timelines.
+    </p>
+
+    <h3 class="font-display text-xl mt-8 mb-4">3. Special Formatting Features</h3>
+
+    <h4 class="font-sans font-bold text-lg mt-6 mb-2 text-archive-paper">Feature A: Multiversal Perspectives</h4>
+    <p>
+      When separate fictional universes address the exact same real-world historical event or date (e.g., the different accounts of November 22, 1963, across King's <em>11/22/63</em>, <em>Quantum Leap</em>, and <em>Red Dwarf</em>), the frontend UI must generate a tabbed display engine.
+    </p>
+    <ul>
+      <li>The system groups individual files utilizing a matching <code>multiverse_id</code>.</li>
+      <li>The reader must be allowed to toggle seamlessly across the different parallel historical records on a single page, contrasting their distinct timeline behaviors.</li>
+    </ul>
+
+    <h4 class="font-sans font-bold text-lg mt-6 mb-2 text-archive-paper">Feature B: Time Traveler Case Chronicles</h4>
+    <p>
+      Characters who actively manipulate time or move across centuries must not be cataloged with static standard timelines. Instead, layout configurations must present them as <strong>"Active Sighting & Missing Persons Reports"</strong>.
+    </p>
+    <ul>
+      <li>Archivists must report these encounters as alleged, unverified chronological sightings logged across varying dates and locations.</li>
+    </ul>
+
+    <h3 class="font-display text-xl mt-8 mb-4">4. Mandatory Citation Framework</h3>
+    <p>
+      No historical entry can exist without absolute source provenance. Every single layout page must compile an unalterable <strong>Source Citation Block</strong> at the bottom footer containing:
+    </p>
+    <ul>
+      <li>Fictional Work Title</li>
+      <li>Medium Typology & Primary Creator (e.g., Book by Stephen King)</li>
+      <li>Real-world Release/Publication Date</li>
+      <li>Structural Context Statement summarizing why this moment broke or reshaped its native universe.</li>
+    </ul>
+  </article>
+</Layout>

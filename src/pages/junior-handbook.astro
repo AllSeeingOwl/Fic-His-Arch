@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { resolvePath } from '../utils/paths.js';
+---
+
+<Layout title="Junior Archivist's Handbook - Fictional History Archive">
+  <div class="mb-8 flex justify-between items-end border-b-2 border-dashed border-archive-border pb-6">
+    <div>
+      <h2 class="font-display text-2xl mb-4 text-archive-accent">Junior Archivist's Handbook</h2>
+      <p class="font-sans text-sm text-archive-muted">Simple rules for young explorers of the Fictional History Archive.</p>
+    </div>
+    <a href={resolvePath('/handbook')} class="hidden sm:inline-block font-sans text-xs uppercase tracking-widest bg-archive-surface border border-archive-border px-4 py-2 hover:text-archive-accent hover:border-archive-accent transition-colors">
+      Read Grown-up Version
+    </a>
+  </div>
+
+  <a href={resolvePath('/handbook')} class="sm:hidden block text-center mb-8 font-sans text-xs uppercase tracking-widest bg-archive-surface border border-archive-border px-4 py-2 hover:text-archive-accent hover:border-archive-accent transition-colors">
+    Read Grown-up Version
+  </a>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+    <div class="lg:col-span-2 space-y-6">
+      <div class="bg-archive-surface border border-archive-border p-6 relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-archive-terminal opacity-50"></div>
+        <h3 class="font-display text-xl mb-3 text-archive-paper">The Golden Rule: Dos & Don'ts</h3>
+        <p class="font-sans text-sm text-archive-muted mb-6 leading-relaxed">
+          Before you write a story for the Archive, please read these simple rules! We want to make sure all our history reports follow the same guidelines.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <h4 class="font-sans font-bold text-sm text-archive-terminal uppercase tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+              YES PLEASE (DO)
+            </h4>
+            <ul class="space-y-2 text-sm font-sans text-archive-muted">
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Sound like a real news reporter on TV or in a newspaper.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Write about huge, world-changing events from your favorite stories!</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Always tell us what book, movie, or game the story comes from.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-archive-terminal mt-1">•</span>
+                <span>Tell us if it happens on Earth or somewhere else in space.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="font-sans font-bold text-sm text-red-500 uppercase tracking-wider flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              NO THANK YOU (DON'T)
+            </h4>
+            <ul class="space-y-2 text-sm font-sans text-archive-muted">
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Don't write about real-life history (unless it's a made-up version of it).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Don't write it like a diary entry or use words like "I think" or "OMG".</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Don't write about tiny, boring details. Keep it exciting!</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-red-500 mt-1">•</span>
+                <span>Don't forget to give credit to the original creator!</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="bg-archive-bg border border-dashed border-archive-border p-6 h-full flex flex-col justify-center items-center text-center">
+         <svg class="w-12 h-12 text-archive-accent mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
+          </svg>
+          <p class="font-sans text-xs text-archive-muted uppercase tracking-widest mb-2">Welcome Junior Archivist!</p>
+          <p class="font-serif text-sm text-archive-paper">This page is made just for you so you can help us save important stories from all across the multiverse.</p>
+      </div>
+    </aside>
+  </div>
+
+  <article class="prose prose-invert prose-archive max-w-none font-serif leading-relaxed text-archive-paper">
+    <h2 class="font-display text-2xl text-archive-accent border-b border-archive-border pb-2 mt-12 mb-6">The Rulebook (Made Simple)</h2>
+
+    <p>
+      Welcome to the team! Here are the full rules explained easily so you can write the best reports possible.
+    </p>
+
+    <h3 class="font-display text-xl mt-8 mb-4">1. The Main Rules</h3>
+    <ol>
+      <li><strong>Make-Believe Only:</strong> The stories you write about must come from fiction (like movies, books, or games). No real history allowed!</li>
+      <li><strong>Reporter Voice:</strong> Pretend you are a serious news anchor on TV. Don't use slang or talk like you're chatting with a friend. Be professional!</li>
+      <li><strong>Big Events Only:</strong> We want to hear about giant space battles, magic curses that change the world, or evil empires falling down. We don't need to know what a character ate for breakfast.</li>
+    </ol>
+
+    <h3 class="font-display text-xl mt-8 mb-4">2. Where Did It Happen?</h3>
+    <p>
+      When you save a story, you have to tell us where it took place so our folders don't get messy! Pick one of these two places:
+    </p>
+    <ul>
+      <li><strong><code>On Earth</code></strong>: Did it happen on our planet (even if it's a made-up version of Earth)? Put it here!</li>
+      <li><strong><code>Not On Earth</code></strong>: Did it happen in deep space, on a magical fantasy world, or another planet entirely? Put it here!</li>
+    </ul>
+
+    <h3 class="font-display text-xl mt-8 mb-4">3. Cool Special Features</h3>
+
+    <h4 class="font-sans font-bold text-lg mt-6 mb-2 text-archive-paper">Time Travelers</h4>
+    <p>
+      If your story is about someone who travels through time, we put their file in a special folder called a <strong>"Missing Persons Report"</strong> because they keep disappearing into different years!
+    </p>
+
+    <h4 class="font-sans font-bold text-lg mt-6 mb-2 text-archive-paper">Multiverse Mix-Ups</h4>
+    <p>
+      Sometimes different movies have the exact same date but different things happen. We group those together so readers can flip through them like a cool comic book and compare what happened!
+    </p>
+
+    <h3 class="font-display text-xl mt-8 mb-4">4. Always Give Credit</h3>
+    <p>
+      Every single story you submit MUST have a box at the bottom that tells us where you found it. You need to include:
+    </p>
+    <ul>
+      <li>The name of the Book/Movie/Game</li>
+      <li>Who made it (like the Author or Director)</li>
+      <li>The year it came out in real life</li>
+      <li>A short sentence explaining why this event was super important to its world.</li>
+    </ul>
+  </article>
+</Layout>
