@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ContributeForm from '../components/ContributeForm.jsx';
+---
+
+<Layout title="Contribute - Fictional History Archive">
+  <div class="mb-12 border-b-2 border-dashed border-archive-border pb-6">
+    <h2 class="font-display text-2xl mb-4">Submit Archival Record</h2>
+    <p class="font-sans text-sm text-archive-muted">Contribute a documented historical anomaly or timeline deviation to the permanent record.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+    <div class="lg:col-span-2">
+      <ContributeForm client:load />
+    </div>
+
+    <aside class="space-y-8">
+      <div class="bg-archive-surface border border-archive-border p-6 font-sans">
+        <h3 class="font-display text-lg mb-4 text-archive-accent">Archivist's Guidelines</h3>
+        <div class="space-y-4 text-sm text-archive-muted">
+          <p>
+            <strong class="text-archive-paper">1. Fictional Origin:</strong> The underlying source text must be a work of fiction. No actual real-world historical events unless explicitly an alternative-history variant.
+          </p>
+          <p>
+            <strong class="text-archive-paper">2. Journalistic Tone:</strong> Entries must read like a credible news broadcast or historical report. First-person blogging or fan theories are strictly forbidden.
+          </p>
+          <p>
+            <strong class="text-archive-paper">3. Narrative Impact:</strong> Focus on massive, culturally shifting events (e.g., galactic wars, cataclysmic disruptions). Avoid minor trivia.
+          </p>
+          <p>
+            <strong class="text-archive-paper">4. Mandatory Citations:</strong> All entries must clearly attribute their source work, medium, creator, and release year.
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-archive-surface border border-archive-border p-6 font-sans">
+        <h3 class="font-display text-lg mb-4 text-archive-terminal">Submission Process</h3>
+        <ul class="list-disc pl-4 space-y-2 text-sm text-archive-muted">
+          <li>Complete all required fields in the terminal interface.</li>
+          <li>Review the generated Markdown structure.</li>
+          <li>Download the `.md` record locally.</li>
+          <li>Submit via a pull request to the central repository's <code class="bg-archive-bg px-1 rounded text-archive-paper">src/content/archive</code> directory.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</Layout>
