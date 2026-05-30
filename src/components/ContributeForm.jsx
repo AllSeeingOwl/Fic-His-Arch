@@ -1,0 +1,403 @@
+import React, { useState } from 'react';
+
+const timelineFlairOptions = [
+  'On Earth',
+  'Not On Earth',
+  'Alternate Timeline',
+  'Time Travel',
+  'Satire',
+  'Canon Reference',
+];
+
+export default function ContributeForm() {
+  const [formData, setFormData] = useState({
+    title: '',
+    dateline_location: '',
+    in_universe_date: '',
+    timeline_flair: 'On Earth',
+    source_work: '',
+    source_medium: '',
+    source_creator: '',
+    release_year: '',
+    context_note: '',
+    image_url: '',
+    multiverse_id: '',
+    body: '',
+  });
+
+  const [timelineVariants, setTimelineVariants] = useState([]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleVariantChange = (index, field, value) => {
+    const updatedVariants = [...timelineVariants];
+    updatedVariants[index][field] = value;
+    setTimelineVariants(updatedVariants);
+  };
+
+  const addVariant = () => {
+    setTimelineVariants([...timelineVariants, { source_work: '', excerpt: '', url: '' }]);
+  };
+
+  const removeVariant = (index) => {
+    setTimelineVariants(timelineVariants.filter((_, i) => i !== index));
+  };
+
+  const generateMarkdown = () => {
+    const {
+      title,
+      dateline_location,
+      in_universe_date,
+      timeline_flair,
+      source_work,
+      source_medium,
+      source_creator,
+      release_year,
+      context_note,
+      image_url,
+      multiverse_id,
+      body,
+    } = formData;
+
+    // Handle YAML escaping for title, context_note, etc if they have colons or quotes
+    const escapeYaml = (str) => {
+      if (!str) return "''";
+      // If it contains quotes, colons, or newlines, wrap in single quotes and escape existing single quotes
+      return `'${str.replace(/'/g, "''")}'`;
+    };
+
+    let md = `---\n`;
+    md += `title: ${escapeYaml(title)}\n`;
+    md += `dateline_location: ${escapeYaml(dateline_location)}\n`;
+    md += `in_universe_date: ${escapeYaml(in_universe_date)}\n`;
+    md += `timeline_flair: '${timeline_flair}'\n`;
+    md += `source_work: ${escapeYaml(source_work)}\n`;
+    md += `source_medium: ${escapeYaml(source_medium)}\n`;
+    md += `source_creator: ${escapeYaml(source_creator)}\n`;
+    md += `release_year: ${release_year}\n`;
+    md += `context_note: ${escapeYaml(context_note)}\n`;
+
+    if (image_url) {
+      md += `image_url: ${escapeYaml(image_url)}\n`;
+    }
+
+    if (multiverse_id) {
+      md += `multiverse_id: ${escapeYaml(multiverse_id)}\n`;
+    }
+
+    if (timelineVariants.length > 0) {
+      md += `timelineVariants:\n`;
+      timelineVariants.forEach((variant) => {
+        md += `  - source_work: ${escapeYaml(variant.source_work)}\n`;
+        md += `    excerpt: ${escapeYaml(variant.excerpt)}\n`;
+        md += `    url: ${escapeYaml(variant.url)}\n`;
+      });
+    }
+
+    md += `---\n\n`;
+    md += body;
+
+    return md;
+  };
+
+  const slugify = (text) => {
+    return text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-')
+      .replace(/^-+/, '')
+      .replace(/-+$/, '');
+  };
+
+  const handleDownload = (e) => {
+    e.preventDefault();
+    const mdContent = generateMarkdown();
+    const blob = new Blob([mdContent], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    const filename = formData.title ? `${slugify(formData.title)}.md` : 'new-archive-entry.md';
+
+    link.href = url;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="bg-archive-surface border border-archive-border p-6 font-sans">
+      <div className="mb-6 pb-2 border-b border-archive-border">
+        <p className="text-xs uppercase tracking-widest text-archive-terminal">Terminal_Mode: Record Creation</p>
+        <p className="text-xs uppercase tracking-widest text-archive-terminal">Output_Format: Markdown Archive (.md)</p>
+      </div>
+
+      <form onSubmit={handleDownload} className="space-y-6">
+        {/* Core Metadata */}
+        <div className="space-y-4">
+          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">Core Metadata</h4>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label htmlFor="title" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Headline / Title *</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                required
+                value={formData.title}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., Rebel Alliance Destroys Imperial Superweapon..."
+              />
+            </div>
+
+            <div>
+              <label htmlFor="dateline_location" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Dateline Location *</label>
+              <input
+                type="text"
+                id="dateline_location"
+                name="dateline_location"
+                required
+                value={formData.dateline_location}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., Yavin 4 Orbit"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="in_universe_date" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">In-Universe Date *</label>
+              <input
+                type="text"
+                id="in_universe_date"
+                name="in_universe_date"
+                required
+                value={formData.in_universe_date}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., Late 0 BBY"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="timeline_flair" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Timeline Flair *</label>
+              <select
+                id="timeline_flair"
+                name="timeline_flair"
+                required
+                value={formData.timeline_flair}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+              >
+                {timelineFlairOptions.map(option => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="multiverse_id" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Multiverse ID (Optional)</label>
+              <input
+                type="text"
+                id="multiverse_id"
+                name="multiverse_id"
+                value={formData.multiverse_id}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="Group ID for parallel universe events"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Source Citation */}
+        <div className="space-y-4 mt-8">
+          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">Source Citation</h4>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="source_work" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Work *</label>
+              <input
+                type="text"
+                id="source_work"
+                name="source_work"
+                required
+                value={formData.source_work}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., Star Wars: Episode IV..."
+              />
+            </div>
+
+            <div>
+              <label htmlFor="source_medium" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Medium *</label>
+              <input
+                type="text"
+                id="source_medium"
+                name="source_medium"
+                required
+                value={formData.source_medium}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., Film, Book, Video Game"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="source_creator" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Creator *</label>
+              <input
+                type="text"
+                id="source_creator"
+                name="source_creator"
+                required
+                value={formData.source_creator}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., George Lucas"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="release_year" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Release Year (Real World) *</label>
+              <input
+                type="number"
+                id="release_year"
+                name="release_year"
+                required
+                value={formData.release_year}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., 1977"
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label htmlFor="context_note" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Context Note *</label>
+              <input
+                type="text"
+                id="context_note"
+                name="context_note"
+                required
+                value={formData.context_note}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="Short summary of why this event broke or reshaped its native universe..."
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label htmlFor="image_url" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Image Path (Optional)</label>
+              <input
+                type="text"
+                id="image_url"
+                name="image_url"
+                value={formData.image_url}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                placeholder="e.g., /images/death-star.jpg"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Timeline Variants */}
+        <div className="space-y-4 mt-8">
+          <div className="flex justify-between items-end border-b border-archive-border/50 pb-1">
+            <h4 className="font-display text-lg text-archive-accent">Timeline Variants (Optional)</h4>
+            <button
+              type="button"
+              onClick={addVariant}
+              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors"
+            >
+              + Add Variant
+            </button>
+          </div>
+
+          {timelineVariants.map((variant, index) => (
+            <div key={index} className="p-4 border border-archive-border border-dashed bg-archive-bg/50 rounded relative">
+              <button
+                type="button"
+                onClick={() => removeVariant(index)}
+                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase"
+              >
+                Remove
+              </button>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Work</label>
+                  <input
+                    type="text"
+                    required
+                    value={variant.source_work}
+                    onChange={(e) => handleVariantChange(index, 'source_work', e.target.value)}
+                    className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent"
+                    placeholder="e.g., Fringe"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">URL (Reference)</label>
+                  <input
+                    type="text"
+                    required
+                    value={variant.url}
+                    onChange={(e) => handleVariantChange(index, 'url', e.target.value)}
+                    className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent"
+                    placeholder="e.g., https://example.com"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Excerpt</label>
+                  <textarea
+                    required
+                    value={variant.excerpt}
+                    onChange={(e) => handleVariantChange(index, 'excerpt', e.target.value)}
+                    rows="2"
+                    className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent"
+                    placeholder="Brief description of the timeline variant..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {timelineVariants.length === 0 && (
+            <p className="text-sm text-archive-muted italic">No timeline variants added. Use this for multiversal events with different accounts.</p>
+          )}
+        </div>
+
+        {/* Content Body */}
+        <div className="space-y-4 mt-8">
+          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">Article Content</h4>
+
+          <div>
+            <label htmlFor="body" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Report Body (Markdown supported)</label>
+            <textarea
+              id="body"
+              name="body"
+              rows="10"
+              value={formData.body}
+              onChange={handleChange}
+              className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper font-serif focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+              placeholder="Write the main article content here..."
+            ></textarea>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-archive-accent text-archive-bg font-bold uppercase tracking-widest py-3 px-4 rounded hover:bg-opacity-90 transition-opacity mt-8"
+        >
+          Download Record (.md)
+        </button>
+      </form>
+    </div>
+  );
+}
