@@ -134,18 +134,29 @@ export default function ContributeForm() {
   return (
     <div className="bg-archive-surface border border-archive-border p-6 font-sans">
       <div className="mb-6 pb-2 border-b border-archive-border">
-        <p className="text-xs uppercase tracking-widest text-archive-terminal">Terminal_Mode: Record Creation</p>
-        <p className="text-xs uppercase tracking-widest text-archive-terminal">Output_Format: Markdown Archive (.md)</p>
+        <p className="text-xs uppercase tracking-widest text-archive-terminal">
+          Terminal_Mode: Record Creation
+        </p>
+        <p className="text-xs uppercase tracking-widest text-archive-terminal">
+          Output_Format: Markdown Archive (.md)
+        </p>
       </div>
 
       <form onSubmit={handleDownload} className="space-y-6">
         {/* Core Metadata */}
         <div className="space-y-4">
-          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">Core Metadata</h4>
+          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
+            Core Metadata
+          </h4>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label htmlFor="title" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Headline / Title *</label>
+              <label
+                htmlFor="title"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Headline / Title *
+              </label>
               <input
                 type="text"
                 id="title"
@@ -159,7 +170,12 @@ export default function ContributeForm() {
             </div>
 
             <div>
-              <label htmlFor="dateline_location" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Dateline Location *</label>
+              <label
+                htmlFor="dateline_location"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Dateline Location *
+              </label>
               <input
                 type="text"
                 id="dateline_location"
@@ -173,7 +189,12 @@ export default function ContributeForm() {
             </div>
 
             <div>
-              <label htmlFor="in_universe_date" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">In-Universe Date *</label>
+              <label
+                htmlFor="in_universe_date"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                In-Universe Date *
+              </label>
               <input
                 type="text"
                 id="in_universe_date"
@@ -187,7 +208,12 @@ export default function ContributeForm() {
             </div>
 
             <div>
-              <label htmlFor="timeline_flair" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Timeline Flair *</label>
+              <label
+                htmlFor="timeline_flair"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Timeline Flair *
+              </label>
               <select
                 id="timeline_flair"
                 name="timeline_flair"
@@ -196,14 +222,21 @@ export default function ContributeForm() {
                 onChange={handleChange}
                 className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
               >
-                {timelineFlairOptions.map(option => (
-                  <option key={option} value={option}>{option}</option>
+                {timelineFlairOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label htmlFor="multiverse_id" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Multiverse ID (Optional)</label>
+              <label
+                htmlFor="multiverse_id"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Multiverse ID (Optional)
+              </label>
               <input
                 type="text"
                 id="multiverse_id"
@@ -219,11 +252,18 @@ export default function ContributeForm() {
 
         {/* Source Citation */}
         <div className="space-y-4 mt-8">
-          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">Source Citation</h4>
+          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
+            Source Citation
+          </h4>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="source_work" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Work *</label>
+              <label
+                htmlFor="source_work"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Source Work *
+              </label>
               <input
                 type="text"
                 id="source_work"
@@ -237,7 +277,12 @@ export default function ContributeForm() {
             </div>
 
             <div>
-              <label htmlFor="source_medium" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Medium *</label>
+              <label
+                htmlFor="source_medium"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Source Medium *
+              </label>
               <input
                 type="text"
                 id="source_medium"
@@ -251,7 +296,12 @@ export default function ContributeForm() {
             </div>
 
             <div>
-              <label htmlFor="source_creator" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Creator *</label>
+              <label
+                htmlFor="source_creator"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Source Creator *
+              </label>
               <input
                 type="text"
                 id="source_creator"
@@ -265,7 +315,12 @@ export default function ContributeForm() {
             </div>
 
             <div>
-              <label htmlFor="release_year" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Release Year (Real World) *</label>
+              <label
+                htmlFor="release_year"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Release Year (Real World) *
+              </label>
               <input
                 type="number"
                 id="release_year"
@@ -279,7 +334,12 @@ export default function ContributeForm() {
             </div>
 
             <div className="md:col-span-2">
-              <label htmlFor="context_note" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Context Note *</label>
+              <label
+                htmlFor="context_note"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Context Note *
+              </label>
               <input
                 type="text"
                 id="context_note"
@@ -293,7 +353,12 @@ export default function ContributeForm() {
             </div>
 
             <div className="md:col-span-2">
-              <label htmlFor="image_url" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Image Path (Optional)</label>
+              <label
+                htmlFor="image_url"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Image Path (Optional)
+              </label>
               <input
                 type="text"
                 id="image_url"
@@ -310,7 +375,9 @@ export default function ContributeForm() {
         {/* Timeline Variants */}
         <div className="space-y-4 mt-8">
           <div className="flex justify-between items-end border-b border-archive-border/50 pb-1">
-            <h4 className="font-display text-lg text-archive-accent">Timeline Variants (Optional)</h4>
+            <h4 className="font-display text-lg text-archive-accent">
+              Timeline Variants (Optional)
+            </h4>
             <button
               type="button"
               onClick={addVariant}
@@ -321,7 +388,10 @@ export default function ContributeForm() {
           </div>
 
           {timelineVariants.map((variant, index) => (
-            <div key={index} className="p-4 border border-archive-border border-dashed bg-archive-bg/50 rounded relative">
+            <div
+              key={index}
+              className="p-4 border border-archive-border border-dashed bg-archive-bg/50 rounded relative"
+            >
               <button
                 type="button"
                 onClick={() => removeVariant(index)}
@@ -332,7 +402,9 @@ export default function ContributeForm() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Source Work</label>
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
+                    Source Work
+                  </label>
                   <input
                     type="text"
                     required
@@ -343,7 +415,9 @@ export default function ContributeForm() {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">URL (Reference)</label>
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
+                    URL (Reference)
+                  </label>
                   <input
                     type="text"
                     required
@@ -354,7 +428,9 @@ export default function ContributeForm() {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Excerpt</label>
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
+                    Excerpt
+                  </label>
                   <textarea
                     required
                     value={variant.excerpt}
@@ -369,16 +445,25 @@ export default function ContributeForm() {
           ))}
 
           {timelineVariants.length === 0 && (
-            <p className="text-sm text-archive-muted italic">No timeline variants added. Use this for multiversal events with different accounts.</p>
+            <p className="text-sm text-archive-muted italic">
+              No timeline variants added. Use this for multiversal events with different accounts.
+            </p>
           )}
         </div>
 
         {/* Content Body */}
         <div className="space-y-4 mt-8">
-          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">Article Content</h4>
+          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
+            Article Content
+          </h4>
 
           <div>
-            <label htmlFor="body" className="block text-xs uppercase tracking-widest text-archive-muted mb-1">Report Body (Markdown supported)</label>
+            <label
+              htmlFor="body"
+              className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+            >
+              Report Body (Markdown supported)
+            </label>
             <textarea
               id="body"
               name="body"
