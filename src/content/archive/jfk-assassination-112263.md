@@ -9,6 +9,11 @@ source_creator: 'Stephen King'
 release_year: 2011
 context_note: "Demonstrates the 'obdurate' nature of time and the consequences of attempting to alter fixed historical points."
 multiverse_id: 'jfk-assassination'
+external_links:
+  - name: Stephen King Wiki
+    url: https://stephenking.fandom.com/wiki/11/22/63
+  - name: Wikipedia
+    url: https://en.wikipedia.org/wiki/11/22/63
 timelineVariants:
   - source_work: '11/22/63'
     excerpt: 'Jake Epping prevents the assassination, but the resulting alternate timeline is a post-apocalyptic wasteland, proving that time resists change.'

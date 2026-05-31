@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { resolvePath } from '../utils/paths.js';
+
+const allEntries = await getCollection('archive');
+
+// Group by medium and then by creator
+const entriesByMedium = allEntries.reduce((acc, entry) => {
+  const medium = entry.data.source_medium || 'Unknown Medium';
+  if (!acc[medium]) {
+    acc[medium] = {};
+  }
+
+  const creator = entry.data.source_creator || 'Unknown Creator';
+  if (!acc[medium][creator]) {
+    acc[medium][creator] = [];
+  }
+
+  acc[medium][creator].push(entry);
+  return acc;
+}, {});
+
+const mediums = Object.keys(entriesByMedium).sort();
+---
+
+<Layout title="Media & Creators Directory | Fictional History Archive">
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <header class="mb-12 border-b-2 border-archive-border pb-6">
+      <h1 class="font-display text-4xl text-archive-paper mb-4 uppercase tracking-wider">Source Media & Creators</h1>
+      <p class="font-sans text-archive-muted text-lg max-w-2xl">
+        Index of historical events categorized by their originating medium and primary architects.
+      </p>
+    </header>
+
+    <div class="space-y-16">
+      {mediums.map((medium) => (
+        <section>
+          <h2 class="font-display text-3xl text-archive-paper mb-8 border-b border-archive-border pb-2 inline-block pr-8">
+            <span class="text-archive-muted text-sm uppercase tracking-widest block mb-1">Medium</span>
+            {medium}
+          </h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 pl-4 md:pl-8 border-l-2 border-archive-border/50">
+            {Object.keys(entriesByMedium[medium]).sort().map((creator) => (
+              <div class="relative">
+                <div class="absolute -left-[1.1rem] md:-left-[2.1rem] top-2 w-4 h-4 bg-archive-bg border-2 border-archive-accent rounded-full"></div>
+                <h3 class="font-sans text-xl text-archive-accent mb-4 uppercase tracking-wider">{creator}</h3>
+                <ul class="space-y-3">
+                  {entriesByMedium[medium][creator].map((entry) => (
+                    <li>
+                      <a href={resolvePath(`/archive/${entry.id}`)} class="group flex flex-col sm:flex-row sm:items-baseline sm:justify-between py-2 border-b border-archive-border/30 hover:border-archive-accent/50 transition-colors">
+                        <span class="font-serif text-archive-paper group-hover:text-archive-accent transition-colors">
+                          {entry.data.title}
+                        </span>
+                        <span class="font-sans text-xs text-archive-muted mt-1 sm:mt-0 sm:ml-4 whitespace-nowrap">
+                          {entry.data.source_work} ({entry.data.release_year})
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+</Layout>

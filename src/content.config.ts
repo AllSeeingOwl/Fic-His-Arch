@@ -22,6 +22,14 @@ const archiveCollection = defineCollection({
     context_note: z.string(),
     image_url: z.string().optional(),
     multiverse_id: z.string().optional(),
+    external_links: z
+      .array(
+        z.object({
+          name: z.string(),
+          url: z.string().url(),
+        })
+      )
+      .optional(),
 
     timelineVariants: z
       .array(

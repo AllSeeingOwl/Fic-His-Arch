@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { resolvePath } from '../utils/paths.js';
+
+const allEntries = await getCollection('archive');
+
+// Filter for Time Travel
+const timeTravelers = allEntries.filter(entry => entry.data.timeline_flair === 'Time Travel');
+
+---
+
+<Layout title="Active Sighting & Missing Persons Reports | Fictional History Archive">
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <header class="mb-12 border-b-2 border-archive-border pb-6 relative">
+      <div class="absolute top-0 right-0 bg-archive-terminal text-archive-bg px-3 py-1 font-sans text-xs font-bold uppercase animate-pulse">
+        Active Monitoring
+      </div>
+      <h1 class="font-display text-4xl text-archive-paper mb-4 uppercase tracking-wider">Time Traveler Case Chronicles</h1>
+      <p class="font-sans text-archive-muted text-lg max-w-2xl">
+        Classified logs of chrononauts, unverified sightings, and displaced entities moving across established timelines.
+      </p>
+    </header>
+
+    {timeTravelers.length === 0 ? (
+      <div class="bg-archive-surface border border-archive-border p-8 text-center">
+        <p class="font-sans text-archive-muted text-lg uppercase tracking-widest">No active anomalies detected in current timeline.</p>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {timeTravelers.map((entry) => (
+          <article class="border border-archive-border bg-archive-surface flex flex-col relative">
+             <div class="bg-red-900/30 border-b border-archive-border p-3 flex justify-between items-center">
+               <span class="font-sans text-xs text-red-400 font-bold uppercase tracking-widest">Case File: {entry.id}</span>
+               <span class="font-sans text-xs text-archive-muted">CONFIDENTIAL</span>
+             </div>
+             <div class="p-6 flex-grow">
+               <h3 class="font-display text-2xl text-archive-paper mb-4">{entry.data.title}</h3>
+               <div class="grid grid-cols-2 gap-4 mb-6 font-sans text-sm border-l-2 border-archive-muted pl-4">
+                  <div>
+                    <span class="block text-archive-muted text-xs uppercase mb-1">Sighting Location</span>
+                    <span class="text-archive-paper">{entry.data.dateline_location}</span>
+                  </div>
+                  <div>
+                    <span class="block text-archive-muted text-xs uppercase mb-1">Reported Date</span>
+                    <span class="text-archive-paper">{entry.data.in_universe_date}</span>
+                  </div>
+               </div>
+               <p class="font-serif text-archive-paper/80 text-sm leading-relaxed mb-6">
+                 "{entry.data.context_note}"
+               </p>
+               <a href={resolvePath(`/archive/${entry.id}`)} class="inline-block mt-auto font-sans text-sm text-archive-accent hover:text-archive-paper transition-colors uppercase tracking-wider border-b border-archive-accent hover:border-archive-paper">
+                 Review Full Dossier &rarr;
+               </a>
+             </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </main>
+</Layout>

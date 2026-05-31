@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { resolvePath } from '../utils/paths.js';
+
+const allEntries = await getCollection('archive');
+
+// Group by timeline flair
+const entriesByFlair = allEntries.reduce((acc, entry) => {
+  const flair = entry.data.timeline_flair || 'Uncategorized';
+  if (!acc[flair]) {
+    acc[flair] = [];
+  }
+  acc[flair].push(entry);
+  return acc;
+}, {});
+
+const flairs = Object.keys(entriesByFlair).sort();
+---
+
+<Layout title="Timeline / Multiverse Logs | Fictional History Archive">
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <header class="mb-12 border-b-2 border-archive-border pb-6">
+      <h1 class="font-display text-4xl text-archive-paper mb-4 uppercase tracking-wider">Timeline Classifications</h1>
+      <p class="font-sans text-archive-muted text-lg max-w-2xl">
+        Review chronologies separated by temporal stream to avoid paradox-induced contamination.
+      </p>
+    </header>
+
+    <div class="space-y-16">
+      {flairs.map((flair) => (
+        <section>
+          <h2 class="font-display text-3xl text-archive-accent mb-6 border-b border-archive-border pb-2">{flair}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {entriesByFlair[flair].map((entry) => (
+              <a href={resolvePath(`/archive/${entry.id}`)} class="group block border border-archive-border bg-archive-surface p-6 hover:border-archive-accent transition-colors relative overflow-hidden">
+                {entry.data.multiverse_id && (
+                  <div class="absolute top-0 right-0 bg-archive-accent text-archive-bg text-xs font-bold px-2 py-1 uppercase font-sans z-10">
+                    Multiverse Linked
+                  </div>
+                )}
+                <h3 class="font-display text-xl text-archive-paper mb-2 group-hover:text-archive-accent transition-colors line-clamp-2">
+                  {entry.data.title}
+                </h3>
+                <div class="font-sans text-xs text-archive-muted space-y-1 mb-4">
+                  <p><strong>DATE:</strong> {entry.data.in_universe_date}</p>
+                  <p><strong>LOC:</strong> {entry.data.dateline_location}</p>
+                </div>
+                <div class="border-t border-archive-border pt-4 mt-auto">
+                   <p class="font-sans text-xs text-archive-muted italic line-clamp-3">
+                    {entry.data.context_note}
+                   </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </main>
+</Layout>

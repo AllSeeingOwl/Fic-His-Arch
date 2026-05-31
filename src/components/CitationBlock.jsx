@@ -10,6 +10,7 @@ export default function CitationBlock({ source }) {
     creator = 'UNKNOWN',
     release_year = 'YYYY',
     note = 'No context provided.',
+    external_links = [],
   } = source;
 
   return (
@@ -36,13 +37,34 @@ export default function CitationBlock({ source }) {
               {release_year})
             </p>
           </div>
-          <div className="border-l border-archive-border pl-4">
-            <p className="text-xs italic leading-relaxed">
+          <div className="border-l border-archive-border pl-4 flex flex-col justify-between">
+            <p className="text-xs italic leading-relaxed mb-4">
               <span className="text-archive-accent block not-italic font-sans text-[10px] uppercase tracking-wider mb-1">
                 Structural Context:
               </span>
               {note}
             </p>
+            {external_links && external_links.length > 0 && (
+              <div className="mt-auto">
+                <span className="text-archive-accent block not-italic font-sans text-[10px] uppercase tracking-wider mb-1">
+                  External References:
+                </span>
+                <ul className="flex flex-wrap gap-3 text-xs">
+                  {external_links.map((link, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-archive-paper hover:text-archive-accent transition-colors underline decoration-archive-border underline-offset-2"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
