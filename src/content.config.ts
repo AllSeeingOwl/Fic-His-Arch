@@ -37,6 +37,18 @@ const archiveCollection = defineCollection({
           source_work: z.string(),
           excerpt: z.string(),
           url: z.string(),
+          source_medium: z.string().optional(),
+          source_creator: z.string().optional(),
+          release_year: z.number().int().optional(),
+          context_note: z.string().optional(),
+          external_links: z
+            .array(
+              z.object({
+                name: z.string(),
+                url: z.string().url(),
+              })
+            )
+            .optional(),
         })
       )
       .optional(),
