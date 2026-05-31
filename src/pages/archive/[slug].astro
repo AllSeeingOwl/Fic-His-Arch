@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import CitationBlock from '../../components/CitationBlock.jsx';
-import TimelineToggle from '../../components/TimelineToggle.jsx';
+import ArchiveInteractiveSection from '../../components/ArchiveInteractiveSection.jsx';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -49,10 +49,14 @@ const citationData = {
       <Content />
     </div>
 
-    {data.timelineVariants && data.timelineVariants.length > 0 && (
-      <TimelineToggle variants={data.timelineVariants} client:load />
+    {data.timelineVariants && data.timelineVariants.length > 0 ? (
+      <ArchiveInteractiveSection
+        variants={data.timelineVariants}
+        defaultCitation={citationData}
+        client:load
+      />
+    ) : (
+      <CitationBlock source={citationData} />
     )}
-
-    <CitationBlock source={citationData} client:load />
   </article>
 </Layout>
