@@ -73,11 +73,19 @@ export default function ArchiveInteractiveSection({ variants, defaultCitation })
         <div
           className={`transition-opacity ${mounted ? 'opacity-100' : 'opacity-100'} js-tabs-container`}
         >
-          <div className="flex border-b border-archive-border mb-4 overflow-x-auto hide-on-nojs">
+          <div
+            className="flex border-b border-archive-border mb-4 overflow-x-auto hide-on-nojs"
+            role="tablist"
+            aria-label="Alternative Perspectives"
+          >
             {variants.map((v, idx) => (
               <button
                 key={idx}
-                className={`px-4 py-2 font-sans text-sm font-medium uppercase tracking-wider transition-colors whitespace-nowrap ${
+                id={`tab-${idx}`}
+                role="tab"
+                aria-selected={activeTab === idx}
+                aria-controls={`panel-${idx}`}
+                className={`px-4 py-2 font-sans text-sm font-medium uppercase tracking-wider transition-colors whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset ${
                   activeTab === idx
                     ? 'border-b-2 border-archive-accent text-archive-accent'
                     : 'text-archive-muted hover:text-archive-paper'
@@ -88,14 +96,20 @@ export default function ArchiveInteractiveSection({ variants, defaultCitation })
               </button>
             ))}
           </div>
-          <div className="font-serif text-archive-paper leading-relaxed hide-on-nojs">
+          <div
+            id={`panel-${activeTab}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${activeTab}`}
+            tabIndex={0}
+            className="font-serif text-archive-paper leading-relaxed hide-on-nojs focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded p-1"
+          >
             <p className="text-sm italic text-archive-accent mb-2">
               Alternative Chronological Perspective Active:
             </p>
             <p className="line-clamp-3 mb-4">{activeVariant.excerpt}</p>
             <a
               href={activeVariant.url || '#'}
-              className="font-sans text-xs uppercase tracking-widest text-archive-terminal hover:underline"
+              className="font-sans text-xs uppercase tracking-widest text-archive-terminal hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1"
             >
               Examine Full Archival File →
             </a>
