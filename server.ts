@@ -85,7 +85,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || crypto.randomBytes(32).toString('hex');
 const adminAuthBuffer = Buffer.from(ADMIN_PASSWORD);
 
 const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
