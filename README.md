@@ -23,6 +23,7 @@ The Fictional History Archive treats fictional events (e.g., galactic wars, cata
 ## 🛠️ Tech Stack
 
 The project utilizes a dual-stack architecture:
+
 - **Frontend:** [Astro](https://astro.build/) (Static Site Generation), [React](https://react.dev/), [Tailwind CSS](https://tailwindcss.com/)
 - **Backend:** [Express](https://expressjs.com/) server managed with `ts-node`
 - **Package Management:** `pnpm`
@@ -48,13 +49,15 @@ The project utilizes a dual-stack architecture:
 The project requires **Node.js v22 or higher** and **pnpm**.
 
 1. **Clone the repository:**
+
    ```bash
    git clone <repository-url>
    cd fic-his-arch
    ```
 
 2. **Install dependencies:**
-   *(Do not use npm or yarn to avoid modifying the lockfile.)*
+   _(Do not use npm or yarn to avoid modifying the lockfile.)_
+
    ```bash
    pnpm install
    ```
@@ -65,12 +68,13 @@ The project requires **Node.js v22 or higher** and **pnpm**.
      pnpm run dev:server
      ```
    - **Frontend (Astro):**
-     *(Requires a separate terminal)*
+     _(Requires a separate terminal)_
      ```bash
      npx astro dev
      ```
 
 4. **Testing & Verification:**
+
    ```bash
    pnpm run test               # Run Jest unit tests
    pnpm run test:e2e:playwright # Run Playwright E2E tests
@@ -89,11 +93,14 @@ The project requires **Node.js v22 or higher** and **pnpm**.
 All articles submitted to the database must comply with the protocols defined in the `archivists_handbook.md`.
 
 ### Core Principles
+
 1. **Fictional Origin:** The source text must be a work of fiction.
 2. **Journalistic Tone:** Entries must read like a credible news broadcast or newspaper report. First-person blogging or speculative fan theories are strictly forbidden.
 3. **Narrative Impact:** Focus on massive, culturally shifting events that carry substantial narrative weight in their native lore.
 
 ### Content Organization
+
 Entries are cataloged into two primary timelines:
+
 - `On Earth`: Alternative-history variants or near-future projections on Earth.
 - `Not On Earth`: Deep space, extraterrestrial colony worlds, or fantasy realms.
