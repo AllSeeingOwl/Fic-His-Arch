@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import ArticleCard from '../components/ArticleCard.jsx';
 import { getCollection } from 'astro:content';
 import { resolvePath } from '../utils/paths.js';
+import { getFlairColors } from '../utils/flairColors.js';
 
 const allArchiveEntries = await getCollection('archive');
 
@@ -15,6 +16,9 @@ const articles = allArchiveEntries.map(entry => ({
   summary: entry.body ? entry.body.substring(0, 150) + '...' : '',
   in_universe_date: entry.data.in_universe_date
 }));
+
+// Get unique flairs for the filter
+const flairs = [...new Set(articles.map(a => a.timeline_flair))].sort();
 ---
 
 <Layout title="Fictional History Archive">
@@ -23,11 +27,92 @@ const articles = allArchiveEntries.map(entry => ({
     <p class="font-sans text-sm text-archive-muted">Browse the most recently unclassified historical documents from across the multiverse.</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="mb-8">
+    <div class="font-sans text-xs uppercase tracking-widest text-archive-muted mb-3">Filter by Timeline:</div>
+    <div class="flex flex-wrap gap-3" id="flair-filters">
+      <button
+        class="filter-btn active px-3 py-1 rounded border border-archive-accent text-archive-bg bg-archive-accent text-[11px] font-semibold uppercase transition-colors"
+        data-flair="all"
+        aria-pressed="true"
+      >
+        All Timelines
+      </button>
+      {flairs.map((flair) => {
+        const colors = getFlairColors(flair);
+        return (
+          <button
+            class={`filter-btn px-3 py-1 rounded border flex items-center gap-1.5 ${colors.border} ${colors.text} bg-transparent ${colors.hoverBg} text-[11px] font-semibold uppercase transition-colors`}
+            data-flair={flair}
+            data-active-bg={colors.activeBg.replace('bg-', '')}
+            aria-pressed="false"
+          >
+            <span class={`w-1.5 h-1.5 rounded-full ${colors.dot}`}></span>
+            {flair}
+          </button>
+        );
+      })}
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="article-grid">
     {articles.map((article) => (
-      <a href={resolvePath(`/archive/${article.slug}`)} class="block group">
+      <a
+        href={resolvePath(`/archive/${article.slug}`)}
+        class="block group article-item"
+        data-flair={article.timeline_flair}
+      >
         <ArticleCard article={article} />
       </a>
     ))}
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const articleItems = document.querySelectorAll('.article-item');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const selectedFlair = btn.getAttribute('data-flair');
+
+          // Update button styles
+          filterBtns.forEach(b => {
+            b.setAttribute('aria-pressed', 'false');
+            if (b.getAttribute('data-flair') === 'all') {
+              b.classList.remove('bg-archive-accent', 'text-archive-bg');
+              b.classList.add('text-archive-accent', 'bg-transparent');
+            } else {
+              b.style.backgroundColor = '';
+            }
+          });
+
+          btn.setAttribute('aria-pressed', 'true');
+          if (selectedFlair === 'all') {
+            btn.classList.add('bg-archive-accent', 'text-archive-bg');
+            btn.classList.remove('text-archive-accent', 'bg-transparent');
+          } else {
+            const activeBgClass = btn.getAttribute('data-active-bg');
+            // We use inline styles here safely as we know the exact values
+            if (activeBgClass) {
+               const [color, opacity] = activeBgClass.split('/');
+               const hexColor = color.replace(/[\[\]]/g, '');
+               if(hexColor && opacity) {
+                 btn.style.backgroundColor = `color-mix(in srgb, ${hexColor} ${opacity}%, transparent)`;
+               }
+            }
+          }
+
+          // Filter articles
+          articleItems.forEach(item => {
+            if (selectedFlair === 'all' || item.getAttribute('data-flair') === selectedFlair) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+
 </Layout>

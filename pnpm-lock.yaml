@@ -11,10 +11,10 @@ onlyBuiltDependencies:
 dependencies:
   '@astrojs/react':
     specifier: ^5.0.5
-    version: 5.0.6(@types/node@25.9.1)(@types/react-dom@19.2.3)(@types/react@19.2.16)(react-dom@19.2.7)(react@19.2.7)
+    version: 5.0.7(@types/node@25.9.1)(@types/react-dom@19.2.3)(@types/react@19.2.16)(react-dom@19.2.7)(react@19.2.7)
   '@astrojs/tailwind':
     specifier: 6.0.2
-    version: 6.0.2(astro@6.4.2)(tailwindcss@3.4.19)(ts-node@10.9.2)
+    version: 6.0.2(astro@6.4.3)(tailwindcss@3.4.19)(ts-node@10.9.2)
   '@types/react':
     specifier: ^19.2.15
     version: 19.2.16
@@ -32,7 +32,7 @@ dependencies:
     version: 2.0.0(react@19.2.7)
   astro:
     specifier: ^6.3.7
-    version: 6.4.2(@types/node@25.9.1)(@upstash/redis@1.38.0)
+    version: 6.4.3(@types/node@25.9.1)(@upstash/redis@1.38.0)
   express:
     specifier: ^5.2.1
     version: 5.2.1
@@ -217,10 +217,10 @@ packages:
       prismjs: 1.30.0
     dev: false
 
-  /@astrojs/react@5.0.6(@types/node@25.9.1)(@types/react-dom@19.2.3)(@types/react@19.2.16)(react-dom@19.2.7)(react@19.2.7):
+  /@astrojs/react@5.0.7(@types/node@25.9.1)(@types/react-dom@19.2.3)(@types/react@19.2.16)(react-dom@19.2.7)(react@19.2.7):
     resolution:
       {
-        integrity: sha512-3pfjmw3sUnV5WplLblDzsAKlHv9kNmlCFAw/xP/agubiZFo4d+uPXX2jynNwAfvwyI5v+Q9uIIFwyujv9jifLg==,
+        integrity: sha512-N9cCoxvnLWaP+AK1Fv4e5Mc7ktnVTpSo2nWLwvD9Ohr1dJKygwrTSm9yatqoahgb1A5Kwjg/rT2shRiIVdn3aw==,
       }
     engines: { node: '>=22.12.0' }
     peerDependencies:
@@ -253,7 +253,7 @@ packages:
       - yaml
     dev: false
 
-  /@astrojs/tailwind@6.0.2(astro@6.4.2)(tailwindcss@3.4.19)(ts-node@10.9.2):
+  /@astrojs/tailwind@6.0.2(astro@6.4.3)(tailwindcss@3.4.19)(ts-node@10.9.2):
     resolution:
       {
         integrity: sha512-j3mhLNeugZq6A8dMNXVarUa8K6X9AW+QHU9u3lKNrPLMHhOQ0S7VeWhHwEeJFpEK1BTKEUY1U78VQv2gN6hNGg==,
@@ -262,7 +262,7 @@ packages:
       astro: ^3.0.0 || ^4.0.0 || ^5.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 6.4.2(@types/node@25.9.1)(@upstash/redis@1.38.0)
+      astro: 6.4.3(@types/node@25.9.1)(@upstash/redis@1.38.0)
       autoprefixer: 10.5.0(postcss@8.5.15)
       postcss: 8.5.15
       postcss-load-config: 4.0.2(postcss@8.5.15)(ts-node@10.9.2)
@@ -4171,10 +4171,10 @@ packages:
     engines: { node: '>=0.8' }
     dev: true
 
-  /astro@6.4.2(@types/node@25.9.1)(@upstash/redis@1.38.0):
+  /astro@6.4.3(@types/node@25.9.1)(@upstash/redis@1.38.0):
     resolution:
       {
-        integrity: sha512-8H89CH2dKL5SCU99OCqdU9BGjmPkSJqaPurywj5XMo7eMFGUFD3vsNhdEKnEh4mK4LgGje3/QDTTSIIGst0G0Q==,
+        integrity: sha512-heArIk8zLcxuoj1WgBH2zGdAD8zKSU1mEcBvS6hYMEHRPlbtvB+4Y8ri9Z27hzeryvGaFgrH32zjghEfV2y07g==,
       }
     engines: { node: '>=22.12.0', npm: '>=9.6.5', pnpm: '>=7.1.0' }
     hasBin: true
@@ -4586,7 +4586,7 @@ packages:
     dependencies:
       baseline-browser-mapping: 2.10.33
       caniuse-lite: 1.0.30001793
-      electron-to-chromium: 1.5.365
+      electron-to-chromium: 1.5.366
       node-releases: 2.0.47
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -5626,10 +5626,10 @@ packages:
       }
     dev: false
 
-  /electron-to-chromium@1.5.365:
+  /electron-to-chromium@1.5.366:
     resolution:
       {
-        integrity: sha512-xfip4u1QF1s+URFqpA6N+OeFpDGpN7VJz1f3MO3bVL0QYBjpGiZ5/Of7kugvM+o8TTqmanUlviHN3c8M9vYWCw==,
+        integrity: sha512-OlRuhb688YTCzzU3gXPLn6nGyd+F+53INE1qaKKlu6kETErE8FYsyDh0XqXEU+uBRn0MpCzz2vfNwORhkap8qg==,
       }
 
   /emittery@0.13.1:
