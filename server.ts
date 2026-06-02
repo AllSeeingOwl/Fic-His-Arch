@@ -1,4 +1,3 @@
-import fs from 'fs';
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import crypto from 'crypto';
@@ -75,11 +74,18 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     if (req.path.startsWith('/api/') || req.path === '/admin') {
       return next();
     }
-    if (fs.existsSync(MAINTENANCE_PATH)) {
-      res.status(503).sendFile(MAINTENANCE_PATH);
-    } else {
-      res.status(503).type('text/plain').send('503 Service Unavailable: Site under maintenance.');
-    }
+    res.status(503).sendFile(MAINTENANCE_PATH, (err) => {
+      if (err) {
+        if (!res.headersSent) {
+          res
+            .status(503)
+            .type('text/plain')
+            .send('503 Service Unavailable: Site under maintenance.');
+        } else {
+          res.end();
+        }
+      }
+    });
     return;
   }
   next();
@@ -109,7 +115,7 @@ const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
       crypto.timingSafeEqual(new Uint8Array(adminAuthBuffer), new Uint8Array(adminAuthBuffer));
     }
     res.status(401).json({ error: 'Unauthorized' });
-  } catch (error) {
+  } catch {
     res.status(401).json({ error: 'Unauthorized' });
   }
 };
@@ -167,11 +173,15 @@ app.post(
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req: Request, res: Response) => {
-  if (fs.existsSync(NOT_FOUND_PATH)) {
-    res.status(404).sendFile(NOT_FOUND_PATH);
-  } else {
-    res.status(404).type('text/plain').send('404 Not Found');
-  }
+  res.status(404).sendFile(NOT_FOUND_PATH, (err) => {
+    if (err) {
+      if (!res.headersSent) {
+        res.status(404).type('text/plain').send('404 Not Found');
+      } else {
+        res.end();
+      }
+    }
+  });
 });
 
 app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
