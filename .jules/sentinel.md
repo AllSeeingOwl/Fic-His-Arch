@@ -9,3 +9,8 @@
 **Vulnerability:** The Express error handler `console.error('Unhandled error:', err);` and the HTTP response `res.status(httpErr.status).json({ error: httpErr.message || 'Error' });` might leak sensitive stack traces or internal implementation details if an unexpected error propagates.
 **Learning:** Returning `httpErr.message` directly without validating or sanitizing it can inadvertently leak application structure or sensitive server state.
 **Prevention:** In a production environment, send a generic error message (e.g., "An unexpected error occurred") and log the detailed error internally.
+
+## 2024-05-28 - [Add rate limiting to login endpoint]
+**Vulnerability:** The `/api/admin/verify` endpoint lacked rate limiting, making it susceptible to brute-force attacks against the admin password.
+**Learning:** Added a basic in-memory rate limiter to track failed login attempts by IP address. The rate limiter locks out the IP for 15 minutes after 5 failed attempts and includes a simple map-size check to clear entries if they exceed 1000 items (preventing minor memory exhaustion vectors).
+**Prevention:** Always implement basic rate limiting and lockouts for authentication and sensitive administrative endpoints to mitigate brute forcing. Avoid adding dependencies like `express-rate-limit` without permission, preferring custom lightweight maps when appropriate.
