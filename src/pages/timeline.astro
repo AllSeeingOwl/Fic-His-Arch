@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { resolvePath } from '../utils/paths.js';
+import { getFlairColors } from '../utils/flairColors.js';
 
 const allEntries = await getCollection('archive');
 
@@ -28,9 +29,14 @@ const flairs = Object.keys(entriesByFlair).sort();
     </header>
 
     <div class="space-y-16">
-      {flairs.map((flair) => (
+      {flairs.map((flair) => {
+        const colors = getFlairColors(flair);
+        return (
         <section>
-          <h2 class="font-display text-3xl text-archive-accent mb-6 border-b border-archive-border pb-2">{flair}</h2>
+          <h2 class={`font-display text-3xl mb-6 border-b border-archive-border pb-2 flex items-center gap-3 ${colors.text}`}>
+            <span class={`w-3 h-3 rounded-full ${colors.dot} inline-block`}></span>
+            {flair}
+          </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {entriesByFlair[flair].map((entry) => (
               <a href={resolvePath(`/archive/${entry.id}`)} class="group block border border-archive-border bg-archive-surface p-6 hover:border-archive-accent transition-colors relative overflow-hidden">
@@ -55,7 +61,7 @@ const flairs = Object.keys(entriesByFlair).sort();
             ))}
           </div>
         </section>
-      ))}
+      )})}
     </div>
   </main>
 </Layout>

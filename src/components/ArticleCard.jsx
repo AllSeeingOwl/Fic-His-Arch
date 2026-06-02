@@ -1,11 +1,15 @@
 import React from 'react';
+import { getFlairColors } from '../utils/flairColors.js';
 
 export default function ArticleCard({ article }) {
+  const colors = getFlairColors(article.timeline_flair);
+
   return (
     <article className="border border-archive-border bg-archive-surface p-6 rounded hover:border-archive-accent transition-all group">
       <div className="flex items-center justify-between text-xs font-sans text-archive-muted mb-2">
         <span>{article.dateline_location}</span>
-        <span className="px-2 py-0.5 rounded border border-archive-border text-archive-accent bg-archive-bg text-[10px] font-semibold uppercase">
+        <span className={`px-2 py-0.5 rounded border flex items-center gap-1.5 ${colors.border} ${colors.text} ${colors.bg} text-[10px] font-semibold uppercase`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${colors.dot}`}></span>
           {article.timeline_flair}
         </span>
       </div>
