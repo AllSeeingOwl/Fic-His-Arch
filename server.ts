@@ -114,20 +114,49 @@ const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+// 🛡️ Sentinel: Rate limit admin login attempts
+const loginAttempts = new Map<string, { count: number; lockUntil: number }>();
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCK_TIME_MS = 15 * 60 * 1000; // 15 minutes
+
 app.post('/api/admin/verify', (req: Request, res: Response) => {
+  // Basic memory leak prevention
+  if (loginAttempts.size > 1000) loginAttempts.clear();
+
+  const ip = req.ip || req.socket.remoteAddress || 'unknown';
+  const now = Date.now();
+  const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0 };
+
+  if (record.lockUntil > now) {
+    res.status(429).json({ success: false, error: 'Too many attempts, please try again later' });
+    return;
+  }
+
+  let isSuccess = false;
   const { password } = req.body;
   if (typeof password === 'string') {
     const passwordBuffer = Buffer.from(password);
     if (passwordBuffer.length === adminAuthBuffer.length) {
       if (crypto.timingSafeEqual(new Uint8Array(passwordBuffer), new Uint8Array(adminAuthBuffer))) {
-        res.json({ success: true, token: ADMIN_PASSWORD });
-        return;
+        isSuccess = true;
       }
     } else {
       crypto.timingSafeEqual(new Uint8Array(adminAuthBuffer), new Uint8Array(adminAuthBuffer));
     }
   }
-  res.status(401).json({ success: false, error: 'Invalid password' });
+
+  if (isSuccess) {
+    loginAttempts.delete(ip);
+    res.json({ success: true, token: ADMIN_PASSWORD });
+  } else {
+    record.count += 1;
+    if (record.count >= MAX_LOGIN_ATTEMPTS) {
+      record.lockUntil = now + LOCK_TIME_MS;
+      record.count = 0; // reset count after applying lock
+    }
+    loginAttempts.set(ip, record);
+    res.status(401).json({ success: false, error: 'Invalid password' });
+  }
 });
 
 app.get('/api/admin/maintenance-config', verifyAdminToken, async (req: Request, res: Response) => {
