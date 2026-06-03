@@ -171,17 +171,23 @@ export default function DirectoryView({ articles }) {
               </tr>
             </thead>
             {Object.entries(groupedArticles).map(([groupName, groupArticles]) => (
-              <tbody key={groupName} className="divide-y divide-archive-border">
+              <tbody
+                key={groupName}
+                id={`group-${groupName.replace(/\s+/g, '-')}`}
+                className="divide-y divide-archive-border"
+              >
                 {groupBy !== 'none' && (
-                  <tr
-                    className="bg-archive-border cursor-pointer hover:bg-archive-border/80 transition-colors"
-                    onClick={() => toggleGroup(groupName)}
-                  >
+                  <tr className="bg-archive-border transition-colors hover:bg-archive-border/80">
                     <td
                       colSpan="4"
-                      className="p-3 font-sans text-xs uppercase tracking-wider text-archive-paper"
+                      className="p-0 font-sans text-xs uppercase tracking-wider text-archive-paper"
                     >
-                      <div className="flex items-center gap-2">
+                      <button
+                        className="w-full flex items-center gap-2 p-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset text-left"
+                        onClick={() => toggleGroup(groupName)}
+                        aria-expanded={expandedGroups[groupName] ? 'true' : 'false'}
+                        aria-controls={`group-${groupName.replace(/\s+/g, '-')}`}
+                      >
                         <span
                           className={`transform transition-transform ${expandedGroups[groupName] ? 'rotate-90' : ''}`}
                         >
@@ -191,7 +197,7 @@ export default function DirectoryView({ articles }) {
                         <span className="text-archive-muted">
                           ({groupArticles.length} {groupArticles.length === 1 ? 'event' : 'events'})
                         </span>
-                      </div>
+                      </button>
                     </td>
                   </tr>
                 )}
@@ -229,16 +235,18 @@ export default function DirectoryView({ articles }) {
             <div key={groupName} className="mb-8 relative">
               {/* Group Header (if grouping is enabled) */}
               {groupBy !== 'none' && (
-                <div
-                  className="ml-6 sm:ml-8 md:ml-10 mb-6 flex items-center cursor-pointer group"
-                  onClick={() => toggleGroup(groupName)}
-                >
+                <div className="ml-6 sm:ml-8 md:ml-10 mb-6 flex items-center group relative">
                   {/* Timeline dot for group */}
-                  <div className="absolute -left-[9px] w-5 h-5 bg-archive-bg border-2 border-archive-paper rounded-full group-hover:border-archive-accent transition-colors flex items-center justify-center">
+                  <div className="absolute -left-[33px] sm:-left-[41px] md:-left-[49px] w-5 h-5 bg-archive-bg border-2 border-archive-paper rounded-full group-hover:border-archive-accent transition-colors flex items-center justify-center pointer-events-none">
                     <div className="w-1.5 h-1.5 bg-archive-paper rounded-full group-hover:bg-archive-accent transition-colors"></div>
                   </div>
 
-                  <div className="bg-archive-border rounded px-4 py-2 font-sans text-sm uppercase tracking-wider text-archive-paper shadow-sm flex items-center gap-3 w-full sm:w-auto">
+                  <button
+                    className="bg-archive-border rounded px-4 py-2 font-sans text-sm uppercase tracking-wider text-archive-paper shadow-sm flex items-center gap-3 w-full sm:w-auto focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset text-left cursor-pointer"
+                    onClick={() => toggleGroup(groupName)}
+                    aria-expanded={expandedGroups[groupName] ? 'true' : 'false'}
+                    aria-controls={`timeline-group-${groupName.replace(/\s+/g, '-')}`}
+                  >
                     <span
                       className={`transform transition-transform text-archive-accent ${expandedGroups[groupName] ? 'rotate-90' : ''}`}
                     >
@@ -248,13 +256,14 @@ export default function DirectoryView({ articles }) {
                     <span className="text-archive-muted text-xs bg-archive-bg px-2 py-0.5 rounded">
                       {groupArticles.length} {groupArticles.length === 1 ? 'event' : 'events'}
                     </span>
-                  </div>
+                  </button>
                 </div>
               )}
 
               {/* Render Articles if group is expanded (or if no grouping) */}
               {(groupBy === 'none' || expandedGroups[groupName]) && (
                 <div
+                  id={`timeline-group-${groupName.replace(/\s+/g, '-')}`}
                   className={
                     groupBy !== 'none'
                       ? 'ml-4 sm:ml-8 md:ml-12 border-l border-dashed border-archive-border/50 pb-4'
