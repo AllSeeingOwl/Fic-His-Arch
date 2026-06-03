@@ -55,10 +55,11 @@ const citationData = {
     </div>
 
     {data.timelineVariants && data.timelineVariants.length > 0 ? (
+      // ⚡ Bolt: Use client:visible to lazy-load the interactive section only when it enters the viewport, reducing initial JS payload
       <ArchiveInteractiveSection
         variants={data.timelineVariants}
         defaultCitation={citationData}
-        client:load
+        client:visible
       />
     ) : (
       <CitationBlock source={citationData} />
