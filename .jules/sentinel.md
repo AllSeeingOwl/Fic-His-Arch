@@ -15,3 +15,9 @@
 **Vulnerability:** The `/api/admin/verify` endpoint lacked rate limiting, making it susceptible to brute-force attacks against the admin password.
 **Learning:** Added a basic in-memory rate limiter to track failed login attempts by IP address. The rate limiter locks out the IP for 15 minutes after 5 failed attempts and includes a simple map-size check to clear entries if they exceed 1000 items (preventing minor memory exhaustion vectors).
 **Prevention:** Always implement basic rate limiting and lockouts for authentication and sensitive administrative endpoints to mitigate brute forcing. Avoid adding dependencies like `express-rate-limit` without permission, preferring custom lightweight maps when appropriate.
+
+## 2024-06-03 - Masking Expected API Errors
+
+**Vulnerability:** A previous attempt to mask all Express error messages in production broke client applications.
+**Learning:** Only mask server-side errors (>= 500) in production. Expected client errors (< 500) often contain safe, client-facing messages (e.g., validation errors) and should not be masked.
+**Prevention:** When implementing secure error handling, always differentiate between client-caused errors (4xx) and unhandled server exceptions (5xx).

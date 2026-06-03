@@ -217,7 +217,11 @@ app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
   console.error('Unhandled error:', err);
   if (err instanceof Error && 'status' in err) {
     const httpErr = err as Error & { status: number };
-    res.status(httpErr.status).json({ error: httpErr.message || 'Error' });
+    const errorMsg =
+      process.env.NODE_ENV === 'production' && httpErr.status >= 500
+        ? 'An unexpected error occurred'
+        : httpErr.message || 'Error';
+    res.status(httpErr.status).json({ error: errorMsg });
     return;
   }
   res.status(500).json({ error: 'Internal Server Error' });
