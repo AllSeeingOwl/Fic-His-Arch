@@ -145,28 +145,72 @@ export default function DirectoryView({ articles }) {
             <thead className="border-b border-archive-border bg-archive-bg font-sans text-xs uppercase tracking-wider text-archive-muted">
               <tr>
                 <th
-                  className="p-4 font-normal cursor-pointer hover:text-archive-paper"
-                  onClick={() => handleSort('title')}
+                  className="font-normal"
+                  aria-sort={
+                    sortField === 'title'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
-                  Title{getSortIcon('title')}
+                  <button
+                    className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
+                    onClick={() => handleSort('title')}
+                  >
+                    Title{getSortIcon('title')}
+                  </button>
                 </th>
                 <th
-                  className="p-4 font-normal cursor-pointer hover:text-archive-paper"
-                  onClick={() => handleSort('in_universe_date')}
+                  className="font-normal"
+                  aria-sort={
+                    sortField === 'in_universe_date'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
-                  In-Universe Date{getSortIcon('in_universe_date')}
+                  <button
+                    className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
+                    onClick={() => handleSort('in_universe_date')}
+                  >
+                    In-Universe Date{getSortIcon('in_universe_date')}
+                  </button>
                 </th>
                 <th
-                  className="p-4 font-normal cursor-pointer hover:text-archive-paper"
-                  onClick={() => handleSort('location')}
+                  className="font-normal"
+                  aria-sort={
+                    sortField === 'location'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
-                  Location{getSortIcon('location')}
+                  <button
+                    className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
+                    onClick={() => handleSort('location')}
+                  >
+                    Location{getSortIcon('location')}
+                  </button>
                 </th>
                 <th
-                  className="p-4 font-normal cursor-pointer hover:text-archive-paper"
-                  onClick={() => handleSort('source_work')}
+                  className="font-normal"
+                  aria-sort={
+                    sortField === 'source_work'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
-                  Source Work{getSortIcon('source_work')}
+                  <button
+                    className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
+                    onClick={() => handleSort('source_work')}
+                  >
+                    Source Work{getSortIcon('source_work')}
+                  </button>
                 </th>
               </tr>
             </thead>

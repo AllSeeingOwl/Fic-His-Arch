@@ -12,3 +12,8 @@
 
 **Learning:** Using `onClick` directly on structural elements like `<tr>` or generic `<div>` for collapsible sections removes keyboard accessibility (tab navigation) and prevents screen readers from understanding the element's state, even with `cursor-pointer`.
 **Action:** Replaced `onClick` wrappers with native `<button>` elements, added `aria-expanded` reflecting the state, `aria-controls` pointing to the expanded container's ID, and `focus-visible:ring-2` to restore full native keyboard/screen reader interaction for the accordion/collapsible pattern.
+
+## 2026-06-04 - [Sortable Table Header Accessibility]
+
+**Learning:** Placing `onClick` handlers directly on `<th>` elements for sorting functionality makes them inaccessible to keyboard users (no tab focus) and screen readers (no semantics about interactive or sorting state).
+**Action:** Replaced direct `onClick` on `<th>` with native `<button>` elements inside the headers, restoring natural keyboard navigation and adding `focus-visible` styles. Applied `aria-sort="ascending|descending|none"` to the `<th>` tags so screen readers can correctly announce the active sort state.
