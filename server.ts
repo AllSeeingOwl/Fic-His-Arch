@@ -138,14 +138,16 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
       // We also don't want to delete entries that are actively accumulating failures (count > 0 && lockUntil === 0)
       // unless we absolutely have to. But the safest is just to delete expired locks.
       if (value.lockUntil > 0 && value.lockUntil <= now) {
-         loginAttempts.delete(key);
+        loginAttempts.delete(key);
       }
     }
 
     // If it's STILL too large, we are likely under attack. We MUST NOT drop active locks,
     // otherwise the attacker can bypass the limit. We can just refuse new connections until space clears.
     if (loginAttempts.size > 1000 && !loginAttempts.has(ip)) {
-      res.status(503).json({ success: false, error: 'Service temporarily unavailable due to high load' });
+      res
+        .status(503)
+        .json({ success: false, error: 'Service temporarily unavailable due to high load' });
       return;
     }
   }
