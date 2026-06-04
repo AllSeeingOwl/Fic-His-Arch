@@ -11,7 +11,8 @@ import ContributeForm from '../components/ContributeForm.jsx';
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
     <div class="lg:col-span-2">
-      <ContributeForm client:load />
+      {/* ⚡ Bolt: Use client:idle instead of client:load to defer hydration of this heavy interactive form until the main thread is free, improving initial page load performance and TTI. */}
+      <ContributeForm client:idle />
     </div>
 
     <aside class="space-y-8">

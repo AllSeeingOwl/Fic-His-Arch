@@ -36,5 +36,6 @@ const articles = allArchiveEntries.map((entry) => ({
     </div>
   </noscript>
 
-  <DirectoryView articles={articles} client:load />
+  {/* ⚡ Bolt: Use client:idle instead of client:load to defer hydration of this heavy component until the main thread is free, improving initial page load performance and TTI. */}
+  <DirectoryView articles={articles} client:idle />
 </Layout>
