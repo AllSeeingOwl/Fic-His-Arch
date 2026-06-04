@@ -146,7 +146,13 @@ export default function DirectoryView({ articles }) {
               <tr>
                 <th
                   className="font-normal"
-                  aria-sort={sortField === 'title' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
+                  aria-sort={
+                    sortField === 'title'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
                   <button
                     className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
@@ -157,7 +163,13 @@ export default function DirectoryView({ articles }) {
                 </th>
                 <th
                   className="font-normal"
-                  aria-sort={sortField === 'in_universe_date' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
+                  aria-sort={
+                    sortField === 'in_universe_date'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
                   <button
                     className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
@@ -168,7 +180,13 @@ export default function DirectoryView({ articles }) {
                 </th>
                 <th
                   className="font-normal"
-                  aria-sort={sortField === 'location' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
+                  aria-sort={
+                    sortField === 'location'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
                   <button
                     className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
@@ -179,7 +197,13 @@ export default function DirectoryView({ articles }) {
                 </th>
                 <th
                   className="font-normal"
-                  aria-sort={sortField === 'source_work' ? (sortDirection === 'asc' ? 'ascending' : 'descending') : 'none'}
+                  aria-sort={
+                    sortField === 'source_work'
+                      ? sortDirection === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : 'none'
+                  }
                 >
                   <button
                     className="w-full text-left p-4 hover:text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
