@@ -126,11 +126,29 @@ const MAX_LOGIN_ATTEMPTS = 5;
 const LOCK_TIME_MS = 15 * 60 * 1000; // 15 minutes
 
 app.post('/api/admin/verify', (req: Request, res: Response) => {
-  // Basic memory leak prevention
-  if (loginAttempts.size > 1000) loginAttempts.clear();
-
   const ip = req.ip || req.socket.remoteAddress || 'unknown';
   const now = Date.now();
+
+  // 🛡️ Sentinel: Secure memory leak prevention without bypassing rate limits
+  if (loginAttempts.size > 1000) {
+    for (const [key, value] of loginAttempts.entries()) {
+      // Only delete entries that are completely expired AND have no recent failed attempts.
+      // If a lock is active (lockUntil > now), do NOT delete it.
+      // If a lock is expired (lockUntil <= now), we can delete it.
+      // We also don't want to delete entries that are actively accumulating failures (count > 0 && lockUntil === 0)
+      // unless we absolutely have to. But the safest is just to delete expired locks.
+      if (value.lockUntil > 0 && value.lockUntil <= now) {
+         loginAttempts.delete(key);
+      }
+    }
+
+    // If it's STILL too large, we are likely under attack. We MUST NOT drop active locks,
+    // otherwise the attacker can bypass the limit. We can just refuse new connections until space clears.
+    if (loginAttempts.size > 1000 && !loginAttempts.has(ip)) {
+      res.status(503).json({ success: false, error: 'Service temporarily unavailable due to high load' });
+      return;
+    }
+  }
   const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0 };
 
   if (record.lockUntil > now) {

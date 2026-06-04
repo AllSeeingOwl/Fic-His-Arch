@@ -21,3 +21,8 @@
 **Vulnerability:** A previous attempt to mask all Express error messages in production broke client applications.
 **Learning:** Only mask server-side errors (>= 500) in production. Expected client errors (< 500) often contain safe, client-facing messages (e.g., validation errors) and should not be masked.
 **Prevention:** When implementing secure error handling, always differentiate between client-caused errors (4xx) and unhandled server exceptions (5xx).
+
+## 2024-06-04 - [Rate Limit Bypass via Cache Eviction]
+**Vulnerability:** A simplistic rate limiter cache eviction strategy (`if (map.size > limit) map.clear();`) allowed attackers to bypass rate limits. By flooding the server from many dummy IPs, an attacker could artificially fill the cache and trigger a global clear, thereby deleting their own block record and resetting their attempt count.
+**Learning:** Naive size-based eviction in in-memory rate limiters creates a DoS vector against the security mechanism itself.
+**Prevention:** Implement time-aware cleanup that selectively removes only expired entries, or use established rate limiting middleware (like `express-rate-limit`) instead of custom implementations when possible. If an in-memory limit must be used, never clear active blocks during eviction.
