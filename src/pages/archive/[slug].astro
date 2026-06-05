@@ -26,6 +26,9 @@ const citationData = {
   note: data.context_note,
   external_links: data.external_links,
 };
+
+// ⚡ Bolt: Cache flair colors to avoid calling getFlairColors multiple times
+const flairColors = getFlairColors(data.timeline_flair);
 ---
 
 <Layout title={data.title}>
@@ -39,8 +42,8 @@ const citationData = {
             ? 'TIMELINE VARIANCE DETECTED'
             : 'TIMELINE INTEGRITY CONFIRMED'}
         </span>
-        <span class={`px-2 py-0.5 rounded border flex items-center gap-1.5 text-[10px] font-semibold uppercase ${getFlairColors(data.timeline_flair).border} ${getFlairColors(data.timeline_flair).text} ${getFlairColors(data.timeline_flair).bg}`}>
-          <span class={`w-1.5 h-1.5 rounded-full ${getFlairColors(data.timeline_flair).dot}`}></span>
+        <span class={`px-2 py-0.5 rounded border flex items-center gap-1.5 text-[10px] font-semibold uppercase ${flairColors.border} ${flairColors.text} ${flairColors.bg}`}>
+          <span class={`w-1.5 h-1.5 rounded-full ${flairColors.dot}`}></span>
           {data.timeline_flair}
         </span>
         <span class="ml-auto flex gap-4">
