@@ -27,3 +27,9 @@
 **Vulnerability:** A simplistic rate limiter cache eviction strategy (`if (map.size > limit) map.clear();`) allowed attackers to bypass rate limits. By flooding the server from many dummy IPs, an attacker could artificially fill the cache and trigger a global clear, thereby deleting their own block record and resetting their attempt count.
 **Learning:** Naive size-based eviction in in-memory rate limiters creates a DoS vector against the security mechanism itself.
 **Prevention:** Implement time-aware cleanup that selectively removes only expired entries, or use established rate limiting middleware (like `express-rate-limit`) instead of custom implementations when possible. If an in-memory limit must be used, never clear active blocks during eviction.
+
+## 2025-02-23 - XSS Vulnerability via Zod `url()` Validation
+
+**Vulnerability:** Zod's `z.string().url()` validation natively allows arbitrary protocol schemes, including `javascript:`, `vbscript:`, and `data:` URIs. In this project, if users contribute articles containing timeline variants with malicious `javascript:` URIs (e.g., `javascript:alert('XSS')`), these URLs would pass the Astro Content Collection validation and be rendered directly into `href` attributes, creating a Cross-Site Scripting (XSS) vulnerability.
+**Learning:** Default URL validation in popular libraries like Zod only validates syntax, not protocol safety. Unsafe protocols can easily bypass these checks.
+**Prevention:** Avoid relying solely on `z.string().url()`. Instead, define a custom refinement (e.g., `safeUrlSchema`) that explicitly checks the `URL.protocol` to only allow safe schemes like `http:` and `https:`, or safe internal paths (starting with `/` or `#`).
