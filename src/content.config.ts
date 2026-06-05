@@ -1,6 +1,20 @@
 import { z, defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+// 🛡️ Sentinel: Prevent XSS via javascript: URIs
+const safeUrlSchema = z.string().refine(
+  (val) => {
+    if (val.startsWith('/') || val.startsWith('#')) return true;
+    try {
+      const url = new URL(val);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+      return false;
+    }
+  },
+  { message: 'Must be a safe URL (http/https) or relative path' }
+);
+
 const archiveCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/archive' }),
   schema: z.object({
@@ -20,13 +34,13 @@ const archiveCollection = defineCollection({
     source_creator: z.string(),
     release_year: z.number().int(),
     context_note: z.string(),
-    image_url: z.string().optional(),
+    image_url: safeUrlSchema.optional(),
     multiverse_id: z.string().optional(),
     external_links: z
       .array(
         z.object({
           name: z.string(),
-          url: z.string().url(),
+          url: safeUrlSchema,
         })
       )
       .optional(),
@@ -36,7 +50,7 @@ const archiveCollection = defineCollection({
         z.object({
           source_work: z.string(),
           excerpt: z.string(),
-          url: z.string(),
+          url: safeUrlSchema,
           source_medium: z.string().optional(),
           source_creator: z.string().optional(),
           release_year: z.number().int().optional(),
@@ -45,7 +59,7 @@ const archiveCollection = defineCollection({
             .array(
               z.object({
                 name: z.string(),
-                url: z.string().url(),
+                url: safeUrlSchema,
               })
             )
             .optional(),
