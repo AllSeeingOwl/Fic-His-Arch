@@ -17,3 +17,8 @@
 
 **Learning:** Placing `onClick` handlers directly on `<th>` elements for sorting functionality makes them inaccessible to keyboard users (no tab focus) and screen readers (no semantics about interactive or sorting state).
 **Action:** Replaced direct `onClick` on `<th>` with native `<button>` elements inside the headers, restoring natural keyboard navigation and adding `focus-visible` styles. Applied `aria-sort="ascending|descending|none"` to the `<th>` tags so screen readers can correctly announce the active sort state.
+
+## 2024-06-05 - [Skip Links for Keyboard Accessibility]
+
+**Learning:** Global navigation menus without a 'skip-to-content' link force keyboard users to tab through all navigation items repetitively on every page before reaching the main content. This is a crucial accessibility gap for keyboard and screen reader users.
+**Action:** Added a visually hidden 'Skip to main content' link (`sr-only focus:not-sr-only`) at the top of the body that anchors to `<main id="main-content">`, allowing users to bypass global navigation efficiently.
