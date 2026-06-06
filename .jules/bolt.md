@@ -12,3 +12,8 @@
 
 **Learning:** Utility functions like `getFlairColors` that re-instantiate constant dictionaries (`colorMap`) on every call can lead to significant overhead and garbage collection pressure when called repeatedly, especially inside mapping functions for lists or multiple times within a single component render.
 **Action:** Always move static configuration objects or maps outside of the function body in utility scripts so they are allocated only once per module load. Additionally, cache the results of such functions locally within the component when they are needed multiple times for the same input.
+
+## 2025-06-06 - Hoist Environment Checks and Static String Normalization
+
+**Learning:** Utility functions like `resolvePath` that perform environment checks (`import.meta.env`) and string manipulations (like slicing trailing slashes from base URLs) on every invocation add unnecessary CPU overhead, especially since they are often called repeatedly inside loops (e.g., rendering lists of links).
+**Action:** Hoist static environment checks and string normalization to the module level. They only need to be evaluated once when the module is imported, allowing the core function logic to be as fast as possible.
