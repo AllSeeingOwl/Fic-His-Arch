@@ -92,7 +92,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || crypto.randomBytes(32).toString('hex');
-const adminAuthBuffer = Buffer.from(ADMIN_PASSWORD);
+const adminAuthHash = crypto.createHash('sha256').update(ADMIN_PASSWORD).digest();
 
 const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -101,18 +101,10 @@ const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
     return;
   }
   try {
-    const tokenBuffer = Buffer.from(token);
-    if (tokenBuffer.length === adminAuthBuffer.length) {
-      const isValid = crypto.timingSafeEqual(
-        new Uint8Array(tokenBuffer),
-        new Uint8Array(adminAuthBuffer)
-      );
-      if (isValid) {
-        next();
-        return;
-      }
-    } else {
-      crypto.timingSafeEqual(new Uint8Array(adminAuthBuffer), new Uint8Array(adminAuthBuffer));
+    const tokenHash = crypto.createHash('sha256').update(token).digest();
+    if (crypto.timingSafeEqual(tokenHash, adminAuthHash)) {
+      next();
+      return;
     }
     res.status(401).json({ error: 'Unauthorized' });
   } catch {
@@ -161,13 +153,9 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
   let isSuccess = false;
   const { password } = req.body;
   if (typeof password === 'string') {
-    const passwordBuffer = Buffer.from(password);
-    if (passwordBuffer.length === adminAuthBuffer.length) {
-      if (crypto.timingSafeEqual(new Uint8Array(passwordBuffer), new Uint8Array(adminAuthBuffer))) {
-        isSuccess = true;
-      }
-    } else {
-      crypto.timingSafeEqual(new Uint8Array(adminAuthBuffer), new Uint8Array(adminAuthBuffer));
+    const passwordHash = crypto.createHash('sha256').update(password).digest();
+    if (crypto.timingSafeEqual(passwordHash, adminAuthHash)) {
+      isSuccess = true;
     }
   }
 
