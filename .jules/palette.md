@@ -22,3 +22,8 @@
 
 **Learning:** Global navigation menus without a 'skip-to-content' link force keyboard users to tab through all navigation items repetitively on every page before reaching the main content. This is a crucial accessibility gap for keyboard and screen reader users.
 **Action:** Added a visually hidden 'Skip to main content' link (`sr-only focus:not-sr-only`) at the top of the body that anchors to `<main id="main-content">`, allowing users to bypass global navigation efficiently.
+
+## 2024-06-06 - [Global Navigation Focus States]
+
+**Learning:** Relying on default browser outlines (`focus:outline-none` with no replacement) or missing custom focus indicators on primary global navigation elements (hamburger menus, top-level links) severely hinders keyboard users, especially over custom dark backgrounds where default outlines are invisible.
+**Action:** Always provide explicitly styled, high-contrast focus indicators (e.g., `focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2`) to all interactive elements within primary navigation structures to ensure a clear visual path for keyboard users.

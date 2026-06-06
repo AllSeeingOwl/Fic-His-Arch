@@ -18,7 +18,7 @@ const links = [
   {/* Mobile Hamburger Button */}
   <button
     id="hamburger-btn"
-    class="sm:hidden block text-archive-paper focus:outline-none p-2 -mr-2 hover:text-archive-accent transition-colors"
+    class="sm:hidden block text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded p-2 -mr-2 hover:text-archive-accent transition-colors"
     aria-label="Open menu"
     aria-expanded="false"
   >
@@ -36,7 +36,7 @@ const links = [
       <li>
         <a
           href={resolvePath(link.href)}
-          class="font-sans text-sm uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors"
+          class="font-sans text-sm uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded px-2 py-1"
         >
           {link.name}
         </a>
@@ -51,7 +51,7 @@ const links = [
         <li>
           <a
             href={resolvePath(link.href)}
-            class="block px-4 py-2 font-sans text-sm uppercase tracking-widest text-archive-muted hover:bg-archive-bg hover:text-archive-accent transition-colors rounded"
+            class="block px-4 py-2 font-sans text-sm uppercase tracking-widest text-archive-muted hover:bg-archive-bg hover:text-archive-accent transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
           >
             {link.name}
           </a>
