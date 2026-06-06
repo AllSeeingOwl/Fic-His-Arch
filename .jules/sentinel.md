@@ -33,6 +33,7 @@
 **Vulnerability:** Zod's `z.string().url()` validation natively allows arbitrary protocol schemes, including `javascript:`, `vbscript:`, and `data:` URIs. In this project, if users contribute articles containing timeline variants with malicious `javascript:` URIs (e.g., `javascript:alert('XSS')`), these URLs would pass the Astro Content Collection validation and be rendered directly into `href` attributes, creating a Cross-Site Scripting (XSS) vulnerability.
 **Learning:** Default URL validation in popular libraries like Zod only validates syntax, not protocol safety. Unsafe protocols can easily bypass these checks.
 **Prevention:** Avoid relying solely on `z.string().url()`. Instead, define a custom refinement (e.g., `safeUrlSchema`) that explicitly checks the `URL.protocol` to only allow safe schemes like `http:` and `https:`, or safe internal paths (starting with `/` or `#`).
+
 ## 2025-02-23 - Timing Side-Channel in Password Comparison
 
 **Vulnerability:** The Express server (`server.ts`) previously used `crypto.timingSafeEqual` directly on `Buffer.from(password)` and compared lengths before execution. Even with a dummy `timingSafeEqual` branch, length comparisons introduce slight timing deviations, which can leak the length of the secret admin password and theoretically reduce the search space.
