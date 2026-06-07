@@ -46,6 +46,12 @@ const flairColors = getFlairColors(data.timeline_flair);
           <span class={`w-1.5 h-1.5 rounded-full ${flairColors.dot}`}></span>
           {data.timeline_flair}
         </span>
+        {data.adaptation_type && data.adaptation_type !== 'Original' && (
+          <span class="text-archive-accent font-semibold uppercase">
+            {data.adaptation_type} // {data.adaptation_fidelity}
+          </span>
+        )}
+
         <span class="ml-auto flex gap-4">
             <span>LOC: {data.dateline_location}</span>
             <span>DATE: {data.in_universe_date}</span>
@@ -53,7 +59,24 @@ const flairColors = getFlairColors(data.timeline_flair);
       </div>
     </header>
 
-    <div class="font-serif leading-relaxed text-archive-paper mb-8">
+    {data.has_spoilers && (
+      <div id="spoiler-banner" class="bg-archive-surface border-l-4 border-archive-accent p-4 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="text-sm">
+          <strong class="text-archive-accent uppercase tracking-widest block mb-1">Warning: Classified Material</strong>
+          <span class="text-archive-muted">This document contains heavily redacted major plot points. Reveal at your own discretion.</span>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <button id="reveal-all-btn" class="px-4 py-2 bg-archive-accent text-archive-bg text-xs font-bold uppercase tracking-widest rounded hover:bg-opacity-90 transition-opacity">
+            Reveal All
+          </button>
+          <button id="keep-redacted-btn" class="px-4 py-2 border border-archive-border text-archive-muted text-xs font-bold uppercase tracking-widest rounded hover:text-archive-paper hover:border-archive-paper transition-colors">
+            Keep Redacted
+          </button>
+        </div>
+      </div>
+    )}
+
+    <div class="font-serif leading-relaxed text-archive-paper mb-8" id="article-content">
       <Content />
     </div>
 
@@ -68,4 +91,61 @@ const flairColors = getFlairColors(data.timeline_flair);
       <CitationBlock source={citationData} />
     )}
   </article>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const contentDiv = document.getElementById('article-content');
+    if (!contentDiv) return;
+
+    // 1. Process inline redactions
+    // We look for ||something|| and replace it with a styled span
+    const walkDOM = (node) => {
+      if (node.nodeType === 3) { // Text node
+        const text = node.nodeValue;
+        const regex = /\|\|(.*?)\|\|/g;
+        if (regex.test(text)) {
+          const span = document.createElement('span');
+          span.innerHTML = text.replace(regex, '<span class="redacted-spoiler" title="Click to reveal" role="button" tabindex="0">$1</span>');
+          node.parentNode.replaceChild(span, node);
+        }
+      } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+        // Element node
+        Array.from(node.childNodes).forEach(walkDOM);
+      }
+    };
+
+    walkDOM(contentDiv);
+
+    // 2. Add click handlers to individual redactions
+    const spoilers = document.querySelectorAll('.redacted-spoiler');
+    spoilers.forEach(spoiler => {
+      const toggleReveal = () => spoiler.classList.toggle('revealed');
+      spoiler.addEventListener('click', toggleReveal);
+      spoiler.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleReveal();
+        }
+      });
+    });
+
+    // 3. Handle banner buttons
+    const banner = document.getElementById('spoiler-banner');
+    const revealAllBtn = document.getElementById('reveal-all-btn');
+    const keepRedactedBtn = document.getElementById('keep-redacted-btn');
+
+    if (revealAllBtn && keepRedactedBtn && banner) {
+      revealAllBtn.addEventListener('click', () => {
+        spoilers.forEach(s => s.classList.add('revealed'));
+        banner.style.display = 'none';
+      });
+
+      keepRedactedBtn.addEventListener('click', () => {
+        spoilers.forEach(s => s.classList.remove('revealed'));
+        banner.style.display = 'none';
+      });
+    }
+  });
+</script>
+
 </Layout>

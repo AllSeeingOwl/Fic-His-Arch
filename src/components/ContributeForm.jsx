@@ -22,14 +22,21 @@ export default function ContributeForm() {
     context_note: '',
     image_url: '',
     multiverse_id: '',
+    has_spoilers: false,
+    adaptation_type: 'Original',
+    adaptation_fidelity: 'Exact Match',
     body: '',
   });
 
   const [timelineVariants, setTimelineVariants] = useState([]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    const type = target.type;
+    const checked = target.checked;
+    setFormData((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
   const handleVariantChange = (index, field, value) => {
@@ -59,6 +66,9 @@ export default function ContributeForm() {
       context_note,
       image_url,
       multiverse_id,
+      has_spoilers,
+      adaptation_type,
+      adaptation_fidelity,
       body,
     } = formData;
 
@@ -86,6 +96,15 @@ export default function ContributeForm() {
 
     if (multiverse_id) {
       md += `multiverse_id: ${escapeYaml(multiverse_id)}\n`;
+    }
+
+    if (has_spoilers) {
+      md += `has_spoilers: true\n`;
+    }
+
+    if (adaptation_type && adaptation_type !== 'Original') {
+      md += `adaptation_type: '${adaptation_type}'\n`;
+      md += `adaptation_fidelity: '${adaptation_fidelity}'\n`;
     }
 
     if (timelineVariants.length > 0) {
@@ -332,6 +351,72 @@ export default function ContributeForm() {
                 placeholder="e.g., 1977"
               />
             </div>
+
+
+            <div>
+              <label
+                htmlFor="has_spoilers"
+                className="flex items-center gap-2 cursor-pointer text-archive-paper"
+              >
+                <input
+                  type="checkbox"
+                  id="has_spoilers"
+                  name="has_spoilers"
+                  checked={formData.has_spoilers}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-archive-accent bg-archive-bg border-archive-border rounded focus:ring-archive-accent"
+                />
+                <span className="text-xs uppercase tracking-widest">Contains Major Spoilers</span>
+              </label>
+              <p className="text-archive-muted text-[10px] mt-1 italic">
+                Wrap spoiler text in double pipes (e.g., ||Darth Vader is his father||) to redact it in the final document.
+              </p>
+            </div>
+
+            <div>
+              <label
+                htmlFor="adaptation_type"
+                className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+              >
+                Adaptation Type
+              </label>
+              <select
+                id="adaptation_type"
+                name="adaptation_type"
+                value={formData.adaptation_type}
+                onChange={handleChange}
+                className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+              >
+                <option value="Original">Original Work</option>
+                <option value="Remake">Remake</option>
+                <option value="Reboot">Reboot</option>
+                <option value="Remaster">Remaster</option>
+                <option value="Adaptation">Adaptation</option>
+              </select>
+            </div>
+
+            {formData.adaptation_type !== 'Original' && (
+              <div>
+                <label
+                  htmlFor="adaptation_fidelity"
+                  className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+                >
+                  Adaptation Fidelity
+                </label>
+                <select
+                  id="adaptation_fidelity"
+                  name="adaptation_fidelity"
+                  value={formData.adaptation_fidelity}
+                  onChange={handleChange}
+                  className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                >
+                  <option value="Exact Match">Exact Match</option>
+                  <option value="Minor Alterations">Minor Alterations</option>
+                  <option value="Major Deviations">Major Deviations</option>
+                </select>
+              </div>
+            )}
+
 
             <div className="md:col-span-2">
               <label
