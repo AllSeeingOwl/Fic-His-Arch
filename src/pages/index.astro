@@ -28,10 +28,10 @@ const flairs = [...new Set(articles.map(a => a.timeline_flair))].sort();
   </div>
 
   <div class="mb-8">
-    <div class="font-sans text-xs uppercase tracking-widest text-archive-muted mb-3">Filter by Timeline:</div>
-    <div class="flex flex-wrap gap-3" id="flair-filters">
+    <div id="timeline-filter-label" class="font-sans text-xs uppercase tracking-widest text-archive-muted mb-3">Filter by Timeline:</div>
+    <div class="flex flex-wrap gap-3" id="flair-filters" role="group" aria-labelledby="timeline-filter-label">
       <button
-        class="filter-btn active px-3 py-1 rounded border border-archive-accent text-archive-bg bg-archive-accent text-[11px] font-semibold uppercase transition-colors"
+        class="filter-btn active px-3 py-1 rounded border border-archive-accent text-archive-bg bg-archive-accent text-[11px] font-semibold uppercase transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg"
         data-flair="all"
         aria-pressed="true"
       >
@@ -41,7 +41,7 @@ const flairs = [...new Set(articles.map(a => a.timeline_flair))].sort();
         const colors = getFlairColors(flair);
         return (
           <button
-            class={`filter-btn px-3 py-1 rounded border flex items-center gap-1.5 ${colors.border} ${colors.text} bg-transparent ${colors.hoverBg} text-[11px] font-semibold uppercase transition-colors`}
+            class={`filter-btn px-3 py-1 rounded border flex items-center gap-1.5 ${colors.border} ${colors.text} bg-transparent ${colors.hoverBg} text-[11px] font-semibold uppercase transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg`}
             data-flair={flair}
             data-active-bg={colors.activeBg.replace('bg-', '')}
             aria-pressed="false"
@@ -58,7 +58,7 @@ const flairs = [...new Set(articles.map(a => a.timeline_flair))].sort();
     {articles.map((article) => (
       <a
         href={resolvePath(`/archive/${article.slug}`)}
-        class="block group article-item"
+        class="block group article-item focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg rounded"
         data-flair={article.timeline_flair}
       >
         <ArticleCard article={article} />
