@@ -1,5 +1,5 @@
 ---
-title: 'Soviet Forces Invade Western Europe Following Hitler''s Disappearance'
+title: "Soviet Forces Invade Western Europe Following Hitler's Disappearance"
 dateline_location: 'London, United Kingdom'
 in_universe_date: '1950s'
 timeline_flair: 'Alternate Timeline'

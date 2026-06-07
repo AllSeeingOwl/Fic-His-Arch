@@ -1,5 +1,5 @@
 ---
-title: 'Lethal ''Sand Pest'' Outbreak Quarantines Remote Steppe Settlement'
+title: "Lethal 'Sand Pest' Outbreak Quarantines Remote Steppe Settlement"
 dateline_location: 'Town-on-Gorkhon'
 in_universe_date: 'Unspecified, Early 20th Century'
 timeline_flair: 'Canon Reference'

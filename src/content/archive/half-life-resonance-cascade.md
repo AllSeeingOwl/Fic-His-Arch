@@ -1,5 +1,5 @@
 ---
-title: 'Black Mesa ''Resonance Cascade'' Triggers Extradimensional Invasion'
+title: "Black Mesa 'Resonance Cascade' Triggers Extradimensional Invasion"
 dateline_location: 'Black Mesa Research Facility, New Mexico'
 in_universe_date: '200X'
 timeline_flair: 'On Earth'

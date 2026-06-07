@@ -7,7 +7,7 @@ source_work: 'Outer Wilds'
 source_medium: 'Video Game'
 source_creator: 'Mobius Digital'
 release_year: 2019
-context_note: 'An anomalous time loop created by the ancient Nomai race forces a Hearthian astronaut to experience the universe''s final 22 minutes perpetually.'
+context_note: "An anomalous time loop created by the ancient Nomai race forces a Hearthian astronaut to experience the universe's final 22 minutes perpetually."
 external_links:
   - name: Outer Wilds Wiki
     url: https://outerwilds.fandom.com/wiki/Ash_Twin_Project

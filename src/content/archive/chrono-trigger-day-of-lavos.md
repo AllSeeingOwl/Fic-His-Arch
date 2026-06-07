@@ -1,5 +1,5 @@
 ---
-title: 'Cataclysm Averted: ''Day of Lavos'' Preempted by Mysterious Time Travelers'
+title: "Cataclysm Averted: 'Day of Lavos' Preempted by Mysterious Time Travelers"
 dateline_location: 'Kingdom of Guardia'
 in_universe_date: '1999 AD'
 timeline_flair: 'Time Travel'

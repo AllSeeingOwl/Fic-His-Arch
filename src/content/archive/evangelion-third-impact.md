@@ -1,5 +1,5 @@
 ---
-title: 'Global Catastrophe Escalates as ''Third Impact'' Initiated in Tokyo-3'
+title: "Global Catastrophe Escalates as 'Third Impact' Initiated in Tokyo-3"
 dateline_location: 'Tokyo-3, Japan'
 in_universe_date: '2015'
 timeline_flair: 'Alternate Timeline'

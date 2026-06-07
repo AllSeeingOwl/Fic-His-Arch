@@ -1,5 +1,5 @@
 ---
-title: 'Global Nuclear Exchange Initiates ''The Great War'''
+title: "Global Nuclear Exchange Initiates 'The Great War'"
 dateline_location: 'Global'
 in_universe_date: 'October 23, 2077'
 timeline_flair: 'Alternate Timeline'

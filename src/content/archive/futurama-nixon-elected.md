@@ -1,5 +1,5 @@
 ---
-title: 'Nixon''s Head Wins Earth Presidency by Single Vote'
+title: "Nixon's Head Wins Earth Presidency by Single Vote"
 dateline_location: 'New New York, Earth'
 in_universe_date: '3000'
 timeline_flair: 'Satire'
@@ -7,7 +7,7 @@ source_work: 'Futurama'
 source_medium: 'Animation'
 source_creator: 'Matt Groening'
 release_year: 1999
-context_note: 'Richard Nixon''s preserved head successfully campaigns for the Presidency of Earth, leveraging a loophole regarding the definition of ''nobody'' running for office.'
+context_note: "Richard Nixon's preserved head successfully campaigns for the Presidency of Earth, leveraging a loophole regarding the definition of 'nobody' running for office."
 external_links:
   - name: The Infosphere
     url: https://theinfosphere.org/Richard_M._Nixon%27s_head

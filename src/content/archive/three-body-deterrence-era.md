@@ -1,5 +1,5 @@
 ---
-title: 'Humanity Deploys ''Deterrence Era'' Broadcast Against Trisolaris'
+title: "Humanity Deploys 'Deterrence Era' Broadcast Against Trisolaris"
 dateline_location: 'Earth / Trisolaris System'
 in_universe_date: 'Crisis Era, Year 205'
 timeline_flair: 'Not On Earth'
