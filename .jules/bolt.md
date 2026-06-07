@@ -19,5 +19,6 @@
 **Action:** Hoist static environment checks and string normalization to the module level. They only need to be evaluated once when the module is imported, allowing the core function logic to be as fast as possible.
 
 ## 2025-06-07 - Hoist RegExp Allocation and Add String Fast-Paths in DOM Traversal
+
 **Learning:** Re-declaring and compiling Regular Expressions (like `const regex = /\|\|(.*?)\|\|/g;`) inside recursive DOM traversal functions (like `walkDOM`) forces the JavaScript engine to allocate and compile the Regex repeatedly for every single DOM node visited. This significantly degrades client-side render performance on pages with large content payloads. Furthermore, repeatedly calling `regex.test()` on every text node is slower than necessary.
 **Action:** Always hoist static Regular Expressions outside of recursive functions or loops. In addition, introduce a lightweight fast-path check (e.g., `text.includes('||')`) before executing the Regex logic to quickly bypass the overhead of Regex execution on strings that definitely don't match.
