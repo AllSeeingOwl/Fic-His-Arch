@@ -29,5 +29,6 @@
 **Action:** Always provide explicitly styled, high-contrast focus indicators (e.g., `focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2`) to all interactive elements within primary navigation structures to ensure a clear visual path for keyboard users.
 
 ## 2024-06-07 - Screen Reader Grouping for Filter Buttons
+
 **Learning:** When implementing a set of filter buttons (like the timeline filters in `index.astro`), screen readers may announce them simply as individual buttons without context. Wrapping the filter container with `role="group"` and linking it via `aria-labelledby` to a descriptive heading or label (e.g., "Filter by Timeline:") provides crucial context, ensuring users understand they are interacting with a related set of controls.
 **Action:** When creating filter groups or related sets of buttons in the future, always wrap them in a semantic or ARIA `group` and provide an accessible label for the container.
