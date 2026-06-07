@@ -29,6 +29,8 @@ export default function ContributeForm() {
   });
 
   const [timelineVariants, setTimelineVariants] = useState([]);
+  const [externalLinks, setExternalLinks] = useState([]);
+  const [formErrors, setFormErrors] = useState([]);
 
   const handleChange = (e) => {
     const target = e.target;
@@ -51,6 +53,20 @@ export default function ContributeForm() {
 
   const removeVariant = (index) => {
     setTimelineVariants(timelineVariants.filter((_, i) => i !== index));
+  };
+
+  const handleLinkChange = (index, field, value) => {
+    const updatedLinks = [...externalLinks];
+    updatedLinks[index][field] = value;
+    setExternalLinks(updatedLinks);
+  };
+
+  const addLink = () => {
+    setExternalLinks([...externalLinks, { name: '', url: '' }]);
+  };
+
+  const removeLink = (index) => {
+    setExternalLinks(externalLinks.filter((_, i) => i !== index));
   };
 
   const generateMarkdown = () => {
@@ -107,6 +123,14 @@ export default function ContributeForm() {
       md += `adaptation_fidelity: '${adaptation_fidelity}'\n`;
     }
 
+    if (externalLinks.length > 0) {
+      md += `external_links:\n`;
+      externalLinks.forEach((link) => {
+        md += `  - name: ${escapeYaml(link.name)}\n`;
+        md += `    url: ${escapeYaml(link.url)}\n`;
+      });
+    }
+
     if (timelineVariants.length > 0) {
       md += `timelineVariants:\n`;
       timelineVariants.forEach((variant) => {
@@ -135,6 +159,47 @@ export default function ContributeForm() {
 
   const handleDownload = (e) => {
     e.preventDefault();
+    setFormErrors([]);
+    const errors = [];
+
+    // Validation 1: Word Count
+    const wordCount = formData.body.trim().split(/\s+/).filter(word => word.length > 0).length;
+    if (wordCount < 50 || wordCount > 1000) {
+      errors.push(`Article content must be between 50 and 1000 words. Current word count: ${wordCount}.`);
+    }
+
+    // Validation 2: Spoilers
+    if (formData.has_spoilers) {
+      const spoilerRegex = /\|\|.*?\|\|/;
+      if (!spoilerRegex.test(formData.body)) {
+        errors.push("You indicated the article contains spoilers, but no spoiler formatting (||...||) was found in the body.");
+      }
+    }
+
+    // Validation 3: External Links
+    if (externalLinks.length < 2) {
+      errors.push("You must provide at least 2 external links to verify the historical anomaly. Please double-check your sources.");
+    }
+
+    // Validation 4: Release Year
+    const currentYear = new Date().getFullYear();
+    const releaseYearNum = parseInt(formData.release_year, 10);
+    if (isNaN(releaseYearNum) || releaseYearNum > currentYear) {
+      errors.push(`Release year must be a valid year not in the future (<= ${currentYear}).`);
+    }
+
+    // Validation 5: Context Note
+    const contextWordCount = formData.context_note.trim().split(/\s+/).filter(word => word.length > 0).length;
+    if (contextWordCount < 10) {
+      errors.push(`Context note must be at least 10 words. Current word count: ${contextWordCount}.`);
+    }
+
+    if (errors.length > 0) {
+      setFormErrors(errors);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     const mdContent = generateMarkdown();
     const blob = new Blob([mdContent], { type: 'text/markdown;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -160,6 +225,17 @@ export default function ContributeForm() {
           Output_Format: Markdown Archive (.md)
         </p>
       </div>
+
+      {formErrors.length > 0 && (
+        <div className="mb-6 p-4 bg-red-900/50 border border-red-500 rounded text-red-200">
+          <h3 className="font-display text-lg mb-2 text-red-400">Submission Errors</h3>
+          <ul className="list-disc pl-5 space-y-1 text-sm">
+            {formErrors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <form onSubmit={handleDownload} className="space-y-6">
         {/* Core Metadata */}
@@ -454,6 +530,72 @@ export default function ContributeForm() {
               />
             </div>
           </div>
+        </div>
+
+        {/* External Links */}
+        <div className="space-y-4 mt-8">
+          <div className="flex justify-between items-end border-b border-archive-border/50 pb-1">
+            <h4 className="font-display text-lg text-archive-accent">
+              External References (Min. 2 Required)
+            </h4>
+            <button
+              type="button"
+              onClick={addLink}
+              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors"
+            >
+              + Add Link
+            </button>
+          </div>
+
+          {externalLinks.map((link, index) => (
+            <div
+              key={index}
+              className="p-4 border border-archive-border border-dashed bg-archive-bg/50 rounded relative"
+            >
+              <button
+                type="button"
+                onClick={() => removeLink(index)}
+                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase"
+              >
+                Remove
+              </button>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
+                    Source Name (e.g., Fandom Wiki, IMDb)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={link.name}
+                    onChange={(e) => handleLinkChange(index, 'name', e.target.value)}
+                    className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent"
+                    placeholder="e.g., Star Wars Fandom"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
+                    URL
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={link.url}
+                    onChange={(e) => handleLinkChange(index, 'url', e.target.value)}
+                    className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent"
+                    placeholder="e.g., https://starwars.fandom.com/..."
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {externalLinks.length === 0 && (
+            <p className="text-sm text-archive-muted italic">
+              Please add at least 2 external links to verify the historical anomaly.
+            </p>
+          )}
         </div>
 
         {/* Timeline Variants */}
