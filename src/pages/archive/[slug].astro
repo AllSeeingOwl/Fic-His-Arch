@@ -99,13 +99,23 @@ const flairColors = getFlairColors(data.timeline_flair);
 
     // 1. Process inline redactions
     // We look for ||something|| and replace it with a styled span
+    // 🛡️ Sentinel: Sanitize text nodes before rendering them to avoid DOM-based XSS
+    const escapeHTML = (str) => str.replace(/[&<>'"]/g, tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag] || tag));
+
     const walkDOM = (node) => {
       if (node.nodeType === 3) { // Text node
         const text = node.nodeValue;
         const regex = /\|\|(.*?)\|\|/g;
         if (regex.test(text)) {
           const span = document.createElement('span');
-          span.innerHTML = text.replace(regex, '<span class="redacted-spoiler" title="Click to reveal" role="button" tabindex="0">$1</span>');
+          const escapedText = escapeHTML(text);
+          span.innerHTML = escapedText.replace(regex, '<span class="redacted-spoiler" title="Click to reveal" role="button" tabindex="0">$1</span>');
           node.parentNode.replaceChild(span, node);
         }
       } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {

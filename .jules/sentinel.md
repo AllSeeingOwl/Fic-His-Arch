@@ -39,3 +39,9 @@
 **Vulnerability:** The Express server (`server.ts`) previously used `crypto.timingSafeEqual` directly on `Buffer.from(password)` and compared lengths before execution. Even with a dummy `timingSafeEqual` branch, length comparisons introduce slight timing deviations, which can leak the length of the secret admin password and theoretically reduce the search space.
 **Learning:** Comparing varying length strings safely against timing attacks requires hashing the strings to a fixed length first. Comparing fixed-length hashes (e.g., SHA-256) using `crypto.timingSafeEqual` completely mitigates length-based side-channels.
 **Prevention:** Whenever verifying tokens, API keys, or passwords with `timingSafeEqual`, hash both the provided and expected strings first to guarantee they are the same constant length, instead of adding error-prone fallback/dummy length comparisons.
+
+## 2025-02-23 - DOM-based XSS via Client-Side Markdown Parsing
+
+**Vulnerability:** In `src/pages/archive/[slug].astro`, custom `||spoiler||` syntax was handled client-side by recursively reading text nodes (`node.nodeValue`), using a regex to replace the syntax with HTML (`<span class="redacted-spoiler">...</span>`), and then injecting the result directly back into the DOM using `span.innerHTML = ...`. Because `nodeValue` unescapes HTML entities, any raw HTML tags inside the text (e.g. `<img src=x onerror=alert(1)>`) would be interpreted as real executable HTML during the `innerHTML` assignment, leading to DOM-based XSS.
+**Learning:** Any time client-side JavaScript reads from a text node and writes to `innerHTML`, it acts as an unescaping mechanism that creates an XSS sink.
+**Prevention:** Always sanitize or HTML-escape text retrieved from a DOM text node (`node.nodeValue`) before applying string replacements and assigning the result to `.innerHTML`.
