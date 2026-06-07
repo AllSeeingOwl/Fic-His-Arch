@@ -352,7 +352,6 @@ export default function ContributeForm() {
               />
             </div>
 
-
             <div>
               <label
                 htmlFor="has_spoilers"
@@ -369,7 +368,8 @@ export default function ContributeForm() {
                 <span className="text-xs uppercase tracking-widest">Contains Major Spoilers</span>
               </label>
               <p className="text-archive-muted text-[10px] mt-1 italic">
-                Wrap spoiler text in double pipes (e.g., ||Darth Vader is his father||) to redact it in the final document.
+                Wrap spoiler text in double pipes (e.g., ||Darth Vader is his father||) to redact it
+                in the final document.
               </p>
             </div>
 
@@ -416,7 +416,6 @@ export default function ContributeForm() {
                 </select>
               </div>
             )}
-
 
             <div className="md:col-span-2">
               <label
