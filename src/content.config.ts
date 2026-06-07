@@ -36,6 +36,11 @@ const archiveCollection = defineCollection({
     context_note: z.string(),
     image_url: safeUrlSchema.optional(),
     multiverse_id: z.string().optional(),
+    has_spoilers: z.boolean().optional().default(false),
+    adaptation_type: z.enum(['Original', 'Remake', 'Reboot', 'Remaster', 'Adaptation']).optional(),
+    adaptation_fidelity: z
+      .enum(['Exact Match', 'Minor Alterations', 'Major Deviations'])
+      .optional(),
     external_links: z
       .array(
         z.object({

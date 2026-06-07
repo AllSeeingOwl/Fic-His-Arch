@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Spoiler Redaction Styles */
+.redacted-spoiler {
+  background-color: #000;
+  color: transparent;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  user-select: none;
+  padding: 0 4px;
+  border-radius: 2px;
+}
+
+.redacted-spoiler.revealed {
+  background-color: rgba(207, 163, 83, 0.1); /* archive-accent with opacity */
+  color: inherit;
+  user-select: text;
+}
