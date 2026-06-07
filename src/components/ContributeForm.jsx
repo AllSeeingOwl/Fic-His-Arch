@@ -163,22 +163,31 @@ export default function ContributeForm() {
     const errors = [];
 
     // Validation 1: Word Count
-    const wordCount = formData.body.trim().split(/\s+/).filter(word => word.length > 0).length;
+    const wordCount = formData.body
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
     if (wordCount < 50 || wordCount > 1000) {
-      errors.push(`Article content must be between 50 and 1000 words. Current word count: ${wordCount}.`);
+      errors.push(
+        `Article content must be between 50 and 1000 words. Current word count: ${wordCount}.`
+      );
     }
 
     // Validation 2: Spoilers
     if (formData.has_spoilers) {
       const spoilerRegex = /\|\|.*?\|\|/;
       if (!spoilerRegex.test(formData.body)) {
-        errors.push("You indicated the article contains spoilers, but no spoiler formatting (||...||) was found in the body.");
+        errors.push(
+          'You indicated the article contains spoilers, but no spoiler formatting (||...||) was found in the body.'
+        );
       }
     }
 
     // Validation 3: External Links
     if (externalLinks.length < 2) {
-      errors.push("You must provide at least 2 external links to verify the historical anomaly. Please double-check your sources.");
+      errors.push(
+        'You must provide at least 2 external links to verify the historical anomaly. Please double-check your sources.'
+      );
     }
 
     // Validation 4: Release Year
@@ -189,9 +198,14 @@ export default function ContributeForm() {
     }
 
     // Validation 5: Context Note
-    const contextWordCount = formData.context_note.trim().split(/\s+/).filter(word => word.length > 0).length;
+    const contextWordCount = formData.context_note
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0).length;
     if (contextWordCount < 10) {
-      errors.push(`Context note must be at least 10 words. Current word count: ${contextWordCount}.`);
+      errors.push(
+        `Context note must be at least 10 words. Current word count: ${contextWordCount}.`
+      );
     }
 
     if (errors.length > 0) {
