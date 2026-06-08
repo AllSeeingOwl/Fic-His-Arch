@@ -30,8 +30,9 @@ import Layout from '../layouts/Layout.astro';
 
       <form class="space-y-4" onsubmit="event.preventDefault();">
         <div>
-          <label for="agent-id" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Agent ID / Name</label>
+          <label for="agent-id" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Agent ID / Name <span aria-hidden="true" class="text-archive-accent ml-1">*</span></label>
           <input
+            required
             type="text"
             id="agent-id"
             name="agent-id"
@@ -41,8 +42,9 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div>
-          <label for="timeline" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Origin Timeline Designation</label>
+          <label for="timeline" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Origin Timeline Designation <span aria-hidden="true" class="text-archive-accent ml-1">*</span></label>
           <input
+            required
             type="text"
             id="timeline"
             name="timeline"
@@ -52,8 +54,9 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div>
-          <label for="report" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Anomaly Report</label>
+          <label for="report" class="block text-xs uppercase tracking-widest text-archive-muted mb-1">Anomaly Report <span aria-hidden="true" class="text-archive-accent ml-1">*</span></label>
           <textarea
+            required
             id="report"
             name="report"
             rows="5"
@@ -63,7 +66,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <button
-          type="button"
+          type="submit"
           class="w-full bg-archive-accent text-archive-bg font-bold uppercase tracking-widest py-3 px-4 rounded hover:bg-opacity-90 transition-opacity mt-4"
         >
           Transmit Data
