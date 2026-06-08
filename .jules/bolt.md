@@ -22,3 +22,8 @@
 
 **Learning:** Re-declaring and compiling Regular Expressions (like `const regex = /\|\|(.*?)\|\|/g;`) inside recursive DOM traversal functions (like `walkDOM`) forces the JavaScript engine to allocate and compile the Regex repeatedly for every single DOM node visited. This significantly degrades client-side render performance on pages with large content payloads. Furthermore, repeatedly calling `regex.test()` on every text node is slower than necessary.
 **Action:** Always hoist static Regular Expressions outside of recursive functions or loops. In addition, introduce a lightweight fast-path check (e.g., `text.includes('||')`) before executing the Regex logic to quickly bypass the overhead of Regex execution on strings that definitely don't match.
+
+## 2026-06-08 - Hoist RegEx and prevent redundant string operations during renders
+
+**Learning:** When generating dynamic component IDs or ARIA attributes based on derived string operations (like `.replace(/\s+/g, '-')`), calling the string replacement inline multiple times within a map loop causes unnecessary and redundant string manipulation. Furthermore, defining the Regular Expression inside the loop allocates a new Regex object on every iteration.
+**Action:** Always hoist static Regular Expressions outside the React component completely. When mapping over data to generate elements, perform necessary string manipulations exactly once per item, assign the result to a variable (e.g. `const groupId = ...`), and reuse that variable for all subsequent ID and ARIA attributes in the JSX.
