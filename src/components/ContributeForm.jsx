@@ -277,7 +277,8 @@ export default function ContributeForm() {
                 htmlFor="title"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Headline / Title <InfoTooltip text="The main title of the event or article. E.g., 'Rebel Alliance Destroys Imperial Superweapon'" />
+                Headline / Title{' '}
+                <InfoTooltip text="The main title of the event or article. E.g., 'Rebel Alliance Destroys Imperial Superweapon'" />
               </label>
               <input
                 type="text"
@@ -296,7 +297,8 @@ export default function ContributeForm() {
                 htmlFor="dateline_location"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Dateline Location <InfoTooltip text="Where the event primarily took place. E.g., 'Yavin 4 Orbit', 'Hogwarts'" />
+                Dateline Location{' '}
+                <InfoTooltip text="Where the event primarily took place. E.g., 'Yavin 4 Orbit', 'Hogwarts'" />
               </label>
               <input
                 type="text"
@@ -315,7 +317,8 @@ export default function ContributeForm() {
                 htmlFor="in_universe_date"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                In-Universe Date <InfoTooltip text="The date according to the story's own calendar. E.g., 'Late 0 BBY', 'Stardate 43989.1'" />
+                In-Universe Date{' '}
+                <InfoTooltip text="The date according to the story's own calendar. E.g., 'Late 0 BBY', 'Stardate 43989.1'" />
               </label>
               <input
                 type="text"
@@ -334,7 +337,8 @@ export default function ContributeForm() {
                 htmlFor="timeline_flair"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Timeline Flair <InfoTooltip text="Categorizes the nature of the timeline anomaly or setting." />
+                Timeline Flair{' '}
+                <InfoTooltip text="Categorizes the nature of the timeline anomaly or setting." />
               </label>
               <select
                 id="timeline_flair"
@@ -384,7 +388,8 @@ export default function ContributeForm() {
                 htmlFor="source_work"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Source Work <InfoTooltip text="The title of the media where this event originated. E.g., 'Star Wars: Episode IV - A New Hope'" />
+                Source Work{' '}
+                <InfoTooltip text="The title of the media where this event originated. E.g., 'Star Wars: Episode IV - A New Hope'" />
               </label>
               <input
                 type="text"
@@ -403,7 +408,8 @@ export default function ContributeForm() {
                 htmlFor="source_medium"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Source Medium <InfoTooltip text="The format of the source material. E.g., 'Film', 'Book', 'Video Game'" />
+                Source Medium{' '}
+                <InfoTooltip text="The format of the source material. E.g., 'Film', 'Book', 'Video Game'" />
               </label>
               <input
                 type="text"
@@ -422,7 +428,8 @@ export default function ContributeForm() {
                 htmlFor="source_creator"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Source Creator <InfoTooltip text="The person or entity that created the source work. E.g., 'George Lucas', 'Nintendo'" />
+                Source Creator{' '}
+                <InfoTooltip text="The person or entity that created the source work. E.g., 'George Lucas', 'Nintendo'" />
               </label>
               <input
                 type="text"
@@ -441,7 +448,8 @@ export default function ContributeForm() {
                 htmlFor="release_year"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Release Year (Real World) <InfoTooltip text="The actual real-world year the source material was released. E.g., '1977'" />
+                Release Year (Real World){' '}
+                <InfoTooltip text="The actual real-world year the source material was released. E.g., '1977'" />
               </label>
               <input
                 type="number"
@@ -525,7 +533,8 @@ export default function ContributeForm() {
                 htmlFor="context_note"
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
-                Context Note <InfoTooltip text="A summary (min 10 words) of why this event is significant and how it changed its universe." />
+                Context Note{' '}
+                <InfoTooltip text="A summary (min 10 words) of why this event is significant and how it changed its universe." />
               </label>
               <input
                 type="text"
