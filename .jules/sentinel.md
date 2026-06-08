@@ -45,3 +45,9 @@
 **Vulnerability:** In `src/pages/archive/[slug].astro`, custom `||spoiler||` syntax was handled client-side by recursively reading text nodes (`node.nodeValue`), using a regex to replace the syntax with HTML (`<span class="redacted-spoiler">...</span>`), and then injecting the result directly back into the DOM using `span.innerHTML = ...`. Because `nodeValue` unescapes HTML entities, any raw HTML tags inside the text (e.g. `<img src=x onerror=alert(1)>`) would be interpreted as real executable HTML during the `innerHTML` assignment, leading to DOM-based XSS.
 **Learning:** Any time client-side JavaScript reads from a text node and writes to `innerHTML`, it acts as an unescaping mechanism that creates an XSS sink.
 **Prevention:** Always sanitize or HTML-escape text retrieved from a DOM text node (`node.nodeValue`) before applying string replacements and assigning the result to `.innerHTML`.
+
+## 2025-02-23 - Permanent DoS via Incomplete Cache Eviction
+
+**Vulnerability:** The custom rate limiter in `server.ts` tracked IP addresses but its cache eviction loop only deleted expired records (`lockUntil > 0 && lockUntil <= now`). It failed to clear partial failed attempts (`count > 0` but `lockUntil === 0`). If an attacker made requests from 1000 distinct IP addresses, the map would reach its 1000 item capacity and refuse all new connections with a 503 error, resulting in a permanent Denial of Service (DoS) for legitimate users.
+**Learning:** Custom in-memory rate limiters must implement comprehensive eviction logic that accounts for all possible states (e.g., partial failures, expired locks). Failure to do so can result in permanent capacity exhaustion.
+**Prevention:** Track the timestamp of the last attempt (`lastAttempt: now`) for each record and update the eviction loop to delete both expired locks and partial failures that are older than the lockout duration.
