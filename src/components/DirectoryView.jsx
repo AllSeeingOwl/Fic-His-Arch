@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
+// ⚡ Bolt: Hoist RegEx to prevent re-allocation on every render/function call
+const yearRegex = /\b\d{3,4}\b/;
+const spaceRegex = /\s+/g;
+
 export default function DirectoryView({ articles }) {
   const [activeView, setActiveView] = useState('table'); // 'table' or 'timeline'
   const [mounted, setMounted] = useState(false);
@@ -15,7 +19,7 @@ export default function DirectoryView({ articles }) {
   const extractYear = (dateStr) => {
     if (!dateStr) return 'Unknown';
     // Match 3 or 4 digit years
-    const match = dateStr.match(/\b\d{3,4}\b/);
+    const match = dateStr.match(yearRegex);
     return match ? match[0] : dateStr;
   };
 
@@ -214,10 +218,12 @@ export default function DirectoryView({ articles }) {
                 </th>
               </tr>
             </thead>
-            {Object.entries(groupedArticles).map(([groupName, groupArticles]) => (
+            {Object.entries(groupedArticles).map(([groupName, groupArticles]) => {
+              const groupId = groupName.replace(spaceRegex, '-');
+              return (
               <tbody
                 key={groupName}
-                id={`group-${groupName.replace(/\s+/g, '-')}`}
+                id={`group-${groupId}`}
                 className="divide-y divide-archive-border"
               >
                 {groupBy !== 'none' && (
@@ -230,7 +236,7 @@ export default function DirectoryView({ articles }) {
                         className="w-full flex items-center gap-2 p-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset text-left"
                         onClick={() => toggleGroup(groupName)}
                         aria-expanded={expandedGroups[groupName] ? 'true' : 'false'}
-                        aria-controls={`group-${groupName.replace(/\s+/g, '-')}`}
+                        aria-controls={`group-${groupId}`}
                       >
                         <span
                           className={`transform transition-transform ${expandedGroups[groupName] ? 'rotate-90' : ''}`}
@@ -265,7 +271,7 @@ export default function DirectoryView({ articles }) {
                     </tr>
                   ))}
               </tbody>
-            ))}
+            )})}
           </table>
         </div>
       </div>
@@ -275,7 +281,9 @@ export default function DirectoryView({ articles }) {
       */}
       <div className={`${activeView === 'timeline' ? 'block' : 'hidden'} js-view-timeline`}>
         <div className="relative border-l-2 border-archive-border ml-4 sm:ml-6 md:ml-8 pb-4">
-          {Object.entries(groupedArticles).map(([groupName, groupArticles]) => (
+          {Object.entries(groupedArticles).map(([groupName, groupArticles]) => {
+            const groupId = groupName.replace(spaceRegex, '-');
+            return (
             <div key={groupName} className="mb-8 relative">
               {/* Group Header (if grouping is enabled) */}
               {groupBy !== 'none' && (
@@ -289,7 +297,7 @@ export default function DirectoryView({ articles }) {
                     className="bg-archive-border rounded px-4 py-2 font-sans text-sm uppercase tracking-wider text-archive-paper shadow-sm flex items-center gap-3 w-full sm:w-auto focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset text-left cursor-pointer"
                     onClick={() => toggleGroup(groupName)}
                     aria-expanded={expandedGroups[groupName] ? 'true' : 'false'}
-                    aria-controls={`timeline-group-${groupName.replace(/\s+/g, '-')}`}
+                    aria-controls={`timeline-group-${groupId}`}
                   >
                     <span
                       className={`transform transition-transform text-archive-accent ${expandedGroups[groupName] ? 'rotate-90' : ''}`}
@@ -307,7 +315,7 @@ export default function DirectoryView({ articles }) {
               {/* Render Articles if group is expanded (or if no grouping) */}
               {(groupBy === 'none' || expandedGroups[groupName]) && (
                 <div
-                  id={`timeline-group-${groupName.replace(/\s+/g, '-')}`}
+                  id={`timeline-group-${groupId}`}
                   className={
                     groupBy !== 'none'
                       ? 'ml-4 sm:ml-8 md:ml-12 border-l border-dashed border-archive-border/50 pb-4'
@@ -391,7 +399,7 @@ export default function DirectoryView({ articles }) {
                 </div>
               )}
             </div>
-          ))}
+          )})}
         </div>
       </div>
 
