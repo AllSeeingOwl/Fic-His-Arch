@@ -17,6 +17,9 @@ dependencies:
     version: 6.0.2(astro@6.4.4)(tailwindcss@4.3.0)(ts-node@10.9.2)
   '@types/react':
     specifier: ^19.2.17
+    version: 6.0.2(astro@6.4.4)(tailwindcss@3.4.19)(ts-node@10.9.2)
+  '@types/react':
+    specifier: ^19.2.15
     version: 19.2.17
   '@types/react-dom':
     specifier: ^19.2.3
@@ -32,6 +35,7 @@ dependencies:
     version: 2.0.0(react@19.2.7)
   astro:
     specifier: ^6.4.4
+    specifier: ^6.3.7
     version: 6.4.4(@types/node@25.9.2)(@upstash/redis@1.38.0)
   express:
     specifier: ^5.2.1
@@ -70,6 +74,7 @@ devDependencies:
     version: 30.0.0
   '@types/node':
     specifier: ^25.9.2
+    specifier: ^25.9.1
     version: 25.9.2
   '@typescript-eslint/eslint-plugin':
     specifier: ^8.59.4
@@ -103,6 +108,7 @@ devDependencies:
     version: 30.4.1
   knip:
     specifier: ^6.16.1
+    specifier: ^6.14.2
     version: 6.16.1
   lint-staged:
     specifier: ^17.0.5
@@ -246,6 +252,7 @@ packages:
     dev: false
 
   /@astrojs/tailwind@6.0.2(astro@6.4.4)(tailwindcss@4.3.0)(ts-node@10.9.2):
+  /@astrojs/tailwind@6.0.2(astro@6.4.4)(tailwindcss@3.4.19)(ts-node@10.9.2):
     resolution:
       {
         integrity: sha512-j3mhLNeugZq6A8dMNXVarUa8K6X9AW+QHU9u3lKNrPLMHhOQ0S7VeWhHwEeJFpEK1BTKEUY1U78VQv2gN6hNGg==,
@@ -3532,7 +3539,7 @@ packages:
       '@typescript-eslint/visitor-keys': 8.60.1
       debug: 4.4.3
       minimatch: 10.2.5
-      semver: 7.8.1
+      semver: 7.8.2
       tinyglobby: 0.2.17
       ts-api-utils: 2.5.0(typescript@6.0.3)
       typescript: 6.0.3
@@ -4252,7 +4259,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.28.2
-      caniuse-lite: 1.0.30001793
+      caniuse-lite: 1.0.30001797
       fraction.js: 5.3.4
       picocolors: 1.1.1
       postcss: 8.5.15
@@ -4412,10 +4419,10 @@ packages:
       }
     dev: true
 
-  /baseline-browser-mapping@2.10.33:
+  /baseline-browser-mapping@2.10.34:
     resolution:
       {
-        integrity: sha512-bA6+tcSLpz2tIEdDXZPpPTIuxBcC4+w6SieaYyfigIa4h8GlFxbA17v22Vx3JUtuZQj9SgOsnbK+aTBzyDyEuw==,
+        integrity: sha512-IMDedajPifLnHNY0X9n8hKxRTQ6/eTHwr5bDo04WnuqxyKw6LYtQywCuuqPZwhl3aBXMvQpJov42GLCwRRdQzw==,
       }
     engines: { node: '>=6.0.0' }
     hasBin: true
@@ -4541,9 +4548,9 @@ packages:
     engines: { node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7 }
     hasBin: true
     dependencies:
-      baseline-browser-mapping: 2.10.33
-      caniuse-lite: 1.0.30001793
-      electron-to-chromium: 1.5.366
+      baseline-browser-mapping: 2.10.34
+      caniuse-lite: 1.0.30001797
+      electron-to-chromium: 1.5.368
       node-releases: 2.0.47
       update-browserslist-db: 1.2.3(browserslist@4.28.2)
 
@@ -4659,10 +4666,10 @@ packages:
     engines: { node: '>=14.16' }
     dev: false
 
-  /caniuse-lite@1.0.30001793:
+  /caniuse-lite@1.0.30001797:
     resolution:
       {
-        integrity: sha512-iwSsYWaCOoh26cV8NwNRViHlrfUvYsHDfRVcbtmw0Kg6PJIZZXwMkj1442FYLBGkeUf1juAsU3DTfxW579mrPA==,
+        integrity: sha512-l8xKG+gwAIExZGl9FrF7KUwuOmk6wbEPC9Xoy/RtnWv1XG0Q4LFlagaLpUv3Kiza3W/wm27zy0yWJEieYKAP6w==,
       }
 
   /caseless@0.12.0:
@@ -5213,7 +5220,7 @@ packages:
       tree-kill: 1.2.2
       tslib: 1.14.1
       untildify: 4.0.0
-      yauzl: 3.3.2
+      yauzl: 3.4.0
     dev: true
 
   /dashdash@1.14.1:
@@ -5545,10 +5552,10 @@ packages:
       }
     dev: false
 
-  /electron-to-chromium@1.5.366:
+  /electron-to-chromium@1.5.368:
     resolution:
       {
-        integrity: sha512-OlRuhb688YTCzzU3gXPLn6nGyd+F+53INE1qaKKlu6kETErE8FYsyDh0XqXEU+uBRn0MpCzz2vfNwORhkap8qg==,
+        integrity: sha512-7RckJJK4uESJF9PxvfMWd3TGqIiieUTG4HxnKaKuIpGbcr+r2ZEB3g2gAhCP3Fqm42vJSzLfgab9eva/C4/XVw==,
       }
 
   /emittery@0.13.1:
@@ -7719,7 +7726,7 @@ packages:
       jest-message-util: 30.4.1
       jest-util: 30.4.1
       pretty-format: 30.4.1
-      semver: 7.8.1
+      semver: 7.8.2
       synckit: 0.11.13
     transitivePeerDependencies:
       - supports-color
@@ -7872,7 +7879,7 @@ packages:
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.6
       is-potential-custom-element-name: 1.0.1
-      nwsapi: 2.2.23
+      nwsapi: 2.2.24
       parse5: 7.3.0
       rrweb-cssom: 0.8.0
       saxes: 6.0.0
@@ -9202,7 +9209,7 @@ packages:
       ignore-by-default: 1.0.1
       minimatch: 10.2.5
       pstree.remy: 1.1.8
-      semver: 7.8.1
+      semver: 7.8.2
       simple-update-notifier: 2.0.0
       supports-color: 5.5.0
       touch: 3.1.1
@@ -9234,10 +9241,10 @@ packages:
       boolbase: 1.0.0
     dev: false
 
-  /nwsapi@2.2.23:
+  /nwsapi@2.2.24:
     resolution:
       {
-        integrity: sha512-7wfH4sLbt4M0gCDzGE6vzQBo0bfTKjU7Sfpqy/7gs1qBfYz2vEJH6vXcBKpO3+6Yu1telwd0t9HpyOoLEQQbIQ==,
+        integrity: sha512-7YRhZ3jS45LwmSCT4b2sVFHt/WuovaktDU07QrtOBY2PXskss5a9jfmR9jptyumwXST+rFjrmppMY1KT/yn35A==,
       }
     dev: true
 
@@ -10365,10 +10372,10 @@ packages:
       }
     hasBin: true
 
-  /semver@7.8.1:
+  /semver@7.8.2:
     resolution:
       {
-        integrity: sha512-rkVq3IXh+4FDGch+KwzX3aV9W3kO54GyEgpvBzSyctDA6Xtd7RJQV1xmXbeQp5v7+VzLOfVqiutSE6GICgPFvg==,
+        integrity: sha512-c8jsqUZm3omBOI66G90z1Dyw5z622G8oLG+omfsHBJf3CWQTlOcwOjvOG6wtiNfW6anKm/eA39LMwMtMez2TiQ==,
       }
     engines: { node: '>=10' }
     hasBin: true
@@ -10604,7 +10611,7 @@ packages:
       }
     engines: { node: '>=10' }
     dependencies:
-      semver: 7.8.1
+      semver: 7.8.2
     dev: true
 
   /sisteransi@1.0.5:
@@ -11173,7 +11180,7 @@ packages:
       json5: 2.2.3
       lodash.memoize: 4.1.2
       make-error: 1.3.6
-      semver: 7.8.1
+      semver: 7.8.2
       type-fest: 4.41.0
       typescript: 6.0.3
       yargs-parser: 21.1.1
@@ -12125,10 +12132,10 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /yauzl@3.3.2:
+  /yauzl@3.4.0:
     resolution:
       {
-        integrity: sha512-Md9ankxxN23wncAN8s7+Tn3Co52zLUPMtnrLAbVCnfG5d2tKBFfmygYSgXlqFgXObtzIgqkx7aNgDBpso9+4qA==,
+        integrity: sha512-jIH9yLR9wqr0wOS0TpBvo/g/2UgZH5qePVbjgRliiF0BYvOZyaBknKsF+x9Iht0O6sqgnB93rCICdOZFecJuDw==,
       }
     engines: { node: '>=12' }
     dependencies:
