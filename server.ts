@@ -113,7 +113,7 @@ const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // 🛡️ Sentinel: Rate limit admin login attempts
-const loginAttempts = new Map<string, { count: number; lockUntil: number }>();
+const loginAttempts = new Map<string, { count: number; lockUntil: number; lastAttempt: number }>();
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCK_TIME_MS = 15 * 60 * 1000; // 15 minutes
 
@@ -131,6 +131,8 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
       // unless we absolutely have to. But the safest is just to delete expired locks.
       if (value.lockUntil > 0 && value.lockUntil <= now) {
         loginAttempts.delete(key);
+      } else if (value.lockUntil === 0 && now - value.lastAttempt > LOCK_TIME_MS) {
+        loginAttempts.delete(key);
       }
     }
 
@@ -143,7 +145,8 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
       return;
     }
   }
-  const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0 };
+  const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0, lastAttempt: now };
+  record.lastAttempt = now;
 
   if (record.lockUntil > now) {
     res.status(429).json({ success: false, error: 'Too many attempts, please try again later' });
