@@ -32,3 +32,7 @@
 
 **Learning:** When implementing a set of filter buttons (like the timeline filters in `index.astro`), screen readers may announce them simply as individual buttons without context. Wrapping the filter container with `role="group"` and linking it via `aria-labelledby` to a descriptive heading or label (e.g., "Filter by Timeline:") provides crucial context, ensuring users understand they are interacting with a related set of controls.
 **Action:** When creating filter groups or related sets of buttons in the future, always wrap them in a semantic or ARIA `group` and provide an accessible label for the container.
+
+## 2025-02-18 - [Interactive Inline Redactions Accessibility]
+**Learning:** Inline redactions acting as buttons (`role="button"`, `tabindex="0"`) generated dynamically via JS replacement lacked `focus-visible` states, making them invisible to keyboard navigation.
+**Action:** Added Tailwind `focus-visible:ring-2 focus-visible:ring-archive-accent` classes to dynamically generated inline interactive elements to ensure keyboard users can perceive focus on redacted text.
