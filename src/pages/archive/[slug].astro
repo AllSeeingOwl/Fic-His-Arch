@@ -121,7 +121,7 @@ const flairColors = getFlairColors(data.timeline_flair);
         if (text.includes('||') && regex.test(text)) {
           const span = document.createElement('span');
           const escapedText = escapeHTML(text);
-          span.innerHTML = escapedText.replace(regex, '<span class="redacted-spoiler" title="Click to reveal" role="button" tabindex="0">$1</span>');
+          span.innerHTML = escapedText.replace(regex, '<span class="redacted-spoiler focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded" title="Click to reveal" role="button" tabindex="0">$1</span>');
           node.parentNode.replaceChild(span, node);
         }
       } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
