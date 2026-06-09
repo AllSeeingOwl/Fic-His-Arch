@@ -30,5 +30,5 @@
 
 ## 2025-06-09 - Avoid Inline Objects in String Replace Callbacks
 
-**Learning:** When using `String.prototype.replace(regex, callback)` with a callback that uses a mapping object to determine replacements (e.g., escaping HTML characters), defining the mapping object directly inside the callback causes a new object to be allocated for *every single match* found in the string. For large text payloads, this creates significant garbage collection pressure and CPU overhead.
+**Learning:** When using `String.prototype.replace(regex, callback)` with a callback that uses a mapping object to determine replacements (e.g., escaping HTML characters), defining the mapping object directly inside the callback causes a new object to be allocated for _every single match_ found in the string. For large text payloads, this creates significant garbage collection pressure and CPU overhead.
 **Action:** Always hoist mapping objects and the associated Regular Expression outside of the `replace` function and the callback. This ensures they are only allocated once, making the substitution significantly faster.
