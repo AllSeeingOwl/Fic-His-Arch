@@ -1,16 +1,30 @@
 [vite] connected.
-17:41:41 [types] Generated 1ms
+14:46:36 [types] Generated 1ms
 [vite] connected.
-17:41:41 [content] Syncing content
-17:41:41 [content] Synced content
-17:41:41 [vite] Re-optimizing dependencies because vite config has changed
- astro  v6.4.4 ready in 3056 ms
+14:46:36 [content] Syncing content
+14:46:36 [content] Synced content
+14:46:36 [vite] Re-optimizing dependencies because vite config has changed
+ astro  v6.4.5 ready in 3284 ms
 ┃ Local    http://localhost:4321/Fic-His-Arch
 ┃ Network  use --host to expose
-17:41:41 watching for file changes...
-▶ Vite 8.0.16 detected in your project.
-  Astro requires Vite 7. Add "overrides": { "vite": "^7" } to your package.json to avoid issues.
-
-17:43:36 [200] /contribute 129ms
-17:44:35 [200] /contribute 18ms
-17:45:04 [200] /contribute 13ms
+14:46:36 watching for file changes...
+(node:276286) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///app/tailwind.config.js?id=1781016431171 is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /app/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+14:47:11 [200] / 166ms
+14:47:13 [200] /directory 72ms
+14:47:49 Configuration file updated. Restarting...
+[vite] program reload
+[vite] An error happened during full reload
+Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+Error: Failed to load url astro:server-app.js (resolved id: astro:server-app.js). Does the file exist?
+    at loadAndTransform (file:///app/node_modules/.pnpm/vite@7.3.5_@types+node@25.9.2_jiti@2.7.0_lightningcss@1.32.0_yaml@2.9.0/node_modules/vite/dist/node/chunks/config.js:22739:33)
+[vite] connected.
+14:47:52 [vite] Re-optimizing dependencies because vite config has changed
+14:47:52 [vite] server restarted.
+[vite] connected.
+14:48:29 Configuration file updated. Restarting...
+[vite] connected.
+14:48:30 [vite] server restarted.
+[vite] connected.
