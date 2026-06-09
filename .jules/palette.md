@@ -34,5 +34,6 @@
 **Action:** When creating filter groups or related sets of buttons in the future, always wrap them in a semantic or ARIA `group` and provide an accessible label for the container.
 
 ## 2025-02-18 - [Interactive Inline Redactions Accessibility]
+
 **Learning:** Inline redactions acting as buttons (`role="button"`, `tabindex="0"`) generated dynamically via JS replacement lacked `focus-visible` states, making them invisible to keyboard navigation.
 **Action:** Added Tailwind `focus-visible:ring-2 focus-visible:ring-archive-accent` classes to dynamically generated inline interactive elements to ensure keyboard users can perceive focus on redacted text.
