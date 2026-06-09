@@ -27,3 +27,8 @@
 
 **Learning:** When generating dynamic component IDs or ARIA attributes based on derived string operations (like `.replace(/\s+/g, '-')`), calling the string replacement inline multiple times within a map loop causes unnecessary and redundant string manipulation. Furthermore, defining the Regular Expression inside the loop allocates a new Regex object on every iteration.
 **Action:** Always hoist static Regular Expressions outside the React component completely. When mapping over data to generate elements, perform necessary string manipulations exactly once per item, assign the result to a variable (e.g. `const groupId = ...`), and reuse that variable for all subsequent ID and ARIA attributes in the JSX.
+
+## 2025-06-09 - Avoid Inline Objects in String Replace Callbacks
+
+**Learning:** When using `String.prototype.replace(regex, callback)` with a callback that uses a mapping object to determine replacements (e.g., escaping HTML characters), defining the mapping object directly inside the callback causes a new object to be allocated for *every single match* found in the string. For large text payloads, this creates significant garbage collection pressure and CPU overhead.
+**Action:** Always hoist mapping objects and the associated Regular Expression outside of the `replace` function and the callback. This ensures they are only allocated once, making the substitution significantly faster.

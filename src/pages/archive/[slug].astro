@@ -100,13 +100,17 @@ const flairColors = getFlairColors(data.timeline_flair);
     // 1. Process inline redactions
     // We look for ||something|| and replace it with a styled span
     // 🛡️ Sentinel: Sanitize text nodes before rendering them to avoid DOM-based XSS
-    const escapeHTML = (str) => str.replace(/[&<>'"]/g, tag => ({
+    // ⚡ Bolt: Hoist escape map and RegEx out of the replace callback to prevent redundant object allocation per character
+    const escapeMap = {
       '&': '&amp;',
       '<': '&lt;',
       '>': '&gt;',
       "'": '&#39;',
       '"': '&quot;'
-    }[tag] || tag));
+    };
+    const escapeRegex = /[&<>'"]/g;
+    const escapeHTML = (str) => str.replace(escapeRegex, tag => escapeMap[tag] || tag);
+
     // ⚡ Bolt: Hoist RegExp to avoid re-compiling it on every single DOM node visited
     const regex = /\|\|(.*?)\|\|/g;
 
