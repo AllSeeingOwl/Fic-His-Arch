@@ -51,3 +51,9 @@
 **Vulnerability:** The custom rate limiter in `server.ts` tracked IP addresses but its cache eviction loop only deleted expired records (`lockUntil > 0 && lockUntil <= now`). It failed to clear partial failed attempts (`count > 0` but `lockUntil === 0`). If an attacker made requests from 1000 distinct IP addresses, the map would reach its 1000 item capacity and refuse all new connections with a 503 error, resulting in a permanent Denial of Service (DoS) for legitimate users.
 **Learning:** Custom in-memory rate limiters must implement comprehensive eviction logic that accounts for all possible states (e.g., partial failures, expired locks). Failure to do so can result in permanent capacity exhaustion.
 **Prevention:** Track the timestamp of the last attempt (`lastAttempt: now`) for each record and update the eviction loop to delete both expired locks and partial failures that are older than the lockout duration.
+
+## 2025-02-23 - CSP Unsafe-Inline Mitigation
+
+**Vulnerability:** The Content-Security-Policy (CSP) header in `server.ts` previously allowed `script-src 'self' 'unsafe-inline'`. This configuration significantly weakens the application's defense against Cross-Site Scripting (XSS) attacks by allowing arbitrary inline scripts to execute.
+**Learning:** Permitting `'unsafe-inline'` in `script-src` defeats the primary purpose of a CSP, which is to ensure only trusted, external script files are executed.
+**Prevention:** When configuring a Content-Security-Policy (CSP) header, ensure the `script-src` directive strictly uses `'self'` (or specific trusted domains/nonces) and explicitly avoids `'unsafe-inline'` to effectively mitigate Cross-Site Scripting (XSS) vulnerabilities.

@@ -30,7 +30,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Permissions-Policy', 'geolocation=(), camera=(), microphone=()');
   res.setHeader(
     'Content-Security-Policy',
-    "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'"
+    "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'"
   );
   next();
 });
@@ -112,23 +112,18 @@ const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-// 🛡️ Sentinel: Rate limit admin login attempts
+// 🛡️ Sentinel: Rate limit admin login attempts globally
 const loginAttempts = new Map<string, { count: number; lockUntil: number; lastAttempt: number }>();
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCK_TIME_MS = 15 * 60 * 1000; // 15 minutes
 
-app.post('/api/admin/verify', (req: Request, res: Response) => {
+const adminRateLimiter = (req: Request, res: Response, next: NextFunction) => {
   const ip = req.ip || req.socket.remoteAddress || 'unknown';
   const now = Date.now();
 
   // 🛡️ Sentinel: Secure memory leak prevention without bypassing rate limits
   if (loginAttempts.size > 1000) {
     for (const [key, value] of loginAttempts.entries()) {
-      // Only delete entries that are completely expired AND have no recent failed attempts.
-      // If a lock is active (lockUntil > now), do NOT delete it.
-      // If a lock is expired (lockUntil <= now), we can delete it.
-      // We also don't want to delete entries that are actively accumulating failures (count > 0 && lockUntil === 0)
-      // unless we absolutely have to. But the safest is just to delete expired locks.
       if (value.lockUntil > 0 && value.lockUntil <= now) {
         loginAttempts.delete(key);
       } else if (value.lockUntil === 0 && now - value.lastAttempt > LOCK_TIME_MS) {
@@ -136,8 +131,6 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
       }
     }
 
-    // If it's STILL too large, we are likely under attack. We MUST NOT drop active locks,
-    // otherwise the attacker can bypass the limit. We can just refuse new connections until space clears.
     if (loginAttempts.size > 1000 && !loginAttempts.has(ip)) {
       res
         .status(503)
@@ -145,6 +138,7 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
       return;
     }
   }
+
   const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0, lastAttempt: now };
   record.lastAttempt = now;
 
@@ -153,6 +147,25 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
     return;
   }
 
+  res.on('finish', () => {
+    if (res.statusCode === 401) {
+      record.count += 1;
+      if (record.count >= MAX_LOGIN_ATTEMPTS) {
+        record.lockUntil = Date.now() + LOCK_TIME_MS;
+        record.count = 0; // reset count after applying lock
+      }
+      loginAttempts.set(ip, record);
+    } else if (res.statusCode >= 200 && res.statusCode < 300) {
+      loginAttempts.delete(ip);
+    }
+  });
+
+  next();
+};
+
+app.use('/api/admin', adminRateLimiter);
+
+app.post('/api/admin/verify', (req: Request, res: Response) => {
   let isSuccess = false;
   const { password } = req.body;
   if (typeof password === 'string') {
@@ -163,15 +176,8 @@ app.post('/api/admin/verify', (req: Request, res: Response) => {
   }
 
   if (isSuccess) {
-    loginAttempts.delete(ip);
     res.json({ success: true, token: ADMIN_PASSWORD });
   } else {
-    record.count += 1;
-    if (record.count >= MAX_LOGIN_ATTEMPTS) {
-      record.lockUntil = now + LOCK_TIME_MS;
-      record.count = 0; // reset count after applying lock
-    }
-    loginAttempts.set(ip, record);
     res.status(401).json({ success: false, error: 'Invalid password' });
   }
 });
