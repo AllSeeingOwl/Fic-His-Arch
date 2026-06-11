@@ -34,8 +34,10 @@
 **Action:** Always hoist mapping objects and the associated Regular Expression outside of the `replace` function and the callback. This ensures they are only allocated once, making the substitution significantly faster.
 
 ## 2025-06-11 - Prevent RegExp State Bug and Redundant Execution in Replace
+
 **Learning:** Calling `regex.test(text)` on a global RegExp (with the `g` flag) before using it in `text.replace(regex, ...)` causes the `lastIndex` property to be mutated, which skips matches and introduces bugs unless explicitly reset. Moreover, using both `.test()` and `.replace()` forces the regex engine to parse the string twice unnecessarily.
 **Action:** Remove `regex.test()` entirely when performing replacements. Instead, rely on non-regex fast-path checks (e.g., `text.includes()`), call `.replace()`, and compare the resulting string to the original (`replaced !== original`) to determine if a substitution actually occurred.
+
 ## 2026-06-10 - Hoist RegExp for String.replace() safely
 
 **Learning:** It is completely safe to reuse global RegExp instances (those with the `g` flag) hoisted outside a function when calling `String.prototype.replace()`. Unlike `.exec()` or `.test()`, `.replace()` does not suffer from stateful `lastIndex` side effects across separate calls, making hoisting an effective way to avoid unnecessary object allocation on every function call or render loop.
