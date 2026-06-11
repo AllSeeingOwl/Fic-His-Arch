@@ -32,3 +32,7 @@
 
 **Learning:** When using `String.prototype.replace(regex, callback)` with a callback that uses a mapping object to determine replacements (e.g., escaping HTML characters), defining the mapping object directly inside the callback causes a new object to be allocated for _every single match_ found in the string. For large text payloads, this creates significant garbage collection pressure and CPU overhead.
 **Action:** Always hoist mapping objects and the associated Regular Expression outside of the `replace` function and the callback. This ensures they are only allocated once, making the substitution significantly faster.
+
+## 2025-06-11 - Prevent RegExp State Bug and Redundant Execution in Replace
+**Learning:** Calling `regex.test(text)` on a global RegExp (with the `g` flag) before using it in `text.replace(regex, ...)` causes the `lastIndex` property to be mutated, which skips matches and introduces bugs unless explicitly reset. Moreover, using both `.test()` and `.replace()` forces the regex engine to parse the string twice unnecessarily.
+**Action:** Remove `regex.test()` entirely when performing replacements. Instead, rely on non-regex fast-path checks (e.g., `text.includes()`), call `.replace()`, and compare the resulting string to the original (`replaced !== original`) to determine if a substitution actually occurred.
