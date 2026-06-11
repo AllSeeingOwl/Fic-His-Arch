@@ -117,7 +117,7 @@ const loginAttempts = new Map<string, { count: number; lockUntil: number; lastAt
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCK_TIME_MS = 15 * 60 * 1000; // 15 minutes
 
-const adminRateLimiter = (req: Request, res: Response, next: NextFunction) => {
+const adminRateLimitChecker = (req: Request, res: Response, next: NextFunction) => {
   const ip = req.ip || req.socket.remoteAddress || 'unknown';
   const now = Date.now();
 
@@ -140,12 +140,21 @@ const adminRateLimiter = (req: Request, res: Response, next: NextFunction) => {
   }
 
   const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0, lastAttempt: now };
-  record.lastAttempt = now;
 
   if (record.lockUntil > now) {
     res.status(429).json({ success: false, error: 'Too many attempts, please try again later' });
     return;
   }
+
+  next();
+};
+
+const adminRateLimitTracker = (req: Request, res: Response, next: NextFunction) => {
+  const ip = req.ip || req.socket.remoteAddress || 'unknown';
+  const now = Date.now();
+
+  const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0, lastAttempt: now };
+  record.lastAttempt = now;
 
   res.on('finish', () => {
     if (res.statusCode === 401) {
@@ -163,9 +172,9 @@ const adminRateLimiter = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-app.use('/api/admin', adminRateLimiter);
+app.use('/api/admin', adminRateLimitChecker);
 
-app.post('/api/admin/verify', (req: Request, res: Response) => {
+app.post('/api/admin/verify', adminRateLimitTracker, (req: Request, res: Response) => {
   let isSuccess = false;
   const { password } = req.body;
   if (typeof password === 'string') {

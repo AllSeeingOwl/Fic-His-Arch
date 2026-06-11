@@ -57,3 +57,9 @@
 **Vulnerability:** The Content-Security-Policy (CSP) header in `server.ts` previously allowed `script-src 'self' 'unsafe-inline'`. This configuration significantly weakens the application's defense against Cross-Site Scripting (XSS) attacks by allowing arbitrary inline scripts to execute.
 **Learning:** Permitting `'unsafe-inline'` in `script-src` defeats the primary purpose of a CSP, which is to ensure only trusted, external script files are executed.
 **Prevention:** When configuring a Content-Security-Policy (CSP) header, ensure the `script-src` directive strictly uses `'self'` (or specific trusted domains/nonces) and explicitly avoids `'unsafe-inline'` to effectively mitigate Cross-Site Scripting (XSS) vulnerabilities.
+
+## 2024-05-28 - Split Rate Limiter into Checker and Tracker
+
+**Vulnerability:** The global authentication rate limiter indiscriminately tracked any `401 Unauthorized` response on any `/api/admin/*` endpoint. This could cause a self-inflicted DoS if a legitimate admin's token expired and they made concurrent requests to non-login endpoints. Previous attempts to fix this by checking `req.path === '/verify'` or moving the middleware introduced severe rate-limit bypass vulnerabilities due to Express's handling of `req.path` and trailing slashes.
+**Learning:** Checking `req.path` inside globally mounted middleware is prone to routing nuances and query string/trailing slash bypasses. Furthermore, modifying the mount scope of middleware changes the value of `req.path`.
+**Prevention:** To implement rate limiting on authentication securely without risking a self-inflicted DoS or a bypass, separate the logic into two middlewares: a global `Checker` that enforces the lockout across all endpoints, and a route-specific `Tracker` attached only to the login endpoint (e.g. `app.post('/api/admin/verify')`) that specifically tracks and increments the failed attempt count.
