@@ -37,8 +37,3 @@
 
 **Learning:** Inline redactions acting as buttons (`role="button"`, `tabindex="0"`) generated dynamically via JS replacement lacked `focus-visible` states, making them invisible to keyboard navigation.
 **Action:** Added Tailwind `focus-visible:ring-2 focus-visible:ring-archive-accent` classes to dynamically generated inline interactive elements to ensure keyboard users can perceive focus on redacted text.
-
-## 2024-06-08 - [Submit Button Focus States]
-
-**Learning:** Submit buttons and action buttons lacking `focus-visible` states make them completely invisible to keyboard navigation, particularly over various custom backgrounds.
-**Action:** When implementing custom buttons or forms, always explicitly add Tailwind `focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2` to ensure consistent and visible keyboard focus states.

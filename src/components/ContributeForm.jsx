@@ -577,7 +577,7 @@ export default function ContributeForm() {
             <button
               type="button"
               onClick={addLink}
-              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded px-2 py-1 -mr-2"
+              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors"
             >
               + Add Link
             </button>
@@ -591,7 +591,7 @@ export default function ContributeForm() {
               <button
                 type="button"
                 onClick={() => removeLink(index)}
-                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg rounded px-2 py-1"
+                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase"
               >
                 Remove
               </button>
@@ -643,7 +643,7 @@ export default function ContributeForm() {
             <button
               type="button"
               onClick={addVariant}
-              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded px-2 py-1 -mr-2"
+              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors"
             >
               + Add Variant
             </button>
@@ -657,7 +657,7 @@ export default function ContributeForm() {
               <button
                 type="button"
                 onClick={() => removeVariant(index)}
-                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg rounded px-2 py-1"
+                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase"
               >
                 Remove
               </button>
@@ -740,7 +740,7 @@ export default function ContributeForm() {
 
         <button
           type="submit"
-          className="w-full bg-archive-accent text-archive-bg font-bold uppercase tracking-widest py-3 px-4 rounded hover:bg-opacity-90 transition-opacity mt-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface"
+          className="w-full bg-archive-accent text-archive-bg font-bold uppercase tracking-widest py-3 px-4 rounded hover:bg-opacity-90 transition-opacity mt-8"
         >
           Download Record (.md)
         </button>
