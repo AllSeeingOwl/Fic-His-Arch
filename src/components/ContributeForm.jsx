@@ -9,6 +9,13 @@ const timelineFlairOptions = [
   'Canon Reference',
 ];
 
+// ⚡ Bolt: Hoist RegEx to prevent re-allocation on every render/function call
+const spaceRegex = /\s+/g;
+const nonWordRegex = /[^\w\-]+/g;
+const doubleDashRegex = /\-\-+/g;
+const leadingDashRegex = /^-+/;
+const trailingDashRegex = /-+$/;
+
 const InfoTooltip = ({ text }) => {
   return (
     <div className="relative group inline-block ml-1">
@@ -163,11 +170,11 @@ export default function ContributeForm() {
     return text
       .toString()
       .toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w\-]+/g, '')
-      .replace(/\-\-+/g, '-')
-      .replace(/^-+/, '')
-      .replace(/-+$/, '');
+      .replace(spaceRegex, '-')
+      .replace(nonWordRegex, '')
+      .replace(doubleDashRegex, '-')
+      .replace(leadingDashRegex, '')
+      .replace(trailingDashRegex, '');
   };
 
   const handleDownload = (e) => {
