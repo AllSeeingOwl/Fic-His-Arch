@@ -175,6 +175,7 @@ const adminRateLimitTracker = (req: Request, res: Response, next: NextFunction) 
 app.use('/api/admin', adminRateLimitChecker);
 
 app.post('/api/admin/verify', adminRateLimitTracker, (req: Request, res: Response) => {
+app.post('/api/admin/verify', adminRateLimiter, (req: Request, res: Response) => {
   let isSuccess = false;
   const { password } = req.body;
   if (typeof password === 'string') {
