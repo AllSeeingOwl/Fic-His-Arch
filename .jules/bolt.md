@@ -32,3 +32,8 @@
 
 **Learning:** When using `String.prototype.replace(regex, callback)` with a callback that uses a mapping object to determine replacements (e.g., escaping HTML characters), defining the mapping object directly inside the callback causes a new object to be allocated for _every single match_ found in the string. For large text payloads, this creates significant garbage collection pressure and CPU overhead.
 **Action:** Always hoist mapping objects and the associated Regular Expression outside of the `replace` function and the callback. This ensures they are only allocated once, making the substitution significantly faster.
+
+## 2026-06-10 - Hoist RegExp for String.replace() safely
+
+**Learning:** It is completely safe to reuse global RegExp instances (those with the `g` flag) hoisted outside a function when calling `String.prototype.replace()`. Unlike `.exec()` or `.test()`, `.replace()` does not suffer from stateful `lastIndex` side effects across separate calls, making hoisting an effective way to avoid unnecessary object allocation on every function call or render loop.
+**Action:** Always hoist static Regular Expressions outside of utility functions or React component bodies, especially those used for string normalization or formatting.
