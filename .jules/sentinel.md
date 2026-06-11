@@ -57,3 +57,9 @@
 **Vulnerability:** The Content-Security-Policy (CSP) header in `server.ts` previously allowed `script-src 'self' 'unsafe-inline'`. This configuration significantly weakens the application's defense against Cross-Site Scripting (XSS) attacks by allowing arbitrary inline scripts to execute.
 **Learning:** Permitting `'unsafe-inline'` in `script-src` defeats the primary purpose of a CSP, which is to ensure only trusted, external script files are executed.
 **Prevention:** When configuring a Content-Security-Policy (CSP) header, ensure the `script-src` directive strictly uses `'self'` (or specific trusted domains/nonces) and explicitly avoids `'unsafe-inline'` to effectively mitigate Cross-Site Scripting (XSS) vulnerabilities.
+
+## 2025-02-23 - Rate Limit Self-Inflicted DoS
+
+**Vulnerability:** The rate limiter `adminRateLimiter` was applied globally to all `/api/admin` endpoints via `app.use('/api/admin', adminRateLimiter);` but it tracked failed requests (HTTP 401 Unauthorized responses) to build its attempts count. If a legitimate user's token expired and they made several concurrent API requests to multiple admin endpoints (like fetching the maintenance config), each endpoint would respond with 401, unintentionally racking up their failure count and locking them out, creating a self-inflicted Denial of Service (DoS).
+**Learning:** Applying a failure-tracking rate limiter broadly to endpoints that naturally return the tracked error code (like 401 on expired tokens) can accidentally lock out legitimate users.
+**Prevention:** Target specific authentication/login endpoints (e.g. `/api/admin/verify`) when implementing rate limiting for failed authentication attempts, rather than applying it globally to all 401 responses.
