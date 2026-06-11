@@ -40,5 +40,5 @@
 
 ## 2025-10-24 - [Required Form Field Indicators]
 
-**Learning:** Sighted users often struggle to identify which form fields are mandatory when only the native `required` attribute is used (which is only announced by screen readers). Conversely, simply adding an asterisk (*) to the label text will be read aloud by screen readers on every field, which can be annoying and redundant when `required` is already present.
-**Action:** When building forms, utilize native HTML5 `required` attributes and include a visual indicator (e.g., `<span aria-hidden="true" className="text-archive-accent ml-1">*</span>`) on labels to prevent user confusion without creating redundant screen reader announcements.
+**Learning:** Sighted users often struggle to identify which form fields are mandatory when only the native `required` attribute is used (which is only announced by screen readers). Conversely, simply adding an asterisk (_) to the label text will be read aloud by screen readers on every field, which can be annoying and redundant when `required` is already present.
+**Action:** When building forms, utilize native HTML5 `required` attributes and include a visual indicator (e.g., `<span aria-hidden="true" className="text-archive-accent ml-1">_</span>`) on labels to prevent user confusion without creating redundant screen reader announcements.
