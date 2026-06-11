@@ -118,11 +118,15 @@ const flairColors = getFlairColors(data.timeline_flair);
       if (node.nodeType === 3) { // Text node
         const text = node.nodeValue;
         // ⚡ Bolt: Add fast-path check to avoid running regex tests/replacements when not needed
-        if (text.includes('||') && regex.test(text)) {
-          const span = document.createElement('span');
+        // Removed regex.test() as it mutates global regex lastIndex and is redundant with replace()
+        if (text.includes('||')) {
           const escapedText = escapeHTML(text);
-          span.innerHTML = escapedText.replace(regex, '<span class="redacted-spoiler focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded" title="Click to reveal" role="button" tabindex="0">$1</span>');
-          node.parentNode.replaceChild(span, node);
+          const replacedHTML = escapedText.replace(regex, '<span class="redacted-spoiler focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded" title="Click to reveal" role="button" tabindex="0">$1</span>');
+          if (replacedHTML !== escapedText) {
+            const span = document.createElement('span');
+            span.innerHTML = replacedHTML;
+            node.parentNode.replaceChild(span, node);
+          }
         }
       } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
         // Element node
