@@ -285,6 +285,9 @@ export default function ContributeForm() {
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
                 Headline / Title{' '}
+                <span aria-hidden="true" className="text-archive-accent ml-1">
+                  *
+                </span>{' '}
                 <InfoTooltip text="The main title of the event or article. E.g., 'Rebel Alliance Destroys Imperial Superweapon'" />
               </label>
               <input
@@ -305,6 +308,9 @@ export default function ContributeForm() {
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
                 Dateline Location{' '}
+                <span aria-hidden="true" className="text-archive-accent ml-1">
+                  *
+                </span>{' '}
                 <InfoTooltip text="Where the event primarily took place. E.g., 'Yavin 4 Orbit', 'Hogwarts'" />
               </label>
               <input
@@ -325,6 +331,9 @@ export default function ContributeForm() {
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
                 In-Universe Date{' '}
+                <span aria-hidden="true" className="text-archive-accent ml-1">
+                  *
+                </span>{' '}
                 <InfoTooltip text="The date according to the story's own calendar. E.g., 'Late 0 BBY', 'Stardate 43989.1'" />
               </label>
               <input
@@ -345,6 +354,9 @@ export default function ContributeForm() {
                 className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
               >
                 Timeline Flair{' '}
+                <span aria-hidden="true" className="text-archive-accent ml-1">
+                  *
+                </span>{' '}
                 <InfoTooltip text="Categorizes the nature of the timeline anomaly or setting." />
               </label>
               <select
@@ -606,7 +618,10 @@ export default function ContributeForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
-                    Source Name (e.g., Fandom Wiki, IMDb)
+                    Source Name (e.g., Fandom Wiki, IMDb){' '}
+                    <span aria-hidden="true" className="text-archive-accent ml-1">
+                      *
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -619,7 +634,10 @@ export default function ContributeForm() {
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
-                    URL
+                    URL{' '}
+                    <span aria-hidden="true" className="text-archive-accent ml-1">
+                      *
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -672,7 +690,10 @@ export default function ContributeForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
-                    Source Work
+                    Source Work{' '}
+                    <span aria-hidden="true" className="text-archive-accent ml-1">
+                      *
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -685,7 +706,10 @@ export default function ContributeForm() {
                 </div>
                 <div>
                   <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
-                    URL (Reference)
+                    URL (Reference){' '}
+                    <span aria-hidden="true" className="text-archive-accent ml-1">
+                      *
+                    </span>
                   </label>
                   <input
                     type="text"
@@ -698,7 +722,10 @@ export default function ContributeForm() {
                 </div>
                 <div className="md:col-span-2">
                   <label className="block text-xs uppercase tracking-widest text-archive-muted mb-1">
-                    Excerpt
+                    Excerpt{' '}
+                    <span aria-hidden="true" className="text-archive-accent ml-1">
+                      *
+                    </span>
                   </label>
                   <textarea
                     required
