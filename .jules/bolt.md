@@ -42,3 +42,8 @@
 
 **Learning:** It is completely safe to reuse global RegExp instances (those with the `g` flag) hoisted outside a function when calling `String.prototype.replace()`. Unlike `.exec()` or `.test()`, `.replace()` does not suffer from stateful `lastIndex` side effects across separate calls, making hoisting an effective way to avoid unnecessary object allocation on every function call or render loop.
 **Action:** Always hoist static Regular Expressions outside of utility functions or React component bodies, especially those used for string normalization or formatting.
+
+## 2026-06-12 - Progressively enhance conditionally rendered views for No-JS fallbacks
+
+**Learning:** When building mutually exclusive views (like Table vs Timeline) that must support No-JS fallbacks via `<noscript>` styles, rendering all views into the DOM and toggling them purely with CSS creates significant React reconciliation overhead and bloats the DOM.
+**Action:** Progressively enhance these views: On the server or initial load (`!mounted`), render both views into the DOM so that `<noscript>` CSS can hide/show them. Once the component hydrates (`mounted`), switch to conditionally rendering only the active view (`{activeView === 'view' && <div...>}`) to drastically reduce the number of DOM nodes React has to manage.
