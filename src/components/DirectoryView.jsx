@@ -116,10 +116,11 @@ export default function DirectoryView({ articles }) {
         </div>
 
         {/* View Toggles */}
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-end gap-2" role="group" aria-label="View selection">
           <button
             onClick={() => setActiveView('table')}
-            className={`px-4 py-2 font-sans text-sm font-medium uppercase tracking-wider transition-colors border border-archive-border rounded-l ${
+            aria-pressed={activeView === 'table'}
+            className={`px-4 py-2 font-sans text-sm font-medium uppercase tracking-wider transition-colors border border-archive-border rounded-l focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg ${
               activeView === 'table'
                 ? 'bg-archive-border text-archive-accent'
                 : 'bg-archive-surface text-archive-muted hover:text-archive-paper'
@@ -129,7 +130,8 @@ export default function DirectoryView({ articles }) {
           </button>
           <button
             onClick={() => setActiveView('timeline')}
-            className={`px-4 py-2 font-sans text-sm font-medium uppercase tracking-wider transition-colors border border-archive-border rounded-r ${
+            aria-pressed={activeView === 'timeline'}
+            className={`px-4 py-2 font-sans text-sm font-medium uppercase tracking-wider transition-colors border border-archive-border rounded-r focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg ${
               activeView === 'timeline'
                 ? 'bg-archive-border text-archive-accent'
                 : 'bg-archive-surface text-archive-muted hover:text-archive-paper'
