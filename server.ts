@@ -94,12 +94,27 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || crypto.randomBytes(32).toString('hex');
 const adminAuthHash = crypto.createHash('sha256').update(ADMIN_PASSWORD).digest();
 
+// 🛡️ Sentinel: In-memory store for active session tokens (with simple expiration to prevent memory leaks)
+const activeSessions = new Map<string, number>();
+const SESSION_EXPIRATION_MS = 24 * 60 * 60 * 1000; // 24 hours
+
 const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(' ')[1];
   if (!token) {
     res.status(401).json({ error: 'Unauthorized' });
     return;
   }
+
+  const sessionExpiration = activeSessions.get(token);
+  if (sessionExpiration) {
+    if (Date.now() < sessionExpiration) {
+      next();
+      return;
+    } else {
+      activeSessions.delete(token); // Cleanup expired token
+    }
+  }
+
   try {
     const tokenHash = crypto.createHash('sha256').update(token).digest();
     if (crypto.timingSafeEqual(tokenHash, adminAuthHash)) {
@@ -185,7 +200,19 @@ app.post('/api/admin/verify', adminRateLimitTracker, (req: Request, res: Respons
   }
 
   if (isSuccess) {
-    res.json({ success: true, token: ADMIN_PASSWORD });
+    // 🛡️ Sentinel: Return a secure session identifier instead of the plaintext password
+    const sessionToken = crypto.randomBytes(32).toString('hex');
+
+    // Memory leak prevention: Periodically clean up old sessions
+    if (activeSessions.size > 100) {
+      const now = Date.now();
+      for (const [key, exp] of activeSessions.entries()) {
+        if (now >= exp) activeSessions.delete(key);
+      }
+    }
+
+    activeSessions.set(sessionToken, Date.now() + SESSION_EXPIRATION_MS);
+    res.json({ success: true, token: sessionToken });
   } else {
     res.status(401).json({ success: false, error: 'Invalid password' });
   }
