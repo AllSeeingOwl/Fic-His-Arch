@@ -456,7 +456,9 @@ export default function ContributeForm() {
                 onChange={handleChange}
                 className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
               >
-                <option value="" disabled>Select a medium...</option>
+                <option value="" disabled>
+                  Select a medium...
+                </option>
                 <option value="Film">Film</option>
                 <option value="TV Show">TV Show</option>
                 <option value="Book">Book</option>
@@ -471,8 +473,7 @@ export default function ContributeForm() {
                   htmlFor="source_medium_other"
                   className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
                 >
-                  Custom Source Medium{' '}
-                  <InfoTooltip text="Specify the medium format." />
+                  Custom Source Medium <InfoTooltip text="Specify the medium format." />
                 </label>
                 <input
                   type="text"
@@ -496,7 +497,10 @@ export default function ContributeForm() {
                       htmlFor="tv_show_status"
                       className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
                     >
-                      Show Status <span aria-hidden="true" className="text-archive-accent ml-1">*</span>
+                      Show Status{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
                     </label>
                     <select
                       id="tv_show_status"
@@ -506,7 +510,9 @@ export default function ContributeForm() {
                       onChange={handleChange}
                       className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
                     >
-                      <option value="" disabled>Select status...</option>
+                      <option value="" disabled>
+                        Select status...
+                      </option>
                       <option value="Ongoing">Ongoing</option>
                       <option value="Ended">Ended</option>
                       <option value="Cancelled">Cancelled</option>
@@ -518,7 +524,10 @@ export default function ContributeForm() {
                       htmlFor="event_scale"
                       className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
                     >
-                      Event Scale <span aria-hidden="true" className="text-archive-accent ml-1">*</span>
+                      Event Scale{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
                     </label>
                     <select
                       id="event_scale"
@@ -528,7 +537,9 @@ export default function ContributeForm() {
                       onChange={handleChange}
                       className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
                     >
-                      <option value="" disabled>Select scale...</option>
+                      <option value="" disabled>
+                        Select scale...
+                      </option>
                       <option value="Series Premiere">Series Premiere</option>
                       <option value="Season Premiere">Season Premiere</option>
                       <option value="Season Finale">Season Finale</option>
@@ -544,7 +555,10 @@ export default function ContributeForm() {
                       htmlFor="season_number"
                       className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
                     >
-                      Season Number <span aria-hidden="true" className="text-archive-accent ml-1">*</span>
+                      Season Number{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
                     </label>
                     <input
                       type="number"
@@ -564,7 +578,10 @@ export default function ContributeForm() {
                       htmlFor="episode_number"
                       className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
                     >
-                      Episode Number <span aria-hidden="true" className="text-archive-accent ml-1">*</span>
+                      Episode Number{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
                     </label>
                     <input
                       type="number"
