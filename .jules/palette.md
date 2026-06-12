@@ -42,3 +42,8 @@
 
 **Learning:** Sighted users often struggle to identify which form fields are mandatory when only the native `required` attribute is used (which is only announced by screen readers). Conversely, simply adding an asterisk (_) to the label text will be read aloud by screen readers on every field, which can be annoying and redundant when `required` is already present.
 **Action:** When building forms, utilize native HTML5 `required` attributes and include a visual indicator (e.g., `<span aria-hidden="true" className="text-archive-accent ml-1">_</span>`) on labels to prevent user confusion without creating redundant screen reader announcements.
+
+## 2025-10-25 - [Toggle Button Groups Accessibility]
+
+**Learning:** When implementing toggle button groups (like view switches between 'Master List' and 'Timeline'), screen readers may announce them as disconnected buttons without context or current active state. Furthermore, lacking a `focus-visible` ring makes keyboard navigation difficult.
+**Action:** Wrap the button group in `role="group"` with an `aria-label` describing the action (e.g., `aria-label="View selection"`). Apply `aria-pressed="true|false"` dynamically to the buttons based on the active state, and ensure standard `focus-visible` ring utilities are applied for keyboard accessibility.
