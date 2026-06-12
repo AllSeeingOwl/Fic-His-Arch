@@ -37,6 +37,11 @@ export default function ContributeForm() {
     timeline_flair: 'On Earth',
     source_work: '',
     source_medium: '',
+    source_medium_other: '',
+    tv_show_status: '',
+    event_scale: '',
+    season_number: '',
+    episode_number: '',
     source_creator: '',
     release_year: '',
     context_note: '',
@@ -121,7 +126,20 @@ export default function ContributeForm() {
     md += `in_universe_date: ${escapeYaml(in_universe_date)}\n`;
     md += `timeline_flair: '${timeline_flair}'\n`;
     md += `source_work: ${escapeYaml(source_work)}\n`;
-    md += `source_medium: ${escapeYaml(source_medium)}\n`;
+
+    if (source_medium === 'Other') {
+      md += `source_medium: ${escapeYaml(formData.source_medium_other)}\n`;
+    } else {
+      md += `source_medium: ${escapeYaml(source_medium)}\n`;
+    }
+
+    if (source_medium === 'TV Show') {
+      md += `tv_show_status: '${formData.tv_show_status}'\n`;
+      md += `event_scale: '${formData.event_scale}'\n`;
+      md += `season_number: ${formData.season_number}\n`;
+      md += `episode_number: ${formData.episode_number}\n`;
+    }
+
     md += `source_creator: ${escapeYaml(source_creator)}\n`;
     md += `release_year: ${release_year}\n`;
     md += `context_note: ${escapeYaml(context_note)}\n`;
@@ -430,17 +448,156 @@ export default function ContributeForm() {
                 Source Medium{' '}
                 <InfoTooltip text="The format of the source material. E.g., 'Film', 'Book', 'Video Game'" />
               </label>
-              <input
-                type="text"
+              <select
                 id="source_medium"
                 name="source_medium"
                 required
                 value={formData.source_medium}
                 onChange={handleChange}
                 className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
-                placeholder="e.g., Film, Book, Video Game"
-              />
+              >
+                <option value="" disabled>
+                  Select a medium...
+                </option>
+                <option value="Film">Film</option>
+                <option value="TV Show">TV Show</option>
+                <option value="Book">Book</option>
+                <option value="Video Game">Video Game</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
+
+            {formData.source_medium === 'Other' && (
+              <div>
+                <label
+                  htmlFor="source_medium_other"
+                  className="block text-xs uppercase tracking-widest text-archive-muted mb-1 flex items-center"
+                >
+                  Custom Source Medium <InfoTooltip text="Specify the medium format." />
+                </label>
+                <input
+                  type="text"
+                  id="source_medium_other"
+                  name="source_medium_other"
+                  required
+                  value={formData.source_medium_other}
+                  onChange={handleChange}
+                  className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                  placeholder="e.g., Graphic Novel, Podcast, etc."
+                />
+              </div>
+            )}
+
+            {formData.source_medium === 'TV Show' && (
+              <div className="md:col-span-2 p-4 border border-archive-border border-dashed bg-archive-bg/50 rounded space-y-4">
+                <h5 className="font-display text-md text-archive-accent">TV Show Details</h5>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label
+                      htmlFor="tv_show_status"
+                      className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+                    >
+                      Show Status{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
+                    </label>
+                    <select
+                      id="tv_show_status"
+                      name="tv_show_status"
+                      required
+                      value={formData.tv_show_status}
+                      onChange={handleChange}
+                      className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                    >
+                      <option value="" disabled>
+                        Select status...
+                      </option>
+                      <option value="Ongoing">Ongoing</option>
+                      <option value="Ended">Ended</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="event_scale"
+                      className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+                    >
+                      Event Scale{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
+                    </label>
+                    <select
+                      id="event_scale"
+                      name="event_scale"
+                      required
+                      value={formData.event_scale}
+                      onChange={handleChange}
+                      className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                    >
+                      <option value="" disabled>
+                        Select scale...
+                      </option>
+                      <option value="Series Premiere">Series Premiere</option>
+                      <option value="Season Premiere">Season Premiere</option>
+                      <option value="Season Finale">Season Finale</option>
+                      <option value="Series Finale">Series Finale</option>
+                      <option value="Major Character Death">Major Character Death</option>
+                      <option value="Major Story Arc Conclusion">Major Story Arc Conclusion</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="season_number"
+                      className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+                    >
+                      Season Number{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
+                    </label>
+                    <input
+                      type="number"
+                      id="season_number"
+                      name="season_number"
+                      required
+                      min="1"
+                      value={formData.season_number}
+                      onChange={handleChange}
+                      className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                      placeholder="e.g., 3"
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="episode_number"
+                      className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+                    >
+                      Episode Number{' '}
+                      <span aria-hidden="true" className="text-archive-accent ml-1">
+                        *
+                      </span>
+                    </label>
+                    <input
+                      type="number"
+                      id="episode_number"
+                      name="episode_number"
+                      required
+                      min="1"
+                      value={formData.episode_number}
+                      onChange={handleChange}
+                      className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                      placeholder="e.g., 12"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div>
               <label
