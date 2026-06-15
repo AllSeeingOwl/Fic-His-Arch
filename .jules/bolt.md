@@ -49,5 +49,6 @@
 **Action:** Progressively enhance these views: On the server or initial load (`!mounted`), render both views into the DOM so that `<noscript>` CSS can hide/show them. Once the component hydrates (`mounted`), switch to conditionally rendering only the active view (`{activeView === 'view' && <div...>}`) to drastically reduce the number of DOM nodes React has to manage.
 
 ## 2024-06-15 - [Intl.Collator vs String.prototype.localeCompare]
+
 **Learning:** `String.prototype.localeCompare` is surprisingly slow when called repeatedly within `.sort()` operations because it has to instantiate a new formatting object on every call under the hood. Using `new Intl.Collator().compare` pre-allocates the formatting engine.
 **Action:** Always hoist `new Intl.Collator()` outside of `.sort()` callbacks and React functional components (or `useMemo` hooks) to prevent repetitive instantiation and speed up array sorting significantly.
