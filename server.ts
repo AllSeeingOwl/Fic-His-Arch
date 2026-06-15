@@ -229,6 +229,11 @@ app.get('/api/admin/maintenance-config', verifyAdminToken, async (req: Request, 
 
 app.post('/api/admin/maintenance-config', verifyAdminToken, async (req: Request, res: Response) => {
   const { key, value } = req.body;
+  // 🛡️ Sentinel: Enforce strict type checking and validation on server-mutating inputs
+  if (typeof key !== 'string' || key.trim() === '' || typeof value !== 'boolean') {
+    res.status(400).json({ error: 'Invalid input' });
+    return;
+  }
   try {
     await updateMaintenanceConfig(key, value);
     if (key === 'global') MAINTENANCE_MODE = value;
@@ -243,6 +248,11 @@ app.post(
   verifyAdminToken,
   async (req: Request, res: Response) => {
     const { value } = req.body;
+    // 🛡️ Sentinel: Enforce strict type checking on server-mutating inputs
+    if (typeof value !== 'boolean') {
+      res.status(400).json({ error: 'Invalid input' });
+      return;
+    }
     try {
       await updateAllMaintenanceConfig(value);
       res.json({ success: true });
