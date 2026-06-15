@@ -47,3 +47,8 @@
 
 **Learning:** When implementing toggle button groups (like view switches between 'Master List' and 'Timeline'), screen readers may announce them as disconnected buttons without context or current active state. Furthermore, lacking a `focus-visible` ring makes keyboard navigation difficult.
 **Action:** Wrap the button group in `role="group"` with an `aria-label` describing the action (e.g., `aria-label="View selection"`). Apply `aria-pressed="true|false"` dynamically to the buttons based on the active state, and ensure standard `focus-visible` ring utilities are applied for keyboard accessibility.
+
+## 2025-10-26 - [Contextual ARIA Labels for Repeated Form Actions]
+
+**Learning:** When generating multiple repeating dynamic elements that perform the same action (like "Remove" buttons for a list of links or variants), simply relying on the visible text "Remove" causes screen readers to announce identical, contextless actions for every button.
+**Action:** Always add a descriptive, contextual `aria-label` (e.g., `aria-label={"Remove link " + (index + 1)}`) to repeating action buttons inside mapped arrays so screen reader users know exactly which item the button affects.
