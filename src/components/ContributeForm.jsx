@@ -19,10 +19,17 @@ const trailingDashRegex = /-+$/;
 const InfoTooltip = ({ text }) => {
   return (
     <div className="relative group inline-block ml-1">
-      <span className="text-archive-accent cursor-help" tabIndex="0" aria-label="More info">
+      <button
+        type="button"
+        className="text-archive-accent cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded"
+        aria-label={text}
+      >
         [?]
-      </span>
-      <div className="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-archive-surface border border-archive-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 pointer-events-none text-xs text-archive-paper normal-case tracking-normal text-left font-sans">
+      </button>
+      <div
+        aria-hidden="true"
+        className="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-archive-surface border border-archive-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 pointer-events-none text-xs text-archive-paper normal-case tracking-normal text-left font-sans"
+      >
         {text}
       </div>
     </div>
