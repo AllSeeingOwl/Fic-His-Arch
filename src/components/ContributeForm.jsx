@@ -16,12 +16,12 @@ const doubleDashRegex = /\-\-+/g;
 const leadingDashRegex = /^-+/;
 const trailingDashRegex = /-+$/;
 
-const InfoTooltip = ({ text }) => {
+// ⚡ Bolt: Memoize InfoTooltip to prevent unnecessary re-renders when the parent form state updates on every keystroke
+const InfoTooltip = React.memo(({ text }) => {
   return (
     <div className="relative group inline-block ml-1">
       <button
         type="button"
-        className="text-archive-accent cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded"
         className="text-archive-accent cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1"
         aria-label={text}
       >
@@ -35,7 +35,7 @@ const InfoTooltip = ({ text }) => {
       </div>
     </div>
   );
-};
+});
 
 export default function ContributeForm() {
   const [formData, setFormData] = useState({

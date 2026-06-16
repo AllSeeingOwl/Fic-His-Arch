@@ -67,3 +67,8 @@
 
 **Learning:** `String.prototype.localeCompare` is surprisingly slow when called repeatedly within `.sort()` operations because it has to instantiate a new formatting object on every call under the hood. Using `new Intl.Collator().compare` pre-allocates the formatting engine.
 **Action:** Always hoist `new Intl.Collator()` outside of `.sort()` callbacks and React functional components (or `useMemo` hooks) to prevent repetitive instantiation and speed up array sorting significantly.
+
+## 2026-06-16 - Memoize static child components in complex React forms
+
+**Learning:** In complex React forms (like `ContributeForm`), state updates on every keystroke trigger a re-render of the entire component tree. This causes all static child elements, such as inline tooltips (`InfoTooltip`), to re-render needlessly, resulting in compounded React reconciliation overhead and potential typing lag for the user.
+**Action:** Use `React.memo()` on pure UI components that are used repeatedly inside large forms to bypass unnecessary rendering cycles when the form state changes.
