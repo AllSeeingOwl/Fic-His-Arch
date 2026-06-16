@@ -47,3 +47,12 @@
 
 **Learning:** When building mutually exclusive views (like Table vs Timeline) that must support No-JS fallbacks via `<noscript>` styles, rendering all views into the DOM and toggling them purely with CSS creates significant React reconciliation overhead and bloats the DOM.
 **Action:** Progressively enhance these views: On the server or initial load (`!mounted`), render both views into the DOM so that `<noscript>` CSS can hide/show them. Once the component hydrates (`mounted`), switch to conditionally rendering only the active view (`{activeView === 'view' && <div...>}`) to drastically reduce the number of DOM nodes React has to manage.
+## 2024-06-12 - Preload external font assets
+
+**Learning:** Relying on `@import` or loading external fonts (like Google Fonts) without preloading connections can lead to Flash of Unstyled Text (FOUT) and layout shifts, as the browser discovers the need for the font later in the rendering process.
+**Action:** Always add `<link rel="preconnect">` tags for font providers (`fonts.googleapis.com` and `fonts.gstatic.com`) in the global `<head>` of the layout document (e.g., `Layout.astro`) to establish early connections, and directly link the stylesheet.
+
+## 2024-06-12 - Avoid micro-optimizations on cold paths
+
+**Learning:** Optimizing code that runs infrequently, such as hoisting a regex out of a human-triggered click event handler, provides zero measurable performance impact. Modern JavaScript engines already optimize these well, and the time saved (microseconds) is irrelevant for a user interaction.
+**Action:** Focus performance optimizations on hot paths (e.g., render loops, frequent utility calls, database queries, critical rendering path) and avoid adding noise to the codebase for negligible gains on cold paths.
