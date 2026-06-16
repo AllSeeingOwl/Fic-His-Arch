@@ -19,10 +19,17 @@ const trailingDashRegex = /-+$/;
 const InfoTooltip = ({ text }) => {
   return (
     <div className="relative group inline-block ml-1">
-      <span className="text-archive-accent cursor-help" tabIndex="0" aria-label="More info">
+      <button
+        type="button"
+        className="text-archive-accent cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1"
+        aria-label={text}
+      >
         [?]
-      </span>
-      <div className="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-archive-surface border border-archive-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 pointer-events-none text-xs text-archive-paper normal-case tracking-normal text-left font-sans">
+      </button>
+      <div
+        aria-hidden="true"
+        className="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-archive-surface border border-archive-border rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 pointer-events-none text-xs text-archive-paper normal-case tracking-normal text-left font-sans"
+      >
         {text}
       </div>
     </div>
@@ -753,7 +760,7 @@ export default function ContributeForm() {
             <button
               type="button"
               onClick={addLink}
-              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors"
+              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg rounded px-1"
             >
               + Add Link
             </button>
@@ -767,7 +774,8 @@ export default function ContributeForm() {
               <button
                 type="button"
                 onClick={() => removeLink(index)}
-                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase"
+                aria-label={`Remove link ${index + 1}`}
+                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg rounded px-1"
               >
                 Remove
               </button>
@@ -825,7 +833,7 @@ export default function ContributeForm() {
             <button
               type="button"
               onClick={addVariant}
-              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors"
+              className="text-xs uppercase tracking-widest text-archive-terminal hover:text-archive-paper transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg rounded px-1"
             >
               + Add Variant
             </button>
@@ -839,7 +847,8 @@ export default function ContributeForm() {
               <button
                 type="button"
                 onClick={() => removeVariant(index)}
-                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase"
+                aria-label={`Remove variant ${index + 1}`}
+                className="absolute top-2 right-2 text-archive-muted hover:text-red-500 transition-colors text-xs uppercase focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg rounded px-1"
               >
                 Remove
               </button>
@@ -931,7 +940,7 @@ export default function ContributeForm() {
 
         <button
           type="submit"
-          className="w-full bg-archive-accent text-archive-bg font-bold uppercase tracking-widest py-3 px-4 rounded hover:bg-opacity-90 transition-opacity mt-8"
+          className="w-full bg-archive-accent text-archive-bg font-bold uppercase tracking-widest py-3 px-4 rounded hover:bg-opacity-90 transition-opacity mt-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-bg"
         >
           Download Record (.md)
         </button>
