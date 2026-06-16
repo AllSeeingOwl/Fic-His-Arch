@@ -52,3 +52,12 @@
 
 **Learning:** When building custom tooltips using pure CSS `group-hover` and `group-focus-within`, using a generic `<span tabIndex="0">` as the trigger causes screen readers to either ignore it or announce it without context. Additionally, if the visual tooltip container isn't hidden from screen readers, the text will be read redundantly or out of context.
 **Action:** Use a native `<button type="button">` trigger instead of a generic `<span tabIndex="0">`. Set the button's `aria-label` to the actual tooltip text for native screen reader support, add `aria-hidden="true"` to the visual tooltip container to prevent redundant reading, and ensure `focus-visible` styles are present on the trigger.
+## 2025-10-26 - [Tooltip Accessibility Pattern]
+
+**Learning:** When building custom tooltips using pure CSS `group-hover` and `group-focus-within`, using a generic `<span tabIndex="0">` lacks native button semantics. Additionally, generic `aria-label="More info"` forces screen reader users to infer meaning rather than reading the tooltip's actual text.
+**Action:** Replace interactive tooltip triggers with native `<button type="button">`. Set the button's `aria-label` to the actual tooltip text so screen readers read it natively, and add `aria-hidden="true"` to the visual tooltip container to prevent redundant reading. Always include `focus-visible` styles for the trigger.
+
+## 2025-10-26 - [Contextual ARIA Labels for Repeated Form Actions]
+
+**Learning:** When generating multiple repeating dynamic elements that perform the same action (like "Remove" buttons for a list of links or variants), simply relying on the visible text "Remove" causes screen readers to announce identical, contextless actions for every button.
+**Action:** Always add a descriptive, contextual `aria-label` (e.g., `aria-label={"Remove link " + (index + 1)}`) to repeating action buttons inside mapped arrays so screen reader users know exactly which item the button affects.
