@@ -138,12 +138,32 @@ const adminRateLimitChecker = (req: Request, res: Response, next: NextFunction) 
 
   // 🛡️ Sentinel: Secure memory leak prevention without bypassing rate limits
   if (loginAttempts.size > 1000) {
+    // Collect keys to delete first to avoid mutating map during iteration
+    const keysToDelete = [];
     for (const [key, value] of loginAttempts.entries()) {
       if (value.lockUntil > 0 && value.lockUntil <= now) {
-        loginAttempts.delete(key);
+        keysToDelete.push(key);
       } else if (value.lockUntil === 0 && now - value.lastAttempt > LOCK_TIME_MS) {
-        loginAttempts.delete(key);
+        keysToDelete.push(key);
       }
+    }
+
+    // If we're full and nothing expired naturally, aggressively prune the oldest partial failures
+    if (keysToDelete.length === 0 && loginAttempts.size > 1000) {
+      // Find the oldest record that is NOT actively locked out
+      let oldestKey = null;
+      let oldestTime = now;
+      for (const [key, value] of loginAttempts.entries()) {
+        if (value.lockUntil === 0 && value.lastAttempt < oldestTime) {
+          oldestTime = value.lastAttempt;
+          oldestKey = key;
+        }
+      }
+      if (oldestKey) keysToDelete.push(oldestKey);
+    }
+
+    for (const key of keysToDelete) {
+      loginAttempts.delete(key);
     }
 
     if (loginAttempts.size > 1000 && !loginAttempts.has(ip)) {
@@ -155,6 +175,12 @@ const adminRateLimitChecker = (req: Request, res: Response, next: NextFunction) 
   }
 
   const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0, lastAttempt: now };
+
+  // Reset lock state if it has expired
+  if (record.lockUntil > 0 && record.lockUntil <= now) {
+    record.count = 0;
+    record.lockUntil = 0;
+  }
 
   if (record.lockUntil > now) {
     res.status(429).json({ success: false, error: 'Too many attempts, please try again later' });
