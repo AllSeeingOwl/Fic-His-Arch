@@ -273,7 +273,7 @@ export default function DirectoryView({ articles }) {
                           <td className="p-4">
                             <a
                               href={article.url}
-                              className="text-archive-accent hover:underline font-medium block"
+                              className="text-archive-accent hover:underline font-medium block focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1 -ml-1"
                             >
                               {article.title}
                             </a>
@@ -349,7 +349,7 @@ export default function DirectoryView({ articles }) {
                               <h3 className="font-display text-xl text-archive-paper">
                                 <a
                                   href={article.url}
-                                  className="hover:text-archive-accent transition-colors"
+                                  className="hover:text-archive-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1 -ml-1"
                                 >
                                   {article.title}
                                 </a>
@@ -406,7 +406,7 @@ export default function DirectoryView({ articles }) {
 
                             <a
                               href={article.url}
-                              className="inline-block font-sans text-xs uppercase tracking-widest text-archive-accent hover:text-archive-paper transition-colors"
+                              className="inline-block font-sans text-xs uppercase tracking-widest text-archive-accent hover:text-archive-paper transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1 -ml-1"
                             >
                               View File Details →
                             </a>

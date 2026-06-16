@@ -62,3 +62,8 @@
 
 **Learning:** When generating multiple repeating dynamic elements that perform the same action (like "Remove" buttons for a list of links or variants), simply relying on the visible text "Remove" causes screen readers to announce identical, contextless actions for every button.
 **Action:** Always add a descriptive, contextual `aria-label` (e.g., `aria-label={"Remove link " + (index + 1)}`) to repeating action buttons inside mapped arrays so screen reader users know exactly which item the button affects.
+
+## 2025-10-27 - [Inline Link Focus States]
+
+**Learning:** Inline text links lacking explicit focus states are difficult to spot for keyboard users.
+**Action:** When working with inline text links, particularly over dark backgrounds, add explicit custom focus styling to improve visibility. Classes such as `focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1 -ml-1` can be added to the link styling.

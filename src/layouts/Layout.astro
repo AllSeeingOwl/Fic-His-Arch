@@ -63,9 +63,9 @@ const { title } = Astro.props;
     <footer class="border-t border-dashed border-archive-border mt-12 py-8 text-center bg-archive-surface">
       <div class="max-w-4xl mx-auto px-8">
         <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-4">
-          <a href={resolvePath('/faq')} class="font-sans text-xs uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors">FAQ</a>
-          <a href={resolvePath('/privacy-policy')} class="font-sans text-xs uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors">Privacy Policy</a>
-          <a href={resolvePath('/terms-of-service')} class="font-sans text-xs uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors">Terms of Service</a>
+          <a href={resolvePath('/faq')} class="font-sans text-xs uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1">FAQ</a>
+          <a href={resolvePath('/privacy-policy')} class="font-sans text-xs uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1">Privacy Policy</a>
+          <a href={resolvePath('/terms-of-service')} class="font-sans text-xs uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1">Terms of Service</a>
         </div>
         <p class="font-sans text-[10px] text-archive-muted uppercase tracking-widest">
           &copy; {new Date().getFullYear()} Fictional History Archive. All localized timelines reserved.

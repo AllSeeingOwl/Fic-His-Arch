@@ -52,7 +52,7 @@ export default function ArchiveInteractiveSection({ variants, defaultCitation })
                     <p className="line-clamp-3 mb-4">{v.excerpt}</p>
                     <a
                       href={v.url || '#'}
-                      className="font-sans text-xs uppercase tracking-widest text-archive-terminal hover:underline"
+                      className="font-sans text-xs uppercase tracking-widest text-archive-terminal hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1 -ml-1"
                     >
                       Examine Full Archival File →
                     </a>

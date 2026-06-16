@@ -56,7 +56,7 @@ export default function CitationBlock({ source }) {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-archive-paper hover:text-archive-accent transition-colors underline decoration-archive-border underline-offset-2"
+                        className="text-archive-paper hover:text-archive-accent transition-colors underline decoration-archive-border underline-offset-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1 -ml-1"
                       >
                         {link.name}
                       </a>
