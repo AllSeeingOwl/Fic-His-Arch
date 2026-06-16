@@ -4,6 +4,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 const yearRegex = /\b\d{3,4}\b/;
 const spaceRegex = /\s+/g;
 
+// ⚡ Bolt: Hoist Intl.Collator for faster sorting compared to inline String.prototype.localeCompare
+const collator = new Intl.Collator('en', { numeric: true });
+
 export default function DirectoryView({ articles }) {
   const [activeView, setActiveView] = useState('table'); // 'table' or 'timeline'
   const [mounted, setMounted] = useState(false);
@@ -50,7 +53,7 @@ export default function DirectoryView({ articles }) {
       const aVal = a[sortField] || '';
       const bVal = b[sortField] || '';
 
-      const comparison = aVal.localeCompare(bVal);
+      const comparison = collator.compare(aVal, bVal);
       return sortDirection === 'asc' ? comparison : -comparison;
     });
   }, [articles, sortField, sortDirection]);

@@ -52,3 +52,17 @@
 
 **Learning:** When grouping or formatting data for display in React, iterating over dictionaries using `Object.entries().map()` and performing string manipulations (like regex replacements) directly within the JSX render loop causes those expensive operations to run on every single re-render. This degrades performance, particularly for complex views like DirectoryView's table and timeline.
 **Action:** Refactor the `useMemo` hook to transform the raw dictionary into a view-ready array of objects. Pre-compute derived properties (like `groupId`) within the `useMemo` and return them directly, allowing the render loop to simply map over a flat array without executing any data transformations.
+## 2024-06-12 - Preload external font assets
+
+**Learning:** Relying on `@import` or loading external fonts (like Google Fonts) without preloading connections can lead to Flash of Unstyled Text (FOUT) and layout shifts, as the browser discovers the need for the font later in the rendering process.
+**Action:** Always add `<link rel="preconnect">` tags for font providers (`fonts.googleapis.com` and `fonts.gstatic.com`) in the global `<head>` of the layout document (e.g., `Layout.astro`) to establish early connections, and directly link the stylesheet.
+
+## 2024-06-12 - Avoid micro-optimizations on cold paths
+
+**Learning:** Optimizing code that runs infrequently, such as hoisting a regex out of a human-triggered click event handler, provides zero measurable performance impact. Modern JavaScript engines already optimize these well, and the time saved (microseconds) is irrelevant for a user interaction.
+**Action:** Focus performance optimizations on hot paths (e.g., render loops, frequent utility calls, database queries, critical rendering path) and avoid adding noise to the codebase for negligible gains on cold paths.
+
+## 2024-06-15 - [Intl.Collator vs String.prototype.localeCompare]
+
+**Learning:** `String.prototype.localeCompare` is surprisingly slow when called repeatedly within `.sort()` operations because it has to instantiate a new formatting object on every call under the hood. Using `new Intl.Collator().compare` pre-allocates the formatting engine.
+**Action:** Always hoist `new Intl.Collator()` outside of `.sort()` callbacks and React functional components (or `useMemo` hooks) to prevent repetitive instantiation and speed up array sorting significantly.
