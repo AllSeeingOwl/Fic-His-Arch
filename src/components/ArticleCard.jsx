@@ -19,6 +19,13 @@ export default function ArticleCard({ article }) {
       <h3 className="font-display text-xl text-archive-paper group-hover:text-archive-accent transition-colors mb-2">
         {article.title}
       </h3>
+      {article.adaptation_type && article.adaptation_type !== 'Original' && (
+        <div className="mb-2">
+          <span className="inline-block px-1.5 py-0.5 border border-archive-accent text-archive-accent text-[9px] uppercase tracking-wider rounded font-bold">
+            {article.adaptation_type}
+          </span>
+        </div>
+      )}
 
       <p className="font-serif text-sm text-archive-muted line-clamp-2 mb-4">{article.summary}</p>
 

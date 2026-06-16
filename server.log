@@ -1,0 +1,27 @@
+ INFO  Accepting connections at http://localhost:43132
+ HTTP  6/16/2026 4:54:25 PM ::1 GET /archive/witcher-conjunction-of-spheres
+ HTTP  6/16/2026 4:54:25 PM ::1 Returned 200 in 22 ms
+ HTTP  6/16/2026 4:54:25 PM ::1 GET /_astro/Layout.Czn1xCn8.css
+ HTTP  6/16/2026 4:54:25 PM ::1 Returned 200 in 5 ms
+ HTTP  6/16/2026 4:54:53 PM ::1 GET /archive/witcher-conjunction-of-spheres
+ HTTP  6/16/2026 4:54:53 PM ::1 Returned 200 in 2 ms
+ HTTP  6/16/2026 4:54:53 PM ::1 GET /_astro/Layout.Czn1xCn8.css
+ HTTP  6/16/2026 4:54:53 PM ::1 Returned 200 in 2 ms
+ HTTP  6/16/2026 4:55:26 PM ::1 GET /
+ HTTP  6/16/2026 4:55:26 PM ::1 Returned 200 in 2 ms
+ HTTP  6/16/2026 4:55:26 PM ::1 GET /_astro/Layout.Czn1xCn8.css
+ HTTP  6/16/2026 4:55:26 PM ::1 Returned 200 in 1 ms
+ HTTP  6/16/2026 4:56:00 PM ::1 GET /directory
+ HTTP  6/16/2026 4:56:00 PM ::1 Returned 200 in 3 ms
+ HTTP  6/16/2026 4:56:00 PM ::1 GET /_astro/Layout.Czn1xCn8.css
+ HTTP  6/16/2026 4:56:00 PM ::1 Returned 200 in 1 ms
+ HTTP  6/16/2026 4:56:00 PM ::1 GET /_astro/DirectoryView.sWk2Nt7f.js
+ HTTP  6/16/2026 4:56:00 PM ::1 GET /_astro/client.BuT_aOnx.js
+ HTTP  6/16/2026 4:56:00 PM ::1 Returned 200 in 6 ms
+ HTTP  6/16/2026 4:56:00 PM ::1 Returned 200 in 5 ms
+ HTTP  6/16/2026 4:56:00 PM ::1 GET /_astro/jsx-runtime.u17CrQMm.js
+ HTTP  6/16/2026 4:56:00 PM ::1 GET /_astro/index.CaSDoa4f.js
+ HTTP  6/16/2026 4:56:00 PM ::1 Returned 200 in 4 ms
+ HTTP  6/16/2026 4:56:00 PM ::1 Returned 200 in 5 ms
+
+ INFO  Gracefully shutting down. Please wait...

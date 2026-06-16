@@ -58,6 +58,8 @@ export default function ContributeForm() {
     has_spoilers: false,
     adaptation_type: 'Original',
     adaptation_fidelity: 'Exact Match',
+    based_on: '',
+    adaptation_differences: '',
     body: '',
   });
 
@@ -118,6 +120,8 @@ export default function ContributeForm() {
       has_spoilers,
       adaptation_type,
       adaptation_fidelity,
+      based_on,
+      adaptation_differences,
       body,
     } = formData;
 
@@ -167,6 +171,12 @@ export default function ContributeForm() {
     if (adaptation_type && adaptation_type !== 'Original') {
       md += `adaptation_type: '${adaptation_type}'\n`;
       md += `adaptation_fidelity: '${adaptation_fidelity}'\n`;
+      if (based_on) {
+        md += `based_on: ${escapeYaml(based_on)}\n`;
+      }
+      if (adaptation_differences) {
+        md += `adaptation_differences: ${escapeYaml(adaptation_differences)}\n`;
+      }
     }
 
     if (externalLinks.length > 0) {
@@ -709,6 +719,46 @@ export default function ContributeForm() {
                   <option value="Minor Alterations">Minor Alterations</option>
                   <option value="Major Deviations">Major Deviations</option>
                 </select>
+              </div>
+            )}
+
+            {formData.adaptation_type !== 'Original' && (
+              <div className="md:col-span-2">
+                <label
+                  htmlFor="based_on"
+                  className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+                >
+                  Based On (Source Material)
+                </label>
+                <input
+                  type="text"
+                  id="based_on"
+                  name="based_on"
+                  value={formData.based_on || ''}
+                  onChange={handleChange}
+                  className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                  placeholder="e.g. The Witcher books by Andrzej Sapkowski"
+                />
+              </div>
+            )}
+
+            {formData.adaptation_type !== 'Original' && (
+              <div className="md:col-span-2">
+                <label
+                  htmlFor="adaptation_differences"
+                  className="block text-xs uppercase tracking-widest text-archive-muted mb-1"
+                >
+                  Adaptation Variance Report (Differences from Source)
+                </label>
+                <textarea
+                  id="adaptation_differences"
+                  name="adaptation_differences"
+                  value={formData.adaptation_differences || ''}
+                  onChange={handleChange}
+                  rows="3"
+                  className="w-full bg-archive-bg border border-archive-border rounded px-3 py-2 text-archive-paper focus:outline-none focus:border-archive-accent focus:ring-1 focus:ring-archive-accent"
+                  placeholder="Describe key differences or alterations from the original source material..."
+                ></textarea>
               </div>
             )}
 
