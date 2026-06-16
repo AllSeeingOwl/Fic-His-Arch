@@ -115,16 +115,7 @@ const verifyAdminToken = (req: Request, res: Response, next: NextFunction) => {
     }
   }
 
-  try {
-    const tokenHash = crypto.createHash('sha256').update(token).digest();
-    if (crypto.timingSafeEqual(tokenHash, adminAuthHash)) {
-      next();
-      return;
-    }
-    res.status(401).json({ error: 'Unauthorized' });
-  } catch {
-    res.status(401).json({ error: 'Unauthorized' });
-  }
+  res.status(401).json({ error: 'Unauthorized' });
 };
 
 // 🛡️ Sentinel: Rate limit admin login attempts globally
