@@ -70,6 +70,12 @@
 **Learning:** Returning a static secret/password to the client upon successful authentication violates security best practices, even if the client just provided that secret.
 **Prevention:** Rather than returning the password or removing the token field (which breaks frontend API contracts expecting a token), generate a short-lived cryptographically secure session identifier (`crypto.randomBytes(32).toString('hex')`). Store this token in an expiring data structure (like a `Map` with timestamps) and update the verification middleware to accept this token alongside the original password fallback.
 
+## 2025-02-23 - Parallel Execution Rate Limit Bypass
+
+**Vulnerability:** A custom in-memory rate limiter tracked login attempts (`loginAttempts`) by retrieving or defaulting an object (`const record = loginAttempts.get(ip) || { count: 0 }`). If an attacker sent 100 concurrent requests, the `get(ip)` lookup would be undefined for all of them before any single request finished and updated the map. As a result, each request created its own independent `{ count: 0 }` object, incremented it to 1, and eventually overwrote the map's state, entirely bypassing the rate limit logic.
+**Learning:** Checking state and deferring the write to an asynchronous callback creates a race condition. In an asynchronous environment like Node.js, multiple requests can execute the initial synchronous lookup phase before the first response completes and persists the state.
+**Prevention:** Always persist state immediately (e.g. `loginAttempts.set(ip, record)`) when initializing a new tracking object for rate limiting. This ensures subsequent concurrent requests reference the same object in memory, maintaining correct counter state.
+
 ## 2026-06-15 - Missing Input Validation on Maintenance Configuration Endpoints
 
 **Vulnerability:** The `/api/admin/maintenance-config` and `/api/admin/maintenance-config/all` endpoints directly extracted variables (`key`, `value`) from `req.body` and passed them into state-mutating functions (`updateMaintenanceConfig`, `updateAllMaintenanceConfig`) and global state assignments (`MAINTENANCE_MODE = value`) without verifying their type or presence. This allowed potential unexpected behavior (like setting `MAINTENANCE_MODE` to an object or a non-boolean string) and opened the door to simple injection vulnerabilities.
