@@ -52,6 +52,7 @@
 
 **Learning:** When grouping or formatting data for display in React, iterating over dictionaries using `Object.entries().map()` and performing string manipulations (like regex replacements) directly within the JSX render loop causes those expensive operations to run on every single re-render. This degrades performance, particularly for complex views like DirectoryView's table and timeline.
 **Action:** Refactor the `useMemo` hook to transform the raw dictionary into a view-ready array of objects. Pre-compute derived properties (like `groupId`) within the `useMemo` and return them directly, allowing the render loop to simply map over a flat array without executing any data transformations.
+
 ## 2024-06-12 - Preload external font assets
 
 **Learning:** Relying on `@import` or loading external fonts (like Google Fonts) without preloading connections can lead to Flash of Unstyled Text (FOUT) and layout shifts, as the browser discovers the need for the font later in the rendering process.
