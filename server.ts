@@ -168,17 +168,24 @@ const adminRateLimitTracker = (req: Request, res: Response, next: NextFunction) 
   const ip = req.ip || req.socket.remoteAddress || 'unknown';
   const now = Date.now();
 
-  const record = loginAttempts.get(ip) || { count: 0, lockUntil: 0, lastAttempt: now };
-  record.lastAttempt = now;
+  let record = loginAttempts.get(ip);
+  if (!record) {
+    // 🛡️ Sentinel: Persist tracking object immediately to prevent race conditions
+    // where parallel requests create and overwrite multiple local counters.
+    record = { count: 0, lockUntil: 0, lastAttempt: now };
+    loginAttempts.set(ip, record);
+  } else {
+    record.lastAttempt = now;
+  }
 
   res.on('finish', () => {
-    if (res.statusCode === 401) {
+    // TypeScript check ensures record is not undefined
+    if (record && res.statusCode === 401) {
       record.count += 1;
       if (record.count >= MAX_LOGIN_ATTEMPTS) {
         record.lockUntil = Date.now() + LOCK_TIME_MS;
         record.count = 0; // reset count after applying lock
       }
-      loginAttempts.set(ip, record);
     } else if (res.statusCode >= 200 && res.statusCode < 300) {
       loginAttempts.delete(ip);
     }
@@ -229,6 +236,18 @@ app.get('/api/admin/maintenance-config', verifyAdminToken, async (req: Request, 
 
 app.post('/api/admin/maintenance-config', verifyAdminToken, async (req: Request, res: Response) => {
   const { key, value } = req.body;
+
+  // 🛡️ Sentinel: Enforce strict input validation on maintenance config types
+  if (typeof key !== 'string' || typeof value !== 'boolean' || key.trim() === '') {
+    res.status(400).json({ error: 'Invalid input parameters' });
+    return;
+  }
+
+  // 🛡️ Sentinel: Enforce strict type checking and validation on server-mutating inputs
+  if (typeof key !== 'string' || key.trim() === '' || typeof value !== 'boolean') {
+    res.status(400).json({ error: 'Invalid input' });
+    return;
+  }
   try {
     await updateMaintenanceConfig(key, value);
     if (key === 'global') MAINTENANCE_MODE = value;
@@ -243,6 +262,18 @@ app.post(
   verifyAdminToken,
   async (req: Request, res: Response) => {
     const { value } = req.body;
+
+    // 🛡️ Sentinel: Enforce strict input validation on maintenance config types
+    if (typeof value !== 'boolean') {
+      res.status(400).json({ error: 'Invalid input parameters' });
+      return;
+    }
+
+    // 🛡️ Sentinel: Enforce strict type checking on server-mutating inputs
+    if (typeof value !== 'boolean') {
+      res.status(400).json({ error: 'Invalid input' });
+      return;
+    }
     try {
       await updateAllMaintenanceConfig(value);
       res.json({ success: true });
