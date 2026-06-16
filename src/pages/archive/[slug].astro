@@ -47,7 +47,7 @@ const flairColors = getFlairColors(data.timeline_flair);
           {data.timeline_flair}
         </span>
         {data.adaptation_type && data.adaptation_type !== 'Original' && (
-          <span class="text-archive-accent font-semibold uppercase">
+          <span class="bg-archive-accent/10 border border-archive-accent text-archive-accent px-2 py-0.5 rounded font-semibold uppercase text-[10px]">
             {data.adaptation_type} // {data.adaptation_fidelity}
           </span>
         )}
@@ -57,6 +57,12 @@ const flairColors = getFlairColors(data.timeline_flair);
             <span>DATE: {data.in_universe_date}</span>
         </span>
       </div>
+
+      {data.based_on && (
+        <div class="mt-4 text-sm font-sans text-archive-muted">
+          <span class="uppercase tracking-widest text-archive-accent text-xs">Based on:</span> {data.based_on}
+        </div>
+      )}
     </header>
 
     {data.has_spoilers && (
@@ -79,6 +85,15 @@ const flairColors = getFlairColors(data.timeline_flair);
     <div class="font-serif leading-relaxed text-archive-paper mb-8" id="article-content">
       <Content />
     </div>
+
+    {data.adaptation_differences && (
+      <div class="bg-archive-surface border border-archive-border rounded p-6 mb-8 mt-8">
+        <h3 class="font-display text-xl text-archive-accent mb-4 border-b border-archive-border pb-2">Adaptation Variance Report</h3>
+        <div class="font-serif text-archive-paper text-sm leading-relaxed whitespace-pre-wrap">
+          {data.adaptation_differences}
+        </div>
+      </div>
+    )}
 
     {data.timelineVariants && data.timelineVariants.length > 0 ? (
       // ⚡ Bolt: Use client:visible to lazy-load the interactive section only when it enters the viewport, reducing initial JS payload

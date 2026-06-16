@@ -41,6 +41,8 @@ const archiveCollection = defineCollection({
     adaptation_fidelity: z
       .enum(['Exact Match', 'Minor Alterations', 'Major Deviations'])
       .optional(),
+    based_on: z.string().optional(),
+    adaptation_differences: z.string().optional(),
     external_links: z
       .array(
         z.object({
