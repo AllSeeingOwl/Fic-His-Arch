@@ -52,6 +52,7 @@
 
 **Learning:** When building custom tooltips using pure CSS `group-hover` and `group-focus-within`, using a generic `<span tabIndex="0">` as the trigger causes screen readers to either ignore it or announce it without context. Additionally, if the visual tooltip container isn't hidden from screen readers, the text will be read redundantly or out of context.
 **Action:** Use a native `<button type="button">` trigger instead of a generic `<span tabIndex="0">`. Set the button's `aria-label` to the actual tooltip text for native screen reader support, add `aria-hidden="true"` to the visual tooltip container to prevent redundant reading, and ensure `focus-visible` styles are present on the trigger.
+
 ## 2025-10-26 - [Tooltip Accessibility Pattern]
 
 **Learning:** When building custom tooltips using pure CSS `group-hover` and `group-focus-within`, using a generic `<span tabIndex="0">` lacks native button semantics. Additionally, generic `aria-label="More info"` forces screen reader users to infer meaning rather than reading the tooltip's actual text.
