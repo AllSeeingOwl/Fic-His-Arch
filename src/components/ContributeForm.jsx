@@ -21,6 +21,7 @@ const InfoTooltip = ({ text }) => {
     <div className="relative group inline-block ml-1">
       <button
         type="button"
+        className="text-archive-accent cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded"
         className="text-archive-accent cursor-help focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1"
         aria-label={text}
       >
