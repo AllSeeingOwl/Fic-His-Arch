@@ -47,6 +47,7 @@
 
 **Learning:** When building mutually exclusive views (like Table vs Timeline) that must support No-JS fallbacks via `<noscript>` styles, rendering all views into the DOM and toggling them purely with CSS creates significant React reconciliation overhead and bloats the DOM.
 **Action:** Progressively enhance these views: On the server or initial load (`!mounted`), render both views into the DOM so that `<noscript>` CSS can hide/show them. Once the component hydrates (`mounted`), switch to conditionally rendering only the active view (`{activeView === 'view' && <div...>}`) to drastically reduce the number of DOM nodes React has to manage.
+
 ## 2024-06-12 - Preload external font assets
 
 **Learning:** Relying on `@import` or loading external fonts (like Google Fonts) without preloading connections can lead to Flash of Unstyled Text (FOUT) and layout shifts, as the browser discovers the need for the font later in the rendering process.
