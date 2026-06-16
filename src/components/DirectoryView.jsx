@@ -60,29 +60,38 @@ export default function DirectoryView({ articles }) {
 
   // Group the sorted articles
   const groupedArticles = useMemo(() => {
-    if (groupBy === 'none') return { 'All Articles': sortedArticles };
+    let groupsObj = {};
+    if (groupBy === 'none') {
+      groupsObj = { 'All Articles': sortedArticles };
+    } else {
+      sortedArticles.forEach((article) => {
+        let key;
+        if (groupBy === 'year') {
+          key = extractYear(article.in_universe_date);
+        } else if (groupBy === 'location') {
+          key = article.location || 'Unknown Location';
+        }
 
-    const groups = {};
-    sortedArticles.forEach((article) => {
-      let key;
-      if (groupBy === 'year') {
-        key = extractYear(article.in_universe_date);
-      } else if (groupBy === 'location') {
-        key = article.location || 'Unknown Location';
-      }
+        if (!groupsObj[key]) groupsObj[key] = [];
+        groupsObj[key].push(article);
+      });
+    }
 
-      if (!groups[key]) groups[key] = [];
-      groups[key].push(article);
-    });
-    return groups;
+    // ⚡ Bolt: Pre-compute group array and IDs to prevent repetitive object.keys/.entries
+    // and redundant regex string replacements during render loops
+    return Object.entries(groupsObj).map(([groupName, groupArticles]) => ({
+      groupName,
+      groupArticles,
+      groupId: groupName.replace(spaceRegex, '-'),
+    }));
   }, [sortedArticles, groupBy]);
 
   // Automatically expand all groups when the grouping strategy changes
   useEffect(() => {
     if (groupBy !== 'none') {
       const newExpandedState = {};
-      Object.keys(groupedArticles).forEach((key) => {
-        newExpandedState[key] = true; // default to open
+      groupedArticles.forEach(({ groupName }) => {
+        newExpandedState[groupName] = true; // default to open
       });
       setExpandedGroups(newExpandedState);
     }
@@ -224,8 +233,7 @@ export default function DirectoryView({ articles }) {
                   </th>
                 </tr>
               </thead>
-              {Object.entries(groupedArticles).map(([groupName, groupArticles]) => {
-                const groupId = groupName.replace(spaceRegex, '-');
+              {groupedArticles.map(({ groupName, groupArticles, groupId }) => {
                 return (
                   <tbody
                     key={groupName}
@@ -291,8 +299,7 @@ export default function DirectoryView({ articles }) {
       {(!mounted || activeView === 'timeline') && (
         <div className={`${activeView === 'timeline' ? 'block' : 'hidden'} js-view-timeline`}>
           <div className="relative border-l-2 border-archive-border ml-4 sm:ml-6 md:ml-8 pb-4">
-            {Object.entries(groupedArticles).map(([groupName, groupArticles]) => {
-              const groupId = groupName.replace(spaceRegex, '-');
+            {groupedArticles.map(({ groupName, groupArticles, groupId }) => {
               return (
                 <div key={groupName} className="mb-8 relative">
                   {/* Group Header (if grouping is enabled) */}
