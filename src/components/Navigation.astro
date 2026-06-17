@@ -1,6 +1,22 @@
 ---
 import { resolvePath } from '../utils/paths.js';
 
+const currentPath = Astro.url.pathname;
+
+const isLinkActive = (href) => {
+  const resolvedHref = resolvePath(href);
+  // Add a trailing slash for consistent comparison
+  const normalizedCurrent = currentPath.endsWith('/') ? currentPath : currentPath + '/';
+  const normalizedHref = resolvedHref.endsWith('/') ? resolvedHref : resolvedHref + '/';
+
+  // Strict matching for home
+  if (normalizedHref === resolvePath('/') || normalizedHref === resolvePath('/') + '/') {
+    return normalizedCurrent === normalizedHref;
+  }
+  // Prefix matching for other routes
+  return normalizedCurrent.startsWith(normalizedHref);
+};
+
 const links = [
   { name: 'Home', href: '/' },
   { name: 'Directory', href: '/directory' },
@@ -32,31 +48,47 @@ const links = [
 
   {/* Desktop Navigation */}
   <ul class="hidden sm:flex space-x-6">
-    {links.map((link) => (
-      <li>
-        <a
-          href={resolvePath(link.href)}
-          class="font-sans text-sm uppercase tracking-widest text-archive-muted hover:text-archive-accent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded px-2 py-1"
-        >
-          {link.name}
-        </a>
-      </li>
-    ))}
+    {links.map((link) => {
+      const active = isLinkActive(link.href);
+      return (
+        <li>
+          <a
+            href={resolvePath(link.href)}
+            aria-current={active ? "page" : undefined}
+            class={`font-sans text-sm uppercase tracking-widest transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded px-2 py-1 ${
+              active
+                ? 'text-archive-accent font-bold bg-archive-bg/30'
+                : 'text-archive-muted hover:text-archive-accent hover:bg-archive-bg/10'
+            }`}
+          >
+            {link.name}
+          </a>
+        </li>
+      );
+    })}
   </ul>
 
   {/* Mobile Menu Dropdown */}
   <div id="mobile-menu" class="hidden absolute top-full right-0 mt-6 w-48 bg-archive-surface border-2 border-archive-border shadow-lg sm:hidden z-50">
     <ul class="flex flex-col p-2 space-y-1">
-      {links.map((link) => (
-        <li>
-          <a
-            href={resolvePath(link.href)}
-            class="block px-4 py-2 font-sans text-sm uppercase tracking-widest text-archive-muted hover:bg-archive-bg hover:text-archive-accent transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset"
-          >
-            {link.name}
-          </a>
-        </li>
-      ))}
+      {links.map((link) => {
+        const active = isLinkActive(link.href);
+        return (
+          <li>
+            <a
+              href={resolvePath(link.href)}
+              aria-current={active ? "page" : undefined}
+              class={`block px-4 py-2 font-sans text-sm uppercase tracking-widest transition-colors rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-inset ${
+                active
+                  ? 'bg-archive-bg/50 text-archive-accent font-bold border-l-2 border-archive-accent -ml-[2px]'
+                  : 'text-archive-muted hover:bg-archive-bg hover:text-archive-accent border-l-2 border-transparent -ml-[2px]'
+              }`}
+            >
+              {link.name}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </div>
 </nav>
