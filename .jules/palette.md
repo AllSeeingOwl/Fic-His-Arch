@@ -67,6 +67,8 @@
 
 **Learning:** Inline text links lacking explicit focus states are difficult to spot for keyboard users.
 **Action:** When working with inline text links, particularly over dark backgrounds, add explicit custom focus styling to improve visibility. Classes such as `focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent rounded px-1 -ml-1` can be added to the link styling.
+
 ## 2026-06-17 - Active Navigation Link Pattern
+
 **Learning:** Adding an active state to global navigation menus requires careful path normalization and matching logic (especially for the root path `/`). Relying solely on visual cues (like `text-archive-accent font-bold`) leaves screen reader users without context of their current location. The `aria-current="page"` attribute is essential.
 **Action:** When implementing navigation, always combine visual active states with `aria-current="page"`. Ensure routing logic correctly handles base paths and trailing slashes to prevent false-positive active states.
