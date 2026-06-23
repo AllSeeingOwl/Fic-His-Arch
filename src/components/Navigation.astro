@@ -31,10 +31,10 @@ const links = [
 ---
 
 <nav class="relative z-50">
-  {/* Mobile Hamburger Button */}
+  {/* Hamburger Button */}
   <button
     id="hamburger-btn"
-    class="sm:hidden block text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded p-2 -mr-2 hover:text-archive-accent transition-colors"
+    class="block text-archive-paper focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded p-2 -mr-2 hover:text-archive-accent transition-colors"
     aria-label="Open menu"
     aria-expanded="false"
   >
@@ -46,30 +46,8 @@ const links = [
     </svg>
   </button>
 
-  {/* Desktop Navigation */}
-  <ul class="hidden sm:flex space-x-6">
-    {links.map((link) => {
-      const active = isLinkActive(link.href);
-      return (
-        <li>
-          <a
-            href={resolvePath(link.href)}
-            aria-current={active ? "page" : undefined}
-            class={`font-sans text-sm uppercase tracking-widest transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-archive-accent focus-visible:ring-offset-2 focus-visible:ring-offset-archive-surface rounded px-2 py-1 ${
-              active
-                ? 'text-archive-accent font-bold bg-archive-bg/30'
-                : 'text-archive-muted hover:text-archive-accent hover:bg-archive-bg/10'
-            }`}
-          >
-            {link.name}
-          </a>
-        </li>
-      );
-    })}
-  </ul>
-
-  {/* Mobile Menu Dropdown */}
-  <div id="mobile-menu" class="hidden absolute top-full right-0 mt-6 w-48 bg-archive-surface border-2 border-archive-border shadow-lg sm:hidden z-50">
+  {/* Menu Dropdown */}
+  <div id="mobile-menu" class="hidden absolute top-full right-0 mt-6 w-48 bg-archive-surface border-2 border-archive-border shadow-lg z-50">
     <ul class="flex flex-col p-2 space-y-1">
       {links.map((link) => {
         const active = isLinkActive(link.href);
