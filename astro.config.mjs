@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 const isVercel = process.env.VERCEL === '1';
 
@@ -13,7 +14,7 @@ export default defineConfig({
   base: isVercel ? undefined : '/Fic-His-Arch',
   integrations: [react()],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tsconfigPaths(), tailwindcss()],
     ssr: {
       external: ['@tailwindcss/vite'],
     },
