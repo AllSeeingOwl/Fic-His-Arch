@@ -8,7 +8,7 @@ const isVercel = process.env.VERCEL === '1';
 export default defineConfig({
   site: isVercel
     ? process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
+      ? `https://undefined`
       : 'https://vercel.app'
     : 'https://allseeingowl.github.io',
   base: isVercel ? undefined : '/Fic-His-Arch',
