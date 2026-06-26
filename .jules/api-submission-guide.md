@@ -5,15 +5,19 @@
 Submits a new fictional history article to the archive. This endpoint automatically generates the Markdown file with the necessary YAML frontmatter and updates the database CSV.
 
 ### Authentication
+
 Requires an Admin Bearer token. To get the token, authenticate with `POST /api/admin/verify`.
 
 ### Rate Limiting
+
 Maximum 10 submissions per hour per IP.
 
 ### Request Body (JSON)
+
 The payload must strictly conform to the expected Zod schema for article fields.
 
 **Example Request:**
+
 ```json
 {
   "title": "Rebel Alliance Destroys Imperial Superweapon in Galactic Triumph",
@@ -32,6 +36,7 @@ The payload must strictly conform to the expected Zod schema for article fields.
 ### Response
 
 **Success (201 Created)**
+
 ```json
 {
   "slug": "rebel-alliance-destroys-imperial-superweapon-in-galactic-triumph",
@@ -40,6 +45,7 @@ The payload must strictly conform to the expected Zod schema for article fields.
 ```
 
 **Validation Error (400 Bad Request)**
+
 ```json
 {
   "error": "Validation failed",
@@ -56,6 +62,7 @@ The payload must strictly conform to the expected Zod schema for article fields.
 ```
 
 **Conflict (409 Conflict)**
+
 ```json
 {
   "error": "Article with this title already exists"
@@ -63,6 +70,7 @@ The payload must strictly conform to the expected Zod schema for article fields.
 ```
 
 **Rate Limited (429 Too Many Requests)**
+
 ```json
 {
   "error": "Rate limit exceeded. Maximum 10 submissions per hour."
@@ -77,19 +85,19 @@ const response = await fetch('/api/articles/submit', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   },
   body: JSON.stringify({
-    title: "Example Title",
-    dateline_location: "Example City",
-    in_universe_date: "1999",
-    timeline_flair: "On Earth",
-    source_work: "Example Work",
-    source_medium: "Book",
-    source_creator: "Author",
+    title: 'Example Title',
+    dateline_location: 'Example City',
+    in_universe_date: '1999',
+    timeline_flair: 'On Earth',
+    source_work: 'Example Work',
+    source_medium: 'Book',
+    source_creator: 'Author',
     release_year: 2024,
-    context_note: "Some note."
-  })
+    context_note: 'Some note.',
+  }),
 });
 const data = await response.json();
 ```

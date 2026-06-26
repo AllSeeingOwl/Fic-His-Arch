@@ -1,11 +1,18 @@
-
-jest.mock('astro:content', () => ({
-  z: require('zod').z,
-  defineCollection: jest.fn(),
-}), { virtual: true });
-jest.mock('astro/loaders', () => ({
-  glob: jest.fn(),
-}), { virtual: true });
+jest.mock(
+  'astro:content',
+  () => ({
+    z: require('zod').z,
+    defineCollection: jest.fn(),
+  }),
+  { virtual: true }
+);
+jest.mock(
+  'astro/loaders',
+  () => ({
+    glob: jest.fn(),
+  }),
+  { virtual: true }
+);
 process.env.ADMIN_PASSWORD = 'test_password_123';
 
 import { describe, it, expect, beforeAll, beforeEach, jest } from '@jest/globals';
@@ -58,9 +65,7 @@ describe('POST /api/articles/submit', () => {
   });
 
   it('should reject requests without authorization header', async () => {
-    const res = await request(app)
-      .post('/api/articles/submit')
-      .send(validPayload);
+    const res = await request(app).post('/api/articles/submit').send(validPayload);
     expect(res.status).toBe(401);
   });
 
@@ -92,7 +97,9 @@ describe('POST /api/articles/submit', () => {
 
   it('should return 201 and update files on valid submission', async () => {
     // Mock access to fail (meaning file does not exist)
-    (fsPromises.access as jest.Mock<() => Promise<void>>).mockRejectedValueOnce(new Error('ENOENT'));
+    (fsPromises.access as jest.Mock<() => Promise<void>>).mockRejectedValueOnce(
+      new Error('ENOENT')
+    );
     (fsPromises.writeFile as jest.Mock<() => Promise<void>>).mockResolvedValueOnce(undefined);
 
     const res = await request(app)
