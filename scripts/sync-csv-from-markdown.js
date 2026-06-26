@@ -75,7 +75,6 @@ const archiveSchema = z.object({
     .optional(),
 });
 
-
 const archiveDir = path.join(process.cwd(), 'src/content/archive');
 const csvFile = path.join(process.cwd(), 'Database Schema - Main Part.csv');
 
@@ -98,7 +97,7 @@ const CSV_COLUMNS = [
   'based_on',
   'adaptation_differences',
   'external_links',
-  'timelineVariants'
+  'timelineVariants',
 ];
 
 async function sync() {
@@ -107,7 +106,7 @@ async function sync() {
   // 1. Read all files
   let files;
   try {
-    files = fs.readdirSync(archiveDir).filter(f => f.endsWith('.md') || f.endsWith('.mdx'));
+    files = fs.readdirSync(archiveDir).filter((f) => f.endsWith('.md') || f.endsWith('.mdx'));
   } catch (err) {
     console.error('Error reading archive directory:', err);
     process.exit(1);
@@ -140,8 +139,8 @@ async function sync() {
   }
 
   // 4. Map fields to CSV format
-  const dataRows = articles.map(article => {
-    return CSV_COLUMNS.map(col => {
+  const dataRows = articles.map((article) => {
+    return CSV_COLUMNS.map((col) => {
       const val = article[col];
       if (val === undefined || val === null) {
         return '';
@@ -155,20 +154,35 @@ async function sync() {
 
   // Include the original header text
   const docLines = [
-    ['Every article in src/content/archive/ must be a flat Markdown file. The framework must enforce strict validation against the following relational schema before compiling:', '', '', ''],
+    [
+      'Every article in src/content/archive/ must be a flat Markdown file. The framework must enforce strict validation against the following relational schema before compiling:',
+      '',
+      '',
+      '',
+    ],
     ['', '', '', ''],
     ['Field Name', 'Data Type', 'Required', 'Allowed Values / Logic'],
     ['title', 'String', 'Yes', 'Journalistic style headline'],
     ['dateline_location', 'String', 'Yes', 'In-universe city, province, or space quadrant'],
     ['in_universe_date', 'String', 'Yes', 'Explicit date inside quotation marks'],
-    ['timeline_flair', 'Enum', 'Yes', 'On Earth, Not On Earth, Alternate Timeline, Time Travel, Satire, Canon Reference'],
+    [
+      'timeline_flair',
+      'Enum',
+      'Yes',
+      'On Earth, Not On Earth, Alternate Timeline, Time Travel, Satire, Canon Reference',
+    ],
     ['source_work', 'String', 'Yes', 'Title of the original fictional work'],
     ['source_medium', 'String', 'Yes', 'Book, Film, TV Show, Video Game, Graphic Novel'],
     ['source_creator', 'String', 'Yes', 'Author, Director, or Studio'],
     ['release_year', 'Integer', 'Yes', 'Real-world publication/broadcast year'],
     ['context_note', 'String', 'Yes', 'Explaining the narrative impact of the event'],
     ['image_url', 'String', 'No', 'Path to local image or conceptual render'],
-    ['multiverse_id', 'String', 'No', 'Shared slug identifier to link overlapping historical dates'],
+    [
+      'multiverse_id',
+      'String',
+      'No',
+      'Shared slug identifier to link overlapping historical dates',
+    ],
     ['has_spoilers', 'Boolean', 'No', 'Default false'],
     ['adaptation_type', 'Enum', 'No', 'Original, Remake, Reboot, Remaster, Adaptation'],
     ['adaptation_fidelity', 'Enum', 'No', 'Exact Match, Minor Alterations, Major Deviations'],
@@ -177,7 +191,7 @@ async function sync() {
     ['external_links', 'Array', 'No', 'List of JSON objects {name, url}'],
     ['timelineVariants', 'Array', 'No', 'List of JSON objects representing variants'],
     ['', '', '', ''], // empty line before data
-    CSV_COLUMNS // data headers
+    CSV_COLUMNS, // data headers
   ];
 
   const fullData = docLines.concat(dataRows);
