@@ -1,0 +1,42 @@
+name: Sync CSV from Markdown Articles
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/content/archive/**'
+
+jobs:
+  sync-csv:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run CSV Sync Script
+        run: node scripts/sync-csv-from-markdown.js
+
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: sync CSV with new article"
+          file_pattern: "Database Schema - Main Part.csv"
+          branch: main

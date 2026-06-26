@@ -30,9 +30,6 @@ dependencies:
   astro:
     specifier: ^6.4.4
     version: 6.4.8(@types/node@25.9.4)(@upstash/redis@1.38.0)(yaml@2.9.0)
-  csv-stringify:
-    specifier: ^6.8.0
-    version: 6.8.0
   express:
     specifier: ^5.2.1
     version: 5.2.1
@@ -95,6 +92,12 @@ devDependencies:
   axe-core:
     specifier: ^4.11.4
     version: 4.12.1
+  csv-parse:
+    specifier: ^7.0.0
+    version: 7.0.0
+  csv-stringify:
+    specifier: ^6.8.0
+    version: 6.8.0
   cypress:
     specifier: ^15.15.0
     version: 15.18.0
@@ -182,7 +185,7 @@ packages:
     dependencies:
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
-      js-yaml: 4.2.0
+      js-yaml: 4.3.0
       picomatch: 4.0.4
       retext-smartypants: 6.2.0
       shiki: 4.3.0
@@ -4856,7 +4859,7 @@ packages:
       github-slugger: 2.0.0
       html-escaper: 3.0.3
       http-cache-semantics: 4.2.0
-      js-yaml: 4.2.0
+      js-yaml: 4.3.0
       jsonc-parser: 3.3.1
       magic-string: 0.30.21
       magicast: 0.5.3
@@ -5838,12 +5841,19 @@ packages:
       }
     dev: false
 
+  /csv-parse@7.0.0:
+    resolution:
+      {
+        integrity: sha512-CSssqPAK5us09FhMI9juM0jnqXUJP+rtWeIfivTYBLNH/8rnxkQlZvoRemF6MAyfNov9XU8mN2wwF/pP68sxTA==,
+      }
+    dev: true
+
   /csv-stringify@6.8.0:
     resolution:
       {
         integrity: sha512-Ya0OOHb6XbgPaZKH7dcdmwXe3azUS0TwmlbVdS75HoAhnHApSkiQcfEJoC/s5WwGsrXwOjBDr3FTmCZPjkssgg==,
       }
-    dev: false
+    dev: true
 
   /cypress@15.18.0:
     resolution:
@@ -8599,10 +8609,10 @@ packages:
       esprima: 4.0.1
     dev: true
 
-  /js-yaml@4.2.0:
+  /js-yaml@4.3.0:
     resolution:
       {
-        integrity: sha512-ePWsvanv0DWuDRsW8dnt+R4jQ31SCRCQ7hhNcPXZPsoBZiemuZNYGf7adZdqX2D86j6rvKp3RpCxVTSb8WQlOw==,
+        integrity: sha512-1td788aAnnZ5qs7V2QIRl1owjtYpbKt749Y3xauqQgwIIGF/xXWz1wMTEBx5O3LK3lXLVuqXPdPxj2BoFHaW9Q==,
       }
     hasBin: true
     dependencies:
