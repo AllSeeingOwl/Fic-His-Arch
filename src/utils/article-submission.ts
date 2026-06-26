@@ -39,7 +39,7 @@ export async function updateCsv(data: ArchiveSubmission, csvPath: string) {
     data.based_on || '',
     data.adaptation_differences || '',
     data.external_links ? JSON.stringify(data.external_links) : '',
-    data.timelineVariants ? JSON.stringify(data.timelineVariants) : '',
+    data.timelineVariants ? JSON.stringify(data.timelineVariants) : ''
   ];
 
   const csvRow = stringify([row]);
