@@ -2,7 +2,7 @@ import { z, defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 // 🛡️ Sentinel: Prevent XSS via javascript: URIs
-const safeUrlSchema = z.string().refine(
+export const safeUrlSchema = z.string().refine(
   (val) => {
     if (val.startsWith('/') || val.startsWith('#')) return true;
     try {
@@ -15,9 +15,7 @@ const safeUrlSchema = z.string().refine(
   { message: 'Must be a safe URL (http/https) or relative path' }
 );
 
-const archiveCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/archive' }),
-  schema: z.object({
+export const archiveSchema = z.object({
     title: z.string(),
     dateline_location: z.string(),
     in_universe_date: z.string(),
@@ -73,7 +71,11 @@ const archiveCollection = defineCollection({
         })
       )
       .optional(),
-  }),
+  });
+
+const archiveCollection = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/archive' }),
+  schema: archiveSchema,
 });
 
 export const collections = {

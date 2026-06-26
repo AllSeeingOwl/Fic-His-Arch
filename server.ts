@@ -1,6 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import crypto from 'crypto';
+import { archiveSchema, generateSlug, jsonToFrontmatter, updateCsv } from './src/utils/article-submission';
+import fsPromises from 'fs/promises';
+
 import {
   initDb,
   getMaintenanceConfig,
@@ -299,6 +302,75 @@ app.post(
     }
   }
 );
+
+
+
+// Article Submission Endpoint
+const SUBMISSION_RATE_LIMIT = new Map<string, { count: number; lockUntil: number }>();
+const MAX_SUBMISSIONS = 10;
+const SUBMISSION_LOCK_TIME_MS = 60 * 60 * 1000; // 1 hour
+
+const submissionRateLimiter = (req: Request, res: Response, next: NextFunction) => {
+  const ip = req.ip || req.socket.remoteAddress || 'unknown';
+  const now = Date.now();
+
+  let record = SUBMISSION_RATE_LIMIT.get(ip);
+  if (!record) {
+    record = { count: 0, lockUntil: 0 };
+    SUBMISSION_RATE_LIMIT.set(ip, record);
+  }
+
+  if (record.lockUntil > 0 && record.lockUntil <= now) {
+    record.count = 0;
+    record.lockUntil = 0;
+  }
+
+  if (record.lockUntil > now) {
+    res.status(429).json({ error: 'Rate limit exceeded. Maximum 10 submissions per hour.' });
+    return;
+  }
+
+  record.count += 1;
+  if (record.count >= MAX_SUBMISSIONS) {
+    record.lockUntil = now + SUBMISSION_LOCK_TIME_MS;
+  }
+
+  next();
+};
+
+app.post('/api/articles/submit', verifyAdminToken, submissionRateLimiter, async (req: Request, res: Response) => {
+  try {
+    const validatedData = archiveSchema.parse(req.body);
+    const slug = generateSlug(validatedData.title);
+
+    const filePath = path.join(__dirname, 'src', 'content', 'archive', `${slug}.md`);
+
+    try {
+      await fsPromises.access(filePath);
+      res.status(409).json({ error: 'Article with this title already exists' });
+      return;
+    } catch {
+      // File does not exist, safe to proceed
+    }
+
+    const frontmatter = jsonToFrontmatter(validatedData);
+    await fsPromises.writeFile(filePath, frontmatter, 'utf8');
+
+    const csvPath = path.join(__dirname, 'Database Schema - Main Part.csv');
+    await updateCsv(validatedData, csvPath);
+
+    console.log(`[Submission Audit] Timestamp: ${new Date().toISOString()} | IP: ${req.ip || req.socket.remoteAddress} | Slug: ${slug} | User-Agent: ${req.get('user-agent')}`);
+
+    res.status(201).json({ slug, previewUrl: `/archive/${slug}` });
+  } catch (error: unknown) {
+    if (error instanceof Error && error.name === 'ZodError') {
+      res.status(400).json({ error: 'Validation failed', details: (error as { errors?: unknown[] }).errors });
+    } else {
+      console.error('Submission error:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
