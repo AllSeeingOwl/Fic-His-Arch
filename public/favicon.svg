@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Transparent background by default in SVG -->
+  <!-- Main Colors: #cfa353 (Aged gold) -->
+
+  <!-- Outer Ring (Clock/Globe Border) -->
+  <circle cx="50" cy="50" r="45" fill="none" stroke="#cfa353" stroke-width="4" stroke-dasharray="10 4" />
+  <circle cx="50" cy="50" r="38" fill="none" stroke="#cfa353" stroke-width="1.5" />
+
+  <!-- Globe Grid Lines (Lat/Long) -->
+  <path d="M 50 12 A 38 38 0 0 0 50 88 A 38 38 0 0 0 50 12 Z" fill="none" stroke="#cfa353" stroke-width="1.5" />
+  <path d="M 12 50 A 38 38 0 0 0 88 50 A 38 38 0 0 0 12 50 Z" fill="none" stroke="#cfa353" stroke-width="1.5" />
+  <!-- Additional globe curves -->
+  <path d="M 50 12 C 25 20, 25 80, 50 88" fill="none" stroke="#cfa353" stroke-width="1.5" opacity="0.6"/>
+  <path d="M 50 12 C 75 20, 75 80, 50 88" fill="none" stroke="#cfa353" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Hourglass Base and Top -->
+  <path d="M 35 25 L 65 25 L 65 28 L 35 28 Z" fill="#cfa353" />
+  <path d="M 35 75 L 65 75 L 65 72 L 35 72 Z" fill="#cfa353" />
+
+  <!-- Hourglass Glass Bulbs -->
+  <path d="M 38 28 L 62 28 C 62 40, 55 45, 50 50 C 45 45, 38 40, 38 28 Z" fill="none" stroke="#cfa353" stroke-width="2.5" />
+  <path d="M 50 50 C 55 55, 62 60, 62 72 L 38 72 C 38 60, 45 55, 50 50 Z" fill="none" stroke="#cfa353" stroke-width="2.5" />
+
+  <!-- Sand (Aged Gold filling bottom bulb and falling) -->
+  <path d="M 42 72 L 58 72 C 58 66, 53 62, 50 58 C 47 62, 42 66, 42 72 Z" fill="#cfa353" />
+  <!-- Sand dripping -->
+  <line x1="50" y1="45" x2="50" y2="58" stroke="#cfa353" stroke-width="2" stroke-dasharray="2 1"/>
+
+  <!-- Clock Hands Behind the Hourglass (or emanating from center) -->
+  <line x1="50" y1="50" x2="70" y2="35" stroke="#cfa353" stroke-width="3" stroke-linecap="round" />
+  <line x1="50" y1="50" x2="60" y2="65" stroke="#cfa353" stroke-width="2" stroke-linecap="round" />
+</svg>
