@@ -15,12 +15,14 @@ const routes = [
   '/terms-of-service',
   '/time-travelers',
   '/timeline',
-  '/404'
+  '/404',
 ];
 
 test.describe('Accessibility audit', () => {
   for (const route of routes) {
-    test(`should not have any automatically detectable accessibility issues on ${route}`, async ({ page }) => {
+    test(`should not have any automatically detectable accessibility issues on ${route}`, async ({
+      page,
+    }) => {
       await page.goto(route);
       const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
       expect(accessibilityScanResults.violations).toEqual([]);
