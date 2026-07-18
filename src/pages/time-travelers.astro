@@ -11,7 +11,7 @@ const timeTravelers = allEntries.filter(entry => entry.data.timeline_flair === '
 ---
 
 <Layout title="Active Sighting & Missing Persons Reports | Fictional History Archive">
-  <main class="max-w-6xl mx-auto px-4 py-12">
+  <div class="max-w-6xl mx-auto px-4 py-12">
     <header class="mb-12 border-b-2 border-archive-border pb-6 relative">
       <div class="absolute top-0 right-0 bg-archive-terminal text-archive-bg px-3 py-1 font-sans text-xs font-bold uppercase animate-pulse">
         Active Monitoring
@@ -35,7 +35,7 @@ const timeTravelers = allEntries.filter(entry => entry.data.timeline_flair === '
                <span class="font-sans text-xs text-archive-muted">CONFIDENTIAL</span>
              </div>
              <div class="p-6 flex-grow">
-               <h3 class="font-display text-2xl text-archive-paper mb-4">{entry.data.title}</h3>
+               <h2 class="font-display text-2xl text-archive-paper mb-4">{entry.data.title}</h2>
                <div class="grid grid-cols-2 gap-4 mb-6 font-sans text-sm border-l-2 border-archive-muted pl-4">
                   <div>
                     <span class="block text-archive-muted text-xs uppercase mb-1">Sighting Location</span>
@@ -57,5 +57,5 @@ const timeTravelers = allEntries.filter(entry => entry.data.timeline_flair === '
         ))}
       </div>
     )}
-  </main>
+  </div>
 </Layout>

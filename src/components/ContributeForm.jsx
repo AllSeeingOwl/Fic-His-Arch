@@ -310,9 +310,9 @@ export default function ContributeForm() {
       <form onSubmit={handleDownload} className="space-y-6">
         {/* Core Metadata */}
         <div className="space-y-4">
-          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
+          <h3 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
             Core Metadata
-          </h4>
+          </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
@@ -433,9 +433,9 @@ export default function ContributeForm() {
 
         {/* Source Citation */}
         <div className="space-y-4 mt-8">
-          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
+          <h3 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
             Source Citation
-          </h4>
+          </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -508,7 +508,7 @@ export default function ContributeForm() {
 
             {formData.source_medium === 'TV Show' && (
               <div className="md:col-span-2 p-4 border border-archive-border border-dashed bg-archive-bg/50 rounded space-y-4">
-                <h5 className="font-display text-md text-archive-accent">TV Show Details</h5>
+                <h4 className="font-display text-md text-archive-accent">TV Show Details</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label
@@ -805,9 +805,9 @@ export default function ContributeForm() {
         {/* External Links */}
         <div className="space-y-4 mt-8">
           <div className="flex justify-between items-end border-b border-archive-border/50 pb-1">
-            <h4 className="font-display text-lg text-archive-accent">
+            <h3 className="font-display text-lg text-archive-accent">
               External References (Min. 2 Required)
-            </h4>
+            </h3>
             <button
               type="button"
               onClick={addLink}
@@ -878,9 +878,9 @@ export default function ContributeForm() {
         {/* Timeline Variants */}
         <div className="space-y-4 mt-8">
           <div className="flex justify-between items-end border-b border-archive-border/50 pb-1">
-            <h4 className="font-display text-lg text-archive-accent">
+            <h3 className="font-display text-lg text-archive-accent">
               Timeline Variants (Optional)
-            </h4>
+            </h3>
             <button
               type="button"
               onClick={addVariant}
@@ -966,9 +966,9 @@ export default function ContributeForm() {
 
         {/* Content Body */}
         <div className="space-y-4 mt-8">
-          <h4 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
+          <h3 className="font-display text-lg text-archive-accent border-b border-archive-border/50 pb-1">
             Article Content
-          </h4>
+          </h3>
 
           <div>
             <label
