@@ -8,6 +8,8 @@ import {
   updateCsv,
 } from './src/utils/article-submission';
 import fsPromises from 'fs/promises';
+import cookieParser from 'cookie-parser';
+import csurf from 'csurf';
 
 import {
   initDb,
@@ -46,6 +48,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // 🔒 Sentinel: Limit request body size
 app.use(express.json({ limit: '100kb' }));
 app.use(express.urlencoded({ extended: true, limit: '100kb' }));
+app.use(cookieParser());
+const csrfProtection = csurf({ cookie: true });
+app.use(csrfProtection);
+
+app.get('/api/csrf-token', (req, res) => {
+  res.json({ csrfToken: req.csrfToken() });
+});
 
 // Maintenance Mode Configuration
 let MAINTENANCE_MODE = process.env.MAINTENANCE_MODE === 'true';
