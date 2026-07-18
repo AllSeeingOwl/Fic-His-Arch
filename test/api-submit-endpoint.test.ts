@@ -50,11 +50,20 @@ describe('POST /api/articles/submit', () => {
   };
 
   let token: string;
+  let csrfToken: string;
+  let cookie: string;
 
   beforeAll(async () => {
+    // Get CSRF token
+    const csrfRes = await request(app).get('/api/csrf-token');
+    csrfToken = csrfRes.body.csrfToken;
+    cookie = csrfRes.headers['set-cookie'][0].split(';')[0];
+
     // Authenticate and get a valid token
     const res = await request(app)
       .post('/api/admin/verify')
+      .set('Cookie', cookie)
+      .set('x-csrf-token', csrfToken)
       .send({ password: 'test_password_123' });
 
     token = res.body.token;
@@ -65,7 +74,11 @@ describe('POST /api/articles/submit', () => {
   });
 
   it('should reject requests without authorization header', async () => {
-    const res = await request(app).post('/api/articles/submit').send(validPayload);
+    const res = await request(app)
+      .post('/api/articles/submit')
+      .set('Cookie', cookie)
+      .set('x-csrf-token', csrfToken)
+      .send(validPayload);
     expect(res.status).toBe(401);
   });
 
@@ -76,6 +89,8 @@ describe('POST /api/articles/submit', () => {
     const res = await request(app)
       .post('/api/articles/submit')
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', cookie)
+      .set('x-csrf-token', csrfToken)
       .send(invalidPayload);
 
     expect(res.status).toBe(400);
@@ -89,6 +104,8 @@ describe('POST /api/articles/submit', () => {
     const res = await request(app)
       .post('/api/articles/submit')
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', cookie)
+      .set('x-csrf-token', csrfToken)
       .send(validPayload);
 
     expect(res.status).toBe(409);
@@ -105,6 +122,8 @@ describe('POST /api/articles/submit', () => {
     const res = await request(app)
       .post('/api/articles/submit')
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', cookie)
+      .set('x-csrf-token', csrfToken)
       .send(validPayload);
 
     expect(res.status).toBe(201);

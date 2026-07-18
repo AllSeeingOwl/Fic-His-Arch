@@ -7,6 +7,7 @@ Submits a new fictional history article to the archive. This endpoint automatica
 ### Authentication
 
 Requires an Admin Bearer token. To get the token, authenticate with `POST /api/admin/verify`.
+Requires a CSRF token for state-mutating requests (POST). First fetch the token from `GET /api/csrf-token`, which will return `{ "csrfToken": "..." }` and set a cookie. Include the token in subsequent requests using the `x-csrf-token` header, and ensure the cookie is also sent.
 
 ### Rate Limiting
 
@@ -80,12 +81,16 @@ The payload must strictly conform to the expected Zod schema for article fields.
 ### Usage Example (Fetch API)
 
 ```javascript
+const csrfResponse = await fetch('/api/csrf-token');
+const { csrfToken } = await csrfResponse.json();
+
 const token = 'your_admin_session_token';
 const response = await fetch('/api/articles/submit', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${token}`,
+    'x-csrf-token': csrfToken,
   },
   body: JSON.stringify({
     title: 'Example Title',
