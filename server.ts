@@ -427,4 +427,4 @@ if (require.main === module) {
   });
 }
 
-export = app;
+export default app;
