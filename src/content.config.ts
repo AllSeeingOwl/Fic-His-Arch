@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 
 // 🛡️ Sentinel: Prevent XSS via javascript: URIs
 export const safeUrlSchema = z.string().refine(
-  (val) => {
+  (val: string) => {
     if (val.startsWith('/') || val.startsWith('#')) return true;
     try {
       const url = new URL(val);
