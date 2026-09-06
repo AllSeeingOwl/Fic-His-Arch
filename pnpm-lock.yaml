@@ -10,13 +10,13 @@ onlyBuiltDependencies:
 
 dependencies:
   '@astrojs/react':
-    specifier: ^6.0.4
+    specifier: ^6.0.5
     version: 6.0.5(@types/node@26.4.1)(@types/react-dom@19.2.7)(@types/react@19.2.18)(react-dom@19.2.8)(react@19.2.8)(yaml@2.9.0)
   '@types/react':
     specifier: ^19.2.18
     version: 19.2.18
   '@types/react-dom':
-    specifier: ^19.2.5
+    specifier: ^19.2.7
     version: 19.2.7(@types/react@19.2.18)
   '@upstash/redis':
     specifier: ^1.38.3
@@ -28,7 +28,7 @@ dependencies:
     specifier: ^2.0.0
     version: 2.0.0(react@19.2.8)
   astro:
-    specifier: ^7.2.9
+    specifier: ^7.3.1
     version: 7.3.1(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@26.4.1)(@upstash/redis@1.38.4)(yaml@2.9.0)
   cookie-parser:
     specifier: ^1.4.7
@@ -61,16 +61,16 @@ dependencies:
 devDependencies:
   '@axe-core/playwright':
     specifier: ^4.13.0
-    version: 4.13.0(playwright-core@1.62.1)
+    version: 4.13.0(playwright-core@1.63.0)
   '@eslint/js':
     specifier: ^10.0.1
     version: 10.0.1(eslint@10.10.0)
   '@jest/globals':
-    specifier: ^30.4.1
+    specifier: ^30.5.1
     version: 30.5.1
   '@playwright/test':
     specifier: ^1.62.1
-    version: 1.62.1
+    version: 1.63.0
   '@tailwindcss/vite':
     specifier: ^4.3.3
     version: 4.3.3(vite@8.2.2)
@@ -87,7 +87,7 @@ devDependencies:
     specifier: ^30.0.0
     version: 30.0.0
   '@types/node':
-    specifier: ^26.4.0
+    specifier: ^26.4.1
     version: 26.4.1
   '@types/supertest':
     specifier: ^7.2.1
@@ -96,10 +96,10 @@ devDependencies:
     specifier: ^1.9.7
     version: 1.9.7
   '@typescript-eslint/eslint-plugin':
-    specifier: ^8.68.0
+    specifier: ^8.69.0
     version: 8.69.0(@typescript-eslint/parser@8.69.0)(eslint@10.10.0)(typescript@5.9.3)
   '@typescript-eslint/parser':
-    specifier: ^8.68.0
+    specifier: ^8.69.0
     version: 8.69.0(eslint@10.10.0)(typescript@5.9.3)
   axe-core:
     specifier: ^4.13.0
@@ -111,38 +111,38 @@ devDependencies:
     specifier: ^6.8.3
     version: 6.8.3
   cypress:
-    specifier: ^15.21.1
-    version: 15.21.1
+    specifier: ^16.0.0
+    version: 16.0.0
   eslint:
     specifier: ^10.9.1
     version: 10.10.0
   eslint-plugin-jest:
-    specifier: ^29.16.2
+    specifier: ^29.16.6
     version: 29.16.6(@typescript-eslint/eslint-plugin@8.69.0)(eslint@10.10.0)(jest@30.5.1)(typescript@5.9.3)
   globals:
-    specifier: ^17.11.0
+    specifier: ^17.12.0
     version: 17.12.0
   husky:
     specifier: ^9.1.7
     version: 9.1.7
   jest:
-    specifier: ^30.4.2
+    specifier: ^30.5.1
     version: 30.5.1(@types/node@26.4.1)(ts-node@10.9.2)
   jest-environment-jsdom:
-    specifier: ^30.4.1
+    specifier: ^30.5.1
     version: 30.5.1
   knip:
-    specifier: ^6.32.3
+    specifier: ^6.34.0
     version: 6.34.0
   lint-staged:
     specifier: ^17.4.1
-    version: 17.4.1
+    version: 17.5.0
   nodemon:
     specifier: ^3.1.14
     version: 3.1.14
   playwright:
     specifier: ^1.60.0
-    version: 1.62.1
+    version: 1.63.0
   prettier:
     specifier: ^3.9.6
     version: 3.9.6
@@ -159,7 +159,7 @@ devDependencies:
     specifier: ~5.9.3
     version: 5.9.3
   typescript-eslint:
-    specifier: ^8.68.0
+    specifier: ^8.69.0
     version: 8.69.0(eslint@10.10.0)(typescript@5.9.3)
   vite:
     specifier: ^8.2.2
@@ -407,7 +407,7 @@ packages:
       package-manager-detector: 1.8.0
     dev: false
 
-  /@axe-core/playwright@4.13.0(playwright-core@1.62.1):
+  /@axe-core/playwright@4.13.0(playwright-core@1.63.0):
     resolution:
       {
         integrity: sha512-6YLx+kxXu5GJceG4ozFg+33a2EMTdjYwWGloJ3sb9Kta5pp+ZNS53uxGVog5JetIY8s++P5UrtX+cri+u0VAVg==,
@@ -416,7 +416,7 @@ packages:
       playwright-core: '>= 1.0.0'
     dependencies:
       axe-core: 4.13.0
-      playwright-core: 1.62.1
+      playwright-core: 1.63.0
     dev: true
 
   /@babel/code-frame@7.29.7:
@@ -3031,15 +3031,15 @@ packages:
     engines: { node: ^14.18.0 || >=16.0.0 }
     dev: true
 
-  /@playwright/test@1.62.1:
+  /@playwright/test@1.63.0:
     resolution:
       {
-        integrity: sha512-DTcUc8qii+cpHvtOwggMtBRMjKZHXYWdw8syRYu2vtzuq4Wxphqq4NfCs5Zt44L6mA8rfDfj+PHnxFc/FeK6mQ==,
+        integrity: sha512-oxMK4vllB9RK5NQ2l1pq1IfOf2AvnEuj/vYGDj0H2nMtmtZpKtCwt/l00GEO6xjGfpBNAvjovvYdCm50dRQkpQ==,
       }
     engines: { node: '>=20' }
     hasBin: true
     dependencies:
-      playwright: 1.62.1
+      playwright: 1.63.0
     dev: true
 
   /@rolldown/binding-android-arm-eabi@1.2.7:
@@ -5760,12 +5760,12 @@ packages:
       }
     dev: true
 
-  /cypress@15.21.1:
+  /cypress@16.0.0:
     resolution:
       {
-        integrity: sha512-ogHpHMj0XNlZA5MGzjg8SWHf0eMw9lTwVQRKjpcT1GzNTxNUjwnHA8YCG6nOJ8ThU+XZaUxJgpMYZnJ//8aDaw==,
+        integrity: sha512-/H3zsayGwIGboFIiLWaXxy6ADmCdWy5QjjDBZgslCvjIgYAf1DkZerwAM7wXMPSpfpQ4w+lGjFlmwneRBpg27g==,
       }
-    engines: { node: ^20.1.0 || ^22.0.0 || >=24.0.0 }
+    engines: { node: ^22.0.0 || ^24.0.0 || >=26.0.0 }
     hasBin: true
     requiresBuild: true
     dependencies:
@@ -6917,16 +6917,6 @@ packages:
       jsonfile: 6.2.1
       universalify: 2.0.1
     dev: true
-
-  /fsevents@2.3.2:
-    resolution:
-      {
-        integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==,
-      }
-    engines: { node: ^8.16.0 || ^10.6.0 || >=11.0.0 }
-    os: [darwin]
-    dev: true
-    optional: true
 
   /fsevents@2.3.3:
     resolution:
@@ -8761,10 +8751,10 @@ packages:
       }
     dev: true
 
-  /lint-staged@17.4.1:
+  /lint-staged@17.5.0:
     resolution:
       {
-        integrity: sha512-FmJeudcalbSfg1du+JCfvi5vS6Qt08KgbfLWiHinbef+2JJwUZwAWVoaO1AcJVUTWPfk0t30PMQNwPAeCzYQ+Q==,
+        integrity: sha512-ah2qsNtvKP1+Ak4rAvEEIvcXDLjjbr/xmxCvlequxqEOFYk0qINcZcRxD3Ic8wRn7/oQ8+wC9s0DfDrdMVCRFg==,
       }
     engines: { node: '>=22.22.1' }
     hasBin: true
@@ -9750,26 +9740,24 @@ packages:
       find-up: 4.1.0
     dev: true
 
-  /playwright-core@1.62.1:
+  /playwright-core@1.63.0:
     resolution:
       {
-        integrity: sha512-wPYSwEBJY9GHraISXqyqtx0na0LpO3XEX7jNDhntbex7tzUS7kLnZsOlFruFJB4Hi/rhDMjXGqHewDZ68nYZVw==,
+        integrity: sha512-rYCsBF/M5HjUch52bbtVONEFjv6Xu8sm8h72dNlR5bzIE1fvC/bxgspzkjSfU+MweEMmPM8KJebG6nnyxo5mCg==,
       }
     engines: { node: '>=20' }
     hasBin: true
     dev: true
 
-  /playwright@1.62.1:
+  /playwright@1.63.0:
     resolution:
       {
-        integrity: sha512-0M+L3LAD8/nm554LOla9Ayx0j0tmFZ0FBcoQ7F1VuVHpM/XpiC8RcDzBQB8W5+hA8L22THxELzeF+2WcUzvcLg==,
+        integrity: sha512-+7ziBLidS4NaNCdt57SUDT+wYmmd5fmiQejUic/kb+YsYSCPyOOE9sebzMjNmQrsnNpDJqd4WHvV/8lfKfUDUg==,
       }
     engines: { node: '>=20' }
     hasBin: true
     dependencies:
-      playwright-core: 1.62.1
-    optionalDependencies:
-      fsevents: 2.3.2
+      playwright-core: 1.63.0
     dev: true
 
   /postcss@8.5.28:
