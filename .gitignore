@@ -7,3 +7,4 @@ server_out.log
 server.log.env
 dist/
 .astro/
+package-lock.json
