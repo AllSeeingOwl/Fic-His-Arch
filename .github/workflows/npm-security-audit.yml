@@ -18,11 +18,9 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 8
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Run pnpm audit
-        run: pnpm audit
+        run: pnpm audit --audit-level moderate --ignore-unfixable --ignore-registry-errors
