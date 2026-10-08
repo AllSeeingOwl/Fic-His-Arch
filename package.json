@@ -90,6 +90,10 @@
     "onlyBuiltDependencies": [
       "cypress",
       "unrs-resolver"
-    ]
-  }
+    ],
+    "overrides": {
+      "compression": "^1.8.2"
+    }
+  },
+  "packageManager": "pnpm@10.30.3"
 }
