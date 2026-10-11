@@ -10,7 +10,7 @@ release_year: 1999
 context_note: "Richard Nixon's preserved head successfully campaigns for the Presidency of Earth, leveraging a loophole regarding the definition of 'nobody' running for office."
 external_links:
   - name: The Infosphere
-    url: https://theinfosphere.org/Richard_M._Nixon%27s_head
+    url: "https://theinfosphere.org/Richard_Nixon"
   - name: Wikipedia
     url: https://en.wikipedia.org/wiki/A_Head_in_the_Polls
 ---
