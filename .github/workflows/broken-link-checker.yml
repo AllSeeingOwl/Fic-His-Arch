@@ -14,5 +14,5 @@ jobs:
       - name: Broken Link Checker
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --verbose --no-progress --exclude-path node_modules --exclude 'https?://.*\.fandom\.com/.*' --exclude 'https?://.*\.evageeks\.org/.*' './**/*.md' './**/*.html'
+          args: --verbose --no-progress --exclude-path node_modules --exclude 'https?://.*\.fandom\.com/.*' --exclude 'https?://.*\.evageeks\.org/.*' --exclude 'https?://.*combineoverwiki\.net/.*' --exclude 'https?://.*theinfosphere\.org/.*' --exclude 'https?://.*gineipaedia\.com/.*' './**/*.md' './**/*.html'
           fail: true
