@@ -1,6 +1,6 @@
 # Platform Architecture: Fictional History Archive
 
-This document serves as the structural blueprints and data schema for the Fictional History Archive, deployed via Vercel and managed via GitHub. All engineering agents must adhere to these technical specifications.
+This document serves as the structural blueprints and data schema for the Fictional History Archive, deployed via Render (and GitHub Pages) and managed via GitHub. All engineering agents must adhere to these technical specifications.
 
 ## 1. Directory Structure (Astro / Next.js Static Setup)
 
