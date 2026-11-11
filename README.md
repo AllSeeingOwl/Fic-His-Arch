@@ -88,6 +88,16 @@ The project requires **Node.js v22 or higher** and **pnpm**.
    pnpm run build:astro
    ```
 
+## ☁️ Deploying to Render
+
+The repo includes a [`render.yaml`](render.yaml) Blueprint that deploys the Astro site as a free **static site**.
+
+1. In the Render Dashboard, choose **New → Blueprint** and select this repository.
+2. Render reads `render.yaml`, builds with `pnpm run build:astro`, and publishes `./dist`. It redeploys automatically on every push to `main`.
+3. _(Optional)_ If you add a custom domain, set the `SITE_URL` environment variable to it (e.g. `https://archive.example.com`) so canonical URLs use it.
+
+When building on Render (`RENDER=true`), `astro.config.mjs` serves the site from `/` and uses the service's `RENDER_EXTERNAL_URL` as the site URL. GitHub Pages builds keep the `/Fic-His-Arch` base path.
+
 ## 🖋️ Editorial Guidelines & Contributing
 
 All articles submitted to the database must comply with the protocols defined in the `archivists_handbook.md`.

@@ -1,0 +1,50 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+# Deploys the Astro site as a free static site, served from the root path.
+services:
+  - type: web
+    name: fic-his-arch
+    runtime: static
+    branch: main
+    autoDeploy: true
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm run build:astro
+    staticPublishPath: ./dist
+    # Only rebuild when something that affects the site changes.
+    buildFilter:
+      paths:
+        - src/**
+        - public/**
+        - astro.config.mjs
+        - tailwind.config.js
+        - tsconfig.json
+        - package.json
+        - pnpm-lock.yaml
+        - render.yaml
+    envVars:
+      - key: NODE_VERSION
+        value: 22.23.4
+      # Cypress is a dev-only E2E tool; skip its ~500MB binary download during builds.
+      - key: CYPRESS_INSTALL_BINARY
+        value: '0'
+      # Optional: set to your custom domain (e.g. https://archive.example.com) for canonical URLs.
+      - key: SITE_URL
+        sync: false
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: geolocation=(), camera=(), microphone=()
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000; includeSubDomains
+      # Astro fingerprints these files, so they can be cached for a year.
+      - path: /_astro/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
