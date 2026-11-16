@@ -28,6 +28,9 @@ services:
       # Optional: set to your custom domain (e.g. https://archive.example.com) for canonical URLs.
       - key: SITE_URL
         sync: false
+      # Sentry error reporting; read at build time. GitHub Pages builds leave it unset.
+      - key: PUBLIC_SENTRY_DSN
+        sync: false
     headers:
       - path: /*
         name: X-Content-Type-Options

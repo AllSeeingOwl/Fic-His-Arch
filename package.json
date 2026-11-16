@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^7.1.8",
+    "@sentry/browser": "^11.13.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@upstash/redis": "^1.41.0",
